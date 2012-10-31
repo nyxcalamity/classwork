@@ -1,6 +1,7 @@
 # System
 .git
 *.swp
+*~
 
 # IDE
 .idea
