@@ -3,7 +3,8 @@
 % =============================================================================
 %   
 
-f = @(t)( (10)./(1+9*exp(-t)) );    % function definition
+f = @(t) ( (10)./(1+9*exp(-t)) );   % function definition
+fd1 = @(t) ( (1 - t./10) .* t );    % first order derivative definition
 f0 = 1;                             % initial value
 dt = 0.1;                           % step size
 t_end = 5;                          % end time
@@ -12,14 +13,14 @@ t_end = 5;                          % end time
 % a) Use matlab to plot the function p(t) in a graph.
 %--------------------------------------------------------------------------
 t = 0 : dt : t_end;
-splot(t, f, false)
+splot(t, f, false);
 
 %--------------------------------------------------------------------------
 % b) Calculating approximate values
 %--------------------------------------------------------------------------
-odt(f, f0, dt, t_end, 'euler')
-% odt(f,f0,dt,t_end,'euler')
-% odt(f,f0,dt,t_end,'euler')
+ode(f, fd1, f0, dt, t_end, 'euler');
+ode(f, fd1, f0, dt, t_end, 'heun');
+% ode(f,f0,dt,t_end,'euler')
 
 %--------------------------------------------------------------------------
 % с) 
