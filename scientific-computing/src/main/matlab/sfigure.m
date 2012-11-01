@@ -1,6 +1,7 @@
 function fig = sfigure(handle, name)
 %sfigure Styled figure
 %   creates a figure and adds some style to it
+
     if isempty(handle)
         fig = figure;
     else

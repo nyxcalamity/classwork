@@ -58,5 +58,5 @@ end
 
 %--------------------------------------------------------------------------
 % function v = mid_point_method(f, y0, dt, t_start, t_end)
-%     disp('To be implemented');
+%     Is it not the same?
 % end
