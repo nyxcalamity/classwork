@@ -1,5 +1,5 @@
-function v = ode(f, fd1, f0, dt, t_end, method)
-% ode(f, fd1, f0, dt, t_end, method) Performs analysis of the function
+function v = ode(fd1, f0, dt, t_end, method)
+% ode(fd1, f0, dt, t_end, method) Performs analysis of the function
 %   Takes in the function, starting value, step end point and the method 
 %   which should be used for the calculations and returns a vector of 
 %   computed values.
@@ -21,7 +21,7 @@ end
 
 %--------------------------------------------------------------------------
 function v = euler_method(fd1, f0, dt, t_end)
-    vector_size = (t_end ./ dt);
+    vector_size = (t_end ./ dt) + 1;
     v = zeros(1, vector_size);
     v(1) = f0; % we already know the initial value
     for n = 2 : vector_size
@@ -32,7 +32,7 @@ end
 %--------------------------------------------------------------------------
 % Basically we introduce a mean value of function change frequencies
 function v = heun_method(fd1, f0, dt, t_end)
-    vector_size = (t_end ./ dt);
+    vector_size = (t_end ./ dt) + 1;
     v = zeros(1, vector_size);
     v(1) = f0; % we already know the initial value
     for n = 2 : vector_size
@@ -42,11 +42,21 @@ function v = heun_method(fd1, f0, dt, t_end)
 end
 
 %--------------------------------------------------------------------------
-% function v = runge_kutta_method(f, y0, dt, t_start, t_end)
-%     v = [0 0];
-% end
+function v = runge_kutta_method(fd1, f0, dt, t_end)
+    vector_size = (t_end ./ dt) + 1;
+    v = zeros(1, vector_size);
+    v(1) = f0; % we already know the initial value
+    for n = 2 : vector_size        
+        k1 = dt.*fd1(v(n-1));
+        k2 = dt.*fd1(v(n-1)+k1./2);
+        k3 = dt.*fd1(v(n-1)+k2./2);
+        k4 = dt.*fd1(v(n-1)+k3);
+        
+        v(n) = v(n-1) + (k1 + k2./2 + k3./2 + k4)./ 6;
+    end
+end
 
 %--------------------------------------------------------------------------
 % function v = mid_point_method(f, y0, dt, t_start, t_end)
-%     v = [0 0];
+%     disp('To be implemented');
 % end
