@@ -5,3 +5,7 @@
 
 # IDE
 .idea
+
+# Binary files
+build
+
