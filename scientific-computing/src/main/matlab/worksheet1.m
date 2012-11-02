@@ -106,9 +106,9 @@ disp (E(3,:));
 disp('Eulers method: error decrease factor (desc step):');
 disp(E(1, 1:3) ./ E(1, 2:4));
 disp('Heuns method: error decrease factor (desc step):');
-disp((E(2, 1:3) ./ E(2, 2:4)));
+disp(E(2, 1:3) ./ E(2, 2:4));
 disp('Runge-Kuttas method: error decrease factor (desc step):');
-disp((E(3, 1:3) ./ E(3, 2:4)));
+disp(E(3, 1:3) ./ E(3, 2:4));
 
 disp('Eulers method: approximate errors of approximation (desc step):');
 disp (E_approx(1,:));
