@@ -52,11 +52,6 @@ function v = runge_kutta_method(fd1, f0, dt, t_end)
         k3 = dt.*fd1(v(n-1)+k2./2);
         k4 = dt.*fd1(v(n-1)+k3);
         
-        v(n) = v(n-1) + (k1 + k2./2 + k3./2 + k4)./ 6;
+        v(n) = v(n-1) + (k1 + k2.*2 + k3.*2 + k4)./ 6;
     end
 end
-
-%--------------------------------------------------------------------------
-% function v = mid_point_method(f, y0, dt, t_start, t_end)
-%     Is it not the same?
-% end
