@@ -5,7 +5,11 @@
 
 # IDE
 .idea
+*.iml
+*.ipr
+*.iws
 
 # Binary files
 build
+lib
 

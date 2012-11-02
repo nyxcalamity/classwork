@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Denys Sobchyshak
+ * Copyright 2012 Denys Sobchyshak
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -13,7 +13,6 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-
 package com.inceptix.util.algo;
 
 import java.util.ArrayList;
@@ -23,9 +22,8 @@ import java.util.List;
 /**
  * Class that provides implementation of basic sorting algorithms.
  *
- * @author		Denys Sobchyshak (open-source@inceptix.com)
- * @version 	1.0 (Oct 13, 2010)
- *
+ * @author		Denys Sobchyshak (denys.sobchyshak@gmail.com)
+ * @version 	1.1 (02.11.2012)
  */
 public class Sorter {
 	// --- Fields ---
@@ -34,18 +32,18 @@ public class Sorter {
 
 	// --- Methods ---
 	/**
-	 * Swaps two values in provided list.
-	 * @param list
-	 * 			list in which values are being swapped
-	 * @param x
+	 * Swaps two values in provided array.
+	 * @param array
+	 * 			array in which values are being swapped
+	 * @param i
 	 * 			index of first value
-	 * @param y
+	 * @param j
 	 * 			index of second value
 	 */
-	private static void swap(Integer[] list, int x, int y){
-		Integer tmp = list[x];
-		list[x] = list[y];
-		list[y] = tmp;
+	private static void swap(Integer[] array, int i, int j){
+		Integer tmp = array[i];
+		array[i] = array[j];
+		array[j] = tmp;
 	}
 	
 	/**
@@ -53,66 +51,63 @@ public class Sorter {
 	 * @param list
 	 * 			list of values which might contain duplicate values
 	 */
-	private static void disposeOfDuplicates(List<Integer> list){
+	public static void disposeOfDuplicates(List<Integer> list){
 		for (int i = 0; i < list.size(); i++){
 			Integer j = list.get(i);
 			while (list.indexOf(j) != list.lastIndexOf(j)){
 				list.remove(j);
 			}
-			j = null;
 		}
 	}
-	
+
+    /**
+     * Implementation of bubble sort algorithm (using nested loop method).<br>
+     * <b>NOTE: bubble sort is not a practical sorting algorithm when
+     * n is large, as it is worst-case and average complexity both О(n^2).
+     * @param list
+     * 			list of integer values to be sorted
+     * @param includeDuplicates
+     * 			flag that defines if duplicate values should be
+     * 			included (true) or disposed of (false)
+     * @return
+     * 			sorted list of integers
+     */
+    public static List<Integer> bubbleSort(List<Integer> list, boolean includeDuplicates){
+        //TODO misc:Add support for non-int data types
+        //TODO misc:Think of a most practical type acceptance
+        if (!includeDuplicates){
+            disposeOfDuplicates(list);
+        }
+
+        Integer[] result = list.toArray(new Integer[0]);
+
+        for (int i = 0; i < result.length; i++){
+            for (int j = result.length - 1; j > i; j--){
+                if (result[j-1] > result[j]) swap(result, j-1, j);
+            }
+        }
+
+        return Arrays.asList(result);
+    }
+
 	/**
-	 * Implementation of bubble sort algorithm (using nested loop method).<br>
-	 * <b>NOTE: bubble sort is not a practical sorting algorithm when
-	 * n is large, as it is worst-case and average complexity both О(n^2).
-	 * @param list
-	 * 			list of integer values to be sorted
-	 * @param includeDuplicates
-	 * 			flag that defines if duplicate values should be 
-	 * 			included (true) or disposed of (false)
-	 * @return
-	 * 			sorted list of integers
-	 */
-	public static List<Integer> bubbleSort(List<Integer> list, boolean includeDuplicates){
-		//TODO misc:Add support for non-int data types
-		//TODO misc:Think of a most practical type acceptance
-		if (!includeDuplicates){
-			disposeOfDuplicates(list);
-		}
-		
-		Integer[] result = list.toArray(new Integer[0]);
-		
-		for (int i = 0; i < result.length; i++){
-			for (int j = result.length - 1; j > i; j--){
-				if (result[j-1] > result[j]) swap(result, j-1, j);
-			}
-		}
-		
-		return Arrays.asList(result);
-	}
-	
-	/**
-	 * Implementation of quicksort algorithm.
+	 * Implementation of quick sort algorithm.
 	 * @param list
 	 * 			list of integers being sorted
 	 * @param includeDuplicates
-	 * 			flag that defines if duplicate values should be 
-	 * 			included (true) or disposed of (false)
+	 * 			flag that defines if duplicate values should be included (true) or disposed of (false)
 	 * @return
 	 * 			sorted list of integers
 	 */
 	public static List<Integer> quickSort(List<Integer> list, boolean includeDuplicates){
-		if (!includeDuplicates){
+		if (!includeDuplicates) {
 			disposeOfDuplicates(list);
 		}
 		return quickSortImpl(list);
 	}
-	
+
 	/**
-	 * Auxiliary method which itself is actual implementation of quicksort
-	 * algorithm. 
+	 * Auxiliary method which itself is an actual implementation of quick sort algorithm.
 	 * @param list
 	 * 			list being sorted
 	 * @return
@@ -123,11 +118,9 @@ public class Sorter {
 		if (list.size() <= 1){
 			return list;
 		}
-		
-		// Recursive operations
-		// TODO misc:think of less resource consuming implementation
-		// NOTE: Gets into infinite recursive loop if
-		// pivot == maximum number && pivot !removed from list
+
+		// Split the list in two parts
+		// NOTE: Gets into infinite recursive loop if pivot == maximum number && pivot !removed from list
 		Integer pivot = list.get(list.size()/2);
 		list.remove(list.size()/2);
 		List<Integer> leftPart = new ArrayList<Integer>();
@@ -142,10 +135,11 @@ public class Sorter {
 			}
 		}
 
+        // Compose resulting array through recursive calls
 		List<Integer> result = quickSortImpl(leftPart);
 		result.add(pivot);
-		result.addAll(result.size(), quickSortImpl(rightPart));
-		
+		result.addAll(quickSortImpl(rightPart));
+
 		return result;
 	}
 	
