@@ -14,7 +14,7 @@
  * the License.
  */
 
-package com.inceptix.util.algo;
+package com.inceptix.util.math;
 
 import org.junit.*;
 
@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.Random;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 /**
  * @author		Denys Sobchyshak (denys.sobchyshak@gmail.com)
@@ -49,7 +48,6 @@ public class SorterTest {
 		randomGenerator = new Random();
 
 		for (int i = 0; i < LIST_SIZE; i++){
-            int rand = randomGenerator.nextInt();
 			SORTED_LIST.add(i);
 			SORTED_DUPLICATE_LIST.add(i);
 			SORTED_DUPLICATE_LIST.add(i);
@@ -69,8 +67,9 @@ public class SorterTest {
      */
 	@Before
 	public void setUp(){
-		list = new ArrayList<Integer>();
-		
+		list = new ArrayList();
+
+        // creates a list of ordered ints of size n, then pastes another list of ordered ints into random positions
 		for (int i = 0; i < LIST_SIZE/2; i++){
 			list.add(i);
 		}
@@ -120,6 +119,7 @@ public class SorterTest {
 	 */
 	@Test
 	public void testHeapSort(){
-        fail();
+        assertEquals("Heap sort procedeed incorrectly",
+                SORTED_LIST.toString(), Sorter.heapSort(list, true).toString());
 	}
 }

@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.inceptix.util.algo;
+package com.inceptix.util.math;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -61,21 +61,20 @@ public class Sorter {
 	}
 
     /**
-     * Implementation of bubble sort algorithm (using nested loop method).<br>
-     * <b>NOTE: bubble sort is not a practical sorting algorithm when
-     * n is large, as it is worst-case and average complexity both О(n^2).
+     * Implementation of bubble sort algorithm (using nested loop method).
+     * <p>
+     * NOTE: bubble sort is not a practical sorting algorithm when n is large, as it is worst-case and average
+     * complexity both О(n^2).
      * @param list
      * 			list of integer values to be sorted
-     * @param includeDuplicates
+     * @param disposeOfDuplicates
      * 			flag that defines if duplicate values should be
      * 			included (true) or disposed of (false)
      * @return
      * 			sorted list of integers
      */
-    public static List<Integer> bubbleSort(List<Integer> list, boolean includeDuplicates){
-        //TODO misc:Add support for non-int data types
-        //TODO misc:Think of a most practical type acceptance
-        if (!includeDuplicates){
+    public static List<Integer> bubbleSort(List<Integer> list, boolean disposeOfDuplicates){
+        if (!disposeOfDuplicates){
             disposeOfDuplicates(list);
         }
 
@@ -94,13 +93,13 @@ public class Sorter {
 	 * Implementation of quick sort algorithm.
 	 * @param list
 	 * 			list of integers being sorted
-	 * @param includeDuplicates
+	 * @param disposeOfDuplicates
 	 * 			flag that defines if duplicate values should be included (true) or disposed of (false)
 	 * @return
 	 * 			sorted list of integers
 	 */
-	public static List<Integer> quickSort(List<Integer> list, boolean includeDuplicates){
-		if (!includeDuplicates) {
+	public static List<Integer> quickSort(List<Integer> list, boolean disposeOfDuplicates){
+		if (!disposeOfDuplicates) {
 			disposeOfDuplicates(list);
 		}
 		return quickSortImpl(list);
@@ -144,17 +143,17 @@ public class Sorter {
 	}
 	
 	/**
-	 * Implementation of quicksort algorithm.
+	 * Implementation of heap sort algorithm.
 	 * @param list
 	 * 			list of integers being sorted
-	 * @param includeDuplicates
+	 * @param disposeOfDuplicates
 	 * 			flag that defines if duplicate values should be 
 	 * 			included (true) or disposed of (false)
 	 * @return
 	 * 			sorted list of integers
 	 */
-	public static List<Integer> heapSort(List<Integer> list, boolean includeDuplicates){
-		if (!includeDuplicates){
+	public static List<Integer> heapSort(List<Integer> list, boolean disposeOfDuplicates){
+		if (!disposeOfDuplicates){
 			disposeOfDuplicates(list);
 		}
 		// TODO high:implement heap sort
