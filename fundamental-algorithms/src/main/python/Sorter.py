@@ -19,20 +19,25 @@ __author__ = "Denys Sobchyshak"
 __email__ = "denys.sobchyshak@gmail.com"
 
 
-class Search:
+class Sorter:
 
     def __init__(self):
         #some instantiation code here
         pass
 
-    def insertion_sort(self, list_to_sort):
-        #do something here
+    def bubble_sort(self, list_to_sort):
+        #TODO:implement
         pass
 
+    def insertion_sort(self, list_to_sort):
+        #TODO:implement
+        pass
+
+    def quick_sort(self, list_to_sort):
+        #TODO:implement
+        pass
 
 def main():
-    #main code here
-    print 'This is only a test'
     pass
 
 if __name__ == '__main__' : main()

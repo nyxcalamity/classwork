@@ -73,11 +73,11 @@ public class Sorter {
             disposeOfDuplicates(list);
         }
 
+        // reversed order: while sorting the array will look as follows [unsorted data...sorted data]
         Integer[] result = list.toArray(new Integer[0]);
-
-        for (int i = 0; i < result.length; i++){
-            for (int j = result.length - 1; j > i; j--){
-                if (result[j-1] > result[j]) swap(result, j-1, j);
+        for (int i = result.length-1; i >= 0; i--){
+            for (int j = 0; j < i; j++){
+                if (result[j+1] < result[j]) swap(result, j+1, j);
             }
         }
 
@@ -94,7 +94,26 @@ public class Sorter {
      * 			sorted list of integers
      */
     public static List<Integer> insertionSort(List<Integer> list, boolean disposeOfDuplicates) {
-        throw new UnsupportedOperationException("Method not implemented, yet.");
+        if (disposeOfDuplicates){
+            disposeOfDuplicates(list);
+        }
+
+        // reversed order: while sorting the array will look as follows [unsorted data...sorted data]
+        Integer[] result = list.toArray(new Integer[0]);
+        for (int i = result.length - 2; i >= 0; i--){
+            Integer item = result[i];
+            int iHole = i;
+
+            while (iHole < result.length -1 && result[iHole + 1] < item){
+                result[iHole] = result[iHole + 1];
+                iHole++;
+            }
+
+            result[iHole] = item;
+        }
+
+        return Arrays.asList(result);
+
     }
 
 	/**
@@ -163,7 +182,7 @@ public class Sorter {
 		if (!disposeOfDuplicates){
 			disposeOfDuplicates(list);
 		}
-        // TODO high:implement heap sort
+        // TODO:implement heap sort
         throw new UnsupportedOperationException("Method not implemented, yet.");
 	}
 }
