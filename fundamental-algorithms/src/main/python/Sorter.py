@@ -33,13 +33,33 @@ class Sorter:
                     list2sort[j-1], list2sort[j] = list2sort[j],list2sort[j-1]
         return list2sort
 
-    def insertion_sort(self, list_to_sort):
-        #TODO:implement
-        pass
+    @staticmethod
+    def insertion_sort(list2sort):
+        for i in range(1, len(list2sort)):
+            item = list2sort[i]
+            iHole = i
+            while iHole > 0 and list2sort[iHole-1] > item:
+                list2sort[iHole] = list2sort[iHole-1]
+                iHole-=1
+            list2sort[iHole] = item
+        return list2sort
 
-    def quick_sort(self, list_to_sort):
-        #TODO:implement
-        pass
+    @staticmethod
+    def quick_sort(list2sort):
+        if len(list2sort) <= 1:
+            return list2sort
 
-if __name__ == '__main__' :
-    pass
+        pivot_idx = len(list2sort)/2
+        pivot = list2sort[pivot_idx]
+        list2sort.remove(pivot)
+        right_part = []
+        left_part = []
+        for i in list2sort:
+            if i <= pivot : left_part.append(i)
+            else : right_part.append(i)
+
+        result = Sorter.quick_sort(left_part)
+        result.append(pivot)
+        result.extend(Sorter.quick_sort(right_part))
+
+        return result

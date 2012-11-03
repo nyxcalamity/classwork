@@ -37,10 +37,10 @@ class SorterTestCase(unittest.TestCase):
         self.assertEquals(self.sorted_sequence, math.Sorter.bubble_sort(self.unsorted_sequence))
 
     def test_insertion_sort(self):
-        self.fail()
+        self.assertEquals(self.sorted_sequence, math.Sorter.insertion_sort(self.unsorted_sequence))
 
     def test_quick_sort(self):
-        self.fail()
+        self.assertEquals(self.sorted_sequence, math.Sorter.quick_sort(self.unsorted_sequence))
 
 if __name__ == '__main__':
     unittest.main()
