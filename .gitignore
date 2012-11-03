@@ -2,6 +2,7 @@
 .git
 *.swp
 *~
+*.pyc
 
 # IDE
 .idea
