@@ -13,7 +13,6 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-
 package com.inceptix.util.math;
 
 import org.junit.*;
@@ -25,77 +24,77 @@ import java.util.Random;
 import static org.junit.Assert.assertEquals;
 
 /**
- * @author		Denys Sobchyshak (denys.sobchyshak@gmail.com)
+ * @author  Denys Sobchyshak (denys.sobchyshak@gmail.com)
  */
 public class SorterTest {
-	// --- Fields ---
-	private static final int LIST_SIZE = 20;
-	private static final List<Integer> SORTED_LIST = new ArrayList<Integer>();
-	private static final List<Integer> SORTED_DUPLICATE_LIST = new ArrayList<Integer>();
-	
-	private List<Integer> list = null;
-	private static Random randomGenerator = null;
+    // --- Fields ---
+    private static final int LIST_SIZE = 20;
+    private static final List<Integer> SORTED_LIST = new ArrayList<Integer>();
+    private static final List<Integer> SORTED_DUPLICATE_LIST = new ArrayList<Integer>();
 
-	// --- Constructors ---
+    private List<Integer> list = null;
+    private static Random randomGenerator = null;
 
-	// --- Methods ---
-	@BeforeClass
-	public static void setUpClass(){
-		randomGenerator = new Random();
+    // --- Constructors ---
 
-		for (int i = 0; i < LIST_SIZE; i++){
-			SORTED_LIST.add(i);
-			SORTED_DUPLICATE_LIST.add(i);
-			SORTED_DUPLICATE_LIST.add(i);
-		}
-	}
+    // --- Methods ---
+    @BeforeClass
+    public static void setUpClass(){
+        randomGenerator = new Random();
 
-	@AfterClass
-	public static void tearDownClass(){
-		randomGenerator = null;
-	}
+        for (int i = 0; i < LIST_SIZE; i++){
+            SORTED_LIST.add(i);
+            SORTED_DUPLICATE_LIST.add(i);
+            SORTED_DUPLICATE_LIST.add(i);
+        }
+    }
 
-	@Before
-	public void setUp(){
-		list = new ArrayList();
+    @AfterClass
+    public static void tearDownClass(){
+        randomGenerator = null;
+    }
+
+    @Before
+    public void setUp(){
+        list = new ArrayList();
 
         // creates a list of ordered ints of size n, then pastes another list of ordered ints into random positions
-		for (int i = 0; i < LIST_SIZE/2; i++){
-			list.add(i);
-		}
-		for (int i = LIST_SIZE - 1; i >= LIST_SIZE/2; i--){
-			list.add(randomGenerator.nextInt(LIST_SIZE/2), i);
-		}
-	}
+        for (int i = 0; i < LIST_SIZE/2; i++){
+            list.add(i);
+        }
+        for (int i = LIST_SIZE - 1; i >= LIST_SIZE/2; i--){
+            list.add(randomGenerator.nextInt(LIST_SIZE/2), i);
+        }
+    }
 
-	@After
-	public void tearDown(){
-		list = null;
-	}
+    @After
+    public void tearDown(){
+        list = null;
+    }
 
-	@Test
-	public void testDuplicatesRemoval(){
-		Sorter.disposeOfDuplicates(SORTED_DUPLICATE_LIST);
-		assertEquals("Duplicates removal failed", SORTED_LIST.toString(), SORTED_DUPLICATE_LIST.toString());
-	}
+    @Test
+    public void testDuplicatesRemoval(){
+        Sorter.disposeOfDuplicates(SORTED_DUPLICATE_LIST);
+        assertEquals("Duplicates removal failed", SORTED_LIST.toString(), SORTED_DUPLICATE_LIST.toString());
+    }
 
-	@Test
-	public void testBubbleSort(){
-		assertEquals("Bubble sort failed", SORTED_LIST.toString(), Sorter.bubbleSort(list, true).toString());
-	}
+    @Test
+    public void testBubbleSort(){
+        assertEquals("Bubble sort failed", SORTED_LIST.toString(), Sorter.bubbleSort(list, true).toString());
+    }
 
     @Test
     public void testInsertionSort(){
         assertEquals("Insertion sort failed", SORTED_LIST.toString(), Sorter.insertionSort(list, true).toString());
     }
 
-	@Test
-	public void testQuickSort(){
-		assertEquals("Quick sort failed", SORTED_LIST.toString(), Sorter.quickSort(list, true).toString());
-	}
+    @Test
+    public void testQuickSort(){
+        assertEquals("Quick sort failed", SORTED_LIST.toString(), Sorter.quickSort(list, true).toString());
+    }
 
-	@Test
-	public void testHeapSort(){
+    @Test
+    public void testHeapSort(){
         assertEquals("Heap sort failed", SORTED_LIST.toString(), Sorter.heapSort(list, true).toString());
-	}
+    }
 }
