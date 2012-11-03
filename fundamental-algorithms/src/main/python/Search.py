@@ -17,7 +17,6 @@
 
 __author__ = "Denys Sobchyshak"
 __email__ = "denys.sobchyshak@gmail.com"
-__version__ = "1.0.0"
 
 
 class Search:

@@ -20,10 +20,9 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Class that provides implementation of basic sorting algorithms.
+ * Provides implementation of basic sorting algorithms.
  *
  * @author		Denys Sobchyshak (denys.sobchyshak@gmail.com)
- * @version 	1.1 (02.11.2012)
  */
 public class Sorter {
 	// --- Fields ---
@@ -61,20 +60,16 @@ public class Sorter {
 	}
 
     /**
-     * Implementation of bubble sort algorithm (using nested loop method).
-     * <p>
-     * NOTE: bubble sort is not a practical sorting algorithm when n is large, as it is worst-case and average
-     * complexity both О(n^2).
+     * Implementation of bubble sort algorithm.
      * @param list
      * 			list of integer values to be sorted
      * @param disposeOfDuplicates
-     * 			flag that defines if duplicate values should be
-     * 			included (true) or disposed of (false)
+     * 			flag that defines if duplicate values should be included (false) or disposed of (true)
      * @return
      * 			sorted list of integers
      */
     public static List<Integer> bubbleSort(List<Integer> list, boolean disposeOfDuplicates){
-        if (!disposeOfDuplicates){
+        if (disposeOfDuplicates){
             disposeOfDuplicates(list);
         }
 
@@ -89,17 +84,30 @@ public class Sorter {
         return Arrays.asList(result);
     }
 
+    /**
+     * Implementation of insertion sort algorithm.
+     * @param list
+     * 			list of integer values to be sorted
+     * @param disposeOfDuplicates
+     * 			flag that defines if duplicate values should be included (false) or disposed of (true)
+     * @return
+     * 			sorted list of integers
+     */
+    public static List<Integer> insertionSort(List<Integer> list, boolean disposeOfDuplicates) {
+        throw new UnsupportedOperationException("Method not implemented, yet.");
+    }
+
 	/**
 	 * Implementation of quick sort algorithm.
 	 * @param list
 	 * 			list of integers being sorted
 	 * @param disposeOfDuplicates
-	 * 			flag that defines if duplicate values should be included (true) or disposed of (false)
+     * 			flag that defines if duplicate values should be included (false) or disposed of (true)
 	 * @return
 	 * 			sorted list of integers
 	 */
 	public static List<Integer> quickSort(List<Integer> list, boolean disposeOfDuplicates){
-		if (!disposeOfDuplicates) {
+		if (disposeOfDuplicates) {
 			disposeOfDuplicates(list);
 		}
 		return quickSortImpl(list);
@@ -147,8 +155,7 @@ public class Sorter {
 	 * @param list
 	 * 			list of integers being sorted
 	 * @param disposeOfDuplicates
-	 * 			flag that defines if duplicate values should be 
-	 * 			included (true) or disposed of (false)
+     * 			flag that defines if duplicate values should be included (false) or disposed of (true)
 	 * @return
 	 * 			sorted list of integers
 	 */
@@ -156,7 +163,7 @@ public class Sorter {
 		if (!disposeOfDuplicates){
 			disposeOfDuplicates(list);
 		}
-		// TODO high:implement heap sort
-		return null;
+        // TODO high:implement heap sort
+        throw new UnsupportedOperationException("Method not implemented, yet.");
 	}
 }

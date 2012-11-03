@@ -26,7 +26,6 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * @author		Denys Sobchyshak (denys.sobchyshak@gmail.com)
- * @version 	1.1 (02.11.2012)
  */
 public class SorterTest {
 	// --- Fields ---
@@ -40,9 +39,6 @@ public class SorterTest {
 	// --- Constructors ---
 
 	// --- Methods ---
-	/**
-     * Sets up the test fixture for all tests.
-     */
 	@BeforeClass
 	public static void setUpClass(){
 		randomGenerator = new Random();
@@ -53,18 +49,12 @@ public class SorterTest {
 			SORTED_DUPLICATE_LIST.add(i);
 		}
 	}
-	
-	/**
-     * Tears down the test fixture of all tests.
-     */	
+
 	@AfterClass
 	public static void tearDownClass(){
 		randomGenerator = null;
 	}
-	
-	/**
-     * Sets up the test fixture.
-     */
+
 	@Before
 	public void setUp(){
 		list = new ArrayList();
@@ -77,49 +67,35 @@ public class SorterTest {
 			list.add(randomGenerator.nextInt(LIST_SIZE/2), i);
 		}
 	}
-	
-	/**
-     * Tears down the test fixture.
-     */	
+
 	@After
 	public void tearDown(){
 		list = null;
 	}
-	
-	/**
-	 * Tests duplicate values removal.
-	 */
+
 	@Test
 	public void testDuplicatesRemoval(){
 		Sorter.disposeOfDuplicates(SORTED_DUPLICATE_LIST);
-		assertEquals("Duplicated values were removed",
-                SORTED_LIST.toString(), SORTED_DUPLICATE_LIST.toString());
+		assertEquals("Duplicates removal failed", SORTED_LIST.toString(), SORTED_DUPLICATE_LIST.toString());
 	}
-	
-	/**
-	 * Tests bubble sort algorithm.
-	 */
+
 	@Test
 	public void testBubbleSort(){
-		assertEquals("Bubble sort procedeed incorrectly",
-                SORTED_LIST.toString(), Sorter.bubbleSort(list, true).toString());
+		assertEquals("Bubble sort failed", SORTED_LIST.toString(), Sorter.bubbleSort(list, true).toString());
 	}
-	
-	/**
-	 * Tests quick sort algorithm.
-	 */
+
+    @Test
+    public void testInsertionSort(){
+        assertEquals("Insertion sort failed", SORTED_LIST.toString(), Sorter.insertionSort(list, true).toString());
+    }
+
 	@Test
 	public void testQuickSort(){
-		assertEquals("Quick sort procedeed incorrectly",
-                SORTED_LIST.toString(), Sorter.quickSort(list, true).toString());
+		assertEquals("Quick sort failed", SORTED_LIST.toString(), Sorter.quickSort(list, true).toString());
 	}
-	
-	/**
-	 * Tests heap sort algorithm.
-	 */
+
 	@Test
 	public void testHeapSort(){
-        assertEquals("Heap sort procedeed incorrectly",
-                SORTED_LIST.toString(), Sorter.heapSort(list, true).toString());
+        assertEquals("Heap sort failed", SORTED_LIST.toString(), Sorter.heapSort(list, true).toString());
 	}
 }
