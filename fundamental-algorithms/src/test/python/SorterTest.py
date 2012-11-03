@@ -17,29 +17,30 @@
 __author__ = "Denys Sobchyshak"
 __email__ = "denys.sobchyshak@gmail.com"
 
-class Sorter:
-    """
-        Provides implementation of basic sorting algorithms.
-    """
+import Sorter as math
 
-    def __init__(self):
-        pass
+import random
+import unittest
 
-    @staticmethod
-    def bubble_sort(list2sort):
-        for i in range(0, len(list2sort)-1):
-            for j in range(len(list2sort)-1, 0, -1):
-                if list2sort[j-1] > list2sort[j]:
-                    list2sort[j-1], list2sort[j] = list2sort[j],list2sort[j-1]
-        return list2sort
+class SorterTestCase(unittest.TestCase):
 
-    def insertion_sort(self, list_to_sort):
-        #TODO:implement
-        pass
+    def setUp(self):
+        self.sorted_sequence = range(20)
+        self.unsorted_sequence = range(20)
+        random.shuffle(self.unsorted_sequence)
 
-    def quick_sort(self, list_to_sort):
-        #TODO:implement
-        pass
+    def tearDown(self):
+        self.unsorted_sequence = []
+        self.sorted_sequence = []
 
-if __name__ == '__main__' :
-    pass
+    def test_bubble_sort(self):
+        self.assertEquals(self.sorted_sequence, math.Sorter.bubble_sort(self.unsorted_sequence))
+
+    def test_insertion_sort(self):
+        self.fail()
+
+    def test_quick_sort(self):
+        self.fail()
+
+if __name__ == '__main__':
+    unittest.main()

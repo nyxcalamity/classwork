@@ -18,6 +18,7 @@ package com.inceptix.util.math;
 import org.junit.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -57,14 +58,10 @@ public class SorterTest {
     @Before
     public void setUp(){
         list = new ArrayList();
-
-        // creates a list of ordered ints of size n, then pastes another list of ordered ints into random positions
-        for (int i = 0; i < LIST_SIZE/2; i++){
+        for (int i = 0; i < LIST_SIZE; i++){
             list.add(i);
         }
-        for (int i = LIST_SIZE - 1; i >= LIST_SIZE/2; i--){
-            list.add(randomGenerator.nextInt(LIST_SIZE/2), i);
-        }
+        Collections.shuffle(list);
     }
 
     @After
