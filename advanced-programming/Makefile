@@ -1,4 +1,4 @@
-# Builds the whole thing
+# Builds the project
 BUILD = ./build
 SRC_CPP = ./src/main/cpp
 
