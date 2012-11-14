@@ -16,35 +16,76 @@
 
 #include <iostream>
 #include <string>
+#include <cmath>
 using namespace std;
 
-class Calculator {
+/*
+   Represents a calculator with various functions.
+*/
+class Calc {
 public:
-	// Static methods
-	static int sum(int a, int b){ return a+b; };
-	static int subtract(int a, int b){ return a-b;};
-	static int multiply(int a, int b){ return a*b; };
-	static int divide(int a, int b){ if (b == 0) return b; return a/b; };
-	static int avg(int a, int b){ return (a+b)/2; };
-	//sin, cos, tan
+	//arithmetic functions
+	static double sum(double a, double b){ return a+b; };
+	static double subtract(double a, double b){ return a-b;};
+	static double multiply(double a, double b){ return a*b; };
+	static double divide(double a, double b){ if (b == 0) return b; return a/b; };
+	static double avg(double a, double b){ return (a+b)/2; };
+
+	//trigonometric funcitons
+	static double sin(double x){ return sin(x); };
+	static double cos(double x){ return cos(x); };
+	static double tan(double x){ return tan(x); };
 };
 
-void getValues(int *a, int *b){
-	cout << "Please enter two values: " << endl;
+void getValue(double *a){
+	cout << "Please, enter a value: " << endl;
+        cin >> (*a);
+}
+
+void getValues(double *a, double *b){
+	cout << "Please, enter two values: " << endl;
         cin >> (*a) >> (*b);
 }
 
+bool getCommand(string *cmd){
+	cout << "Please, enter a command (+,-,*,/ or avg, sin, cos, tan, exit): ";
+	cin >> (*cmd);
+	if (*cmd == "exit"){
+		return false;
+	} else {
+		return true;
+	}
+}
+
+
 int main (){
-	int a,b;
-	getValues(&a, &b);
-	cout << "Summation: " << Calculator::sum(a,b) << endl;
-	getValues(&a, &b);
-        cout << "Subtracttion: " << Calculator::subtract(a,b) << endl;
-	getValues(&a, &b);
-	cout << "Multiplication: " << Calculator::multiply(a,b) << endl;
-	getValues(&a, &b);
-	cout << "Division: " << Calculator::divide(a,b) << endl;
-	getValues(&a, &b);
-	cout << "Average: " << Calculator::avg(a,b) << endl;
+	string cmd;
+	double a,b;
+
+	while (getCommand(&cmd)){
+		if (cmd == "sin" || cmd == "cos" || cmd == "tan") {
+			getValue(&a);
+			if (cmd == "sin"){
+				cout << "Sine: " << Calc::sin(a) << endl;
+			} else if (cmd == "cos"){
+				cout << "Cosine: " << Calc::cos(a) << endl;
+			} else if (cmd == "tan"){
+				cout << "Tangent: " << Calc::tan(a) << endl;
+			}
+		} else {
+			getValues(&a,&b);
+			if (cmd == "+"){
+				cout << "Summation: " << Calc::sum(a,b) << endl;
+			} else if (cmd == "-"){
+				cout << "Subtracttion: " << Calc::subtract(a,b) << endl;
+			} else if (cmd == "*"){
+				cout << "Multiplication: " << Calc::multiply(a,b) << endl;
+			} else if (cmd == "/"){
+				cout << "Division: " << Calc::divide(a,b) << endl;
+			} else if (cmd == "avg"){
+				cout << "Average: " << Calc::avg(a,b) << endl;
+			}
+		}
+	}
 	return 0;
 }
