@@ -17,6 +17,9 @@
 #include <iostream>
 #include <string>
 #include <cmath>
+
+#define _USE_MATH_DEFINES
+
 using namespace std;
 
 /*
@@ -32,9 +35,9 @@ public:
 	static double avg(double a, double b){ return (a+b)/2; };
 
 	//trigonometric funcitons
-	static double sin(double x){ return sin(x); };
-	static double cos(double x){ return cos(x); };
-	static double tan(double x){ return tan(x); };
+	static double sin(double x){ return sin(M_PI*x); };
+	static double cos(double x){ return cos(M_PI*x); };
+	static double tan(double x){ return tan(M_PI*x); };
 };
 
 void getValue(double *a){
@@ -48,22 +51,21 @@ void getValues(double *a, double *b){
 }
 
 bool getCommand(string *cmd){
-	cout << "Please, enter a command (+,-,*,/ or avg, sin, cos, tan, exit): ";
+	cout << "Please, enter a command (+,-,*,/,avg, sin, cos, tan, exit): ";
 	cin >> (*cmd);
-	if (*cmd == "exit"){
+	if ( (*cmd) == "exit"){
 		return false;
 	} else {
 		return true;
 	}
 }
 
-
 int main (){
 	string cmd;
 	double a,b;
 
 	while (getCommand(&cmd)){
-		if (cmd == "sin" || cmd == "cos" || cmd == "tan") {
+		if (cmd == "sin" || cmd == "cos" || cmd == "tan"){
 			getValue(&a);
 			if (cmd == "sin"){
 				cout << "Sine: " << Calc::sin(a) << endl;

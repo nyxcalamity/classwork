@@ -10,7 +10,7 @@ ws1:
 	 g++ -Wall $(SRC_CPP)/average_calculator.cpp -o $(BUILD)/average_calculator
 
 ws2:
-	 g++ -Wall $(SRC_CPP)/simple_calculator.cpp -o $(BUILD)/simple_calculator
+	 g++ -Wall -Wextra $(SRC_CPP)/simple_calculator.cpp -o $(BUILD)/simple_calculator
 
 clean:
 	mkdir -p ${BUILD}
