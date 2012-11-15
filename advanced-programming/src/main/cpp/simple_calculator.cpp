@@ -35,9 +35,9 @@ public:
 	static double avg(double a, double b){ return (a+b)/2; };
 
 	//trigonometric funcitons
-	static double sin(double x){ return sin(M_PI*x); };
-	static double cos(double x){ return cos(M_PI*x); };
-	static double tan(double x){ return tan(M_PI*x); };
+	static double sine(double x){ return sin(M_PI*x); };
+	static double cosine(double x){ return cos(M_PI*x); };
+	static double tangent(double x){ return tan(M_PI*x); };
 };
 
 void getValue(double *a){
@@ -68,11 +68,11 @@ int main (){
 		if (cmd == "sin" || cmd == "cos" || cmd == "tan"){
 			getValue(&a);
 			if (cmd == "sin"){
-				cout << "Sine: " << Calc::sin(a) << endl;
+				cout << "Sine: " << Calc::sine(a) << endl;
 			} else if (cmd == "cos"){
-				cout << "Cosine: " << Calc::cos(a) << endl;
+				cout << "Cosine: " << Calc::cosine(a) << endl;
 			} else if (cmd == "tan"){
-				cout << "Tangent: " << Calc::tan(a) << endl;
+				cout << "Tangent: " << Calc::tangent(a) << endl;
 			}
 		} else {
 			getValues(&a,&b);
