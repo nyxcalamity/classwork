@@ -41,9 +41,7 @@ for i=1:length(N)
         y = linspace(0,1,Ny+2);
         z = meshWrapper(X,Nx,Ny);
         
-        
         figure; mesh(x,y,z); axis([0 1 0 1 0 1]);
-        
         figure; surf(x,y,z); axis([0 1 0 1 0 1]); view(2);
     end
 end
