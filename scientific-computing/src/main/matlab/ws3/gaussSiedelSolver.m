@@ -30,15 +30,12 @@ function [ X ] = gaussSiedelSolver( B,Nx,Ny )
                 if j < Ny; sum = sum + c2*X((j)*Nx + i); end
                 if i > 1 ; sum = sum + c1*X((j-1)*Nx + i-1); end
                 if i < Nx; sum = sum + c1*X((j-1)*Nx + i+1); end
-                residualNorm = residualNorm + (B(i) - sum - c3*X((j-1)*Nx+i))^2;
+                residualNorm = residualNorm + (B((j-1)*Nx+i) - sum - c3*X((j-1)*Nx+i))^2;
             end
         end
-        residualNorm  = sqrt(residualNorm/length(B));
+        residualNorm  = sqrt(residualNorm/(Nx*Ny));
         
         % Exit condition
         if abs(residualNorm) < 0.0001; break; end
     end
-    
-    % Wrap the matrix with 0s
-    X = wrapMatrix(X);
 end

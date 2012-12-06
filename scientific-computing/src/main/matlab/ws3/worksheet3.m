@@ -6,7 +6,7 @@
 hEq = @(x,y) (sin(pi.*x).*sin(pi.*y));
 hPde = @(x,y) (-2*pi^2*sin(pi*x)*sin(pi*y));
 
-N = [7 15 31 63 127];
+N = [7 15 31 63];
 
 titles = {'Nx=Ny='; 'Runtime'; 'Matrix Storage'};
 computationResults = zeros(6,length(N));
@@ -22,14 +22,12 @@ for i=1:length(N)
     
     % Using full matrix and inbuilt solver
     tic; X = A\B; timeElapsed = toc;
-    X = wrapMatrix(X);
     computationResults(1,i) = timeElapsed;
     computationResults(2,i) = numel(A)+numel(X)+numel(B);
     
     % Using sparse matrix and inbuilt solver
     a = sparse(A);
     tic; X = a\B; timeElapsed = toc;
-    X = wrapMatrix(X);
     computationResults(3,i) = timeElapsed;
     computationResults(4,i) = nnz(a)+numel(X)+numel(B);
     
@@ -37,6 +35,18 @@ for i=1:length(N)
     tic; X = gaussSiedelSolver(B,Nx,Ny); timeElapsed = toc;
     computationResults(5,i) = timeElapsed;
     computationResults(6,i) = numel(X)+numel(B);
+    
+    if (i == length(N))
+        x = linspace(0,1,Nx+2);
+        y = linspace(0,1,Ny+2);
+        z = meshWrapper(X,Nx,Ny);
+        
+        
+        figure; mesh(x,y,z); axis([0 1 0 1 0 1]);
+        
+        figure; surf(x,y,z); axis([0 1 0 1 0 1]); view(2);
+    end
 end
 
+format shortG
 disp(computationResults);
