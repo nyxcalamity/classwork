@@ -1,5 +1,5 @@
 function [ W ] = meshWrapper( X,Nx,Ny )
-%WRAPMATRIX Maps a vector to a mesh and puts zeroes around it's borders.
+%MESHWRAPPER Maps a vector to a mesh and puts zeroes around it's borders.
 %   Thus, with for a 4x1 vector [A11 A21 A12 A22] one will get a 4x4 matrix
 %   of the form [0 0 0 0;0 A11 A12 0;0 A21 A22 0;0 0 0 0];
     W = zeros(Nx+2,Ny+2);
