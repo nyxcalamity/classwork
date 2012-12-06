@@ -63,3 +63,8 @@ class Sorter:
         result.extend(Sorter.quick_sort(right_part))
 
         return result
+
+    @staticmethod
+    def heap_sort(list2sort):
+        pass
+
