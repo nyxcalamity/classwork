@@ -1,4 +1,4 @@
-% Script
+% Script 1
 % Calculates approximations of ode solutions and their errors. 
 % P.S.: Luckily it's not tested for performance. :)
 % =========================================================================

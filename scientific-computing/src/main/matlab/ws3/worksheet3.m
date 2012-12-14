@@ -1,6 +1,6 @@
-% Script
-% Calculating solution for heat equation and it's pde of second order while 
-% storing matrix in several ways and computing errors.
+% Script 3
+% Calculating solution for heat equation and its stationary pde of second 
+% prder while storing matrix in several ways and computing errors.
 % =========================================================================
 
 hEq = @(x,y) (sin(pi.*x).*sin(pi.*y));

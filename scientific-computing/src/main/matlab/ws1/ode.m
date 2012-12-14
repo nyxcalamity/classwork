@@ -8,11 +8,11 @@ function v = ode(fd1, f0, dt, t_end, method)
 
     switch method
         case 'euler'
-            v = euler_method(fd1, f0, dt, t_end);
+            v = eulerMethod(fd1, f0, dt, t_end);
         case 'heun'
-            v = heun_method(fd1, f0, dt, t_end);
+            v = heunMethod(fd1, f0, dt, t_end);
         case 'runge_kutta'
-            v = runge_kutta_method(fd1, f0, dt, t_end);
+            v = rungeKuttaMethod(fd1, f0, dt, t_end);
         otherwise
             disp('Please, input proper method name. Refer to help for more info.');
             return;
@@ -20,7 +20,7 @@ function v = ode(fd1, f0, dt, t_end, method)
 end
 
 %--------------------------------------------------------------------------
-function v = euler_method(fd1, f0, dt, t_end)
+function v = eulerMethod(fd1, f0, dt, t_end)
     vector_size = (t_end ./ dt) + 1;
     v = zeros(1, vector_size);
     v(1) = f0; % we already know the initial value
@@ -31,7 +31,7 @@ end
 
 %--------------------------------------------------------------------------
 % Basically we introduce a mean value of function change frequencies
-function v = heun_method(fd1, f0, dt, t_end)
+function v = heunMethod(fd1, f0, dt, t_end)
     vector_size = (t_end ./ dt) + 1;
     v = zeros(1, vector_size);
     v(1) = f0; % we already know the initial value
@@ -42,7 +42,7 @@ function v = heun_method(fd1, f0, dt, t_end)
 end
 
 %--------------------------------------------------------------------------
-function v = runge_kutta_method(fd1, f0, dt, t_end)
+function v = rungeKuttaMethod(fd1, f0, dt, t_end)
     vector_size = (t_end ./ dt) + 1;
     v = zeros(1, vector_size);
     v(1) = f0; % we already know the initial value
