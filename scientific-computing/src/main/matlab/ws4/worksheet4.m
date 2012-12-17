@@ -1,4 +1,5 @@
 % Script 4
+% Solving instationary equations using Euler's methods.
 % =========================================================================
 close all;
 clear all;
