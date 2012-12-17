@@ -1,6 +1,10 @@
 function [ T ] = backwardEulerMethod( Nx,Ny,dt,t )
-%BACKWARDEULERMETHOD Summary of this function goes here
-%   Detailed explanation goes here
+%backwardEulerMethod Calculates temperatures at the next timestep
+%   Solves a system of ODEs and provides a column vector of temperatures
+%   at the next timestep. Uses iterative Gauss-Siedel method to solve the
+%   system. Accuracy of calculations is 1e-4, that is residual norm is
+%   expected to be below that value for results to be considered as
+%   solution.
     
     T = zeros(Nx*Ny,1); %guessed value   
     c1 = (Nx + 1)^2; c2 = (Ny + 1)^2; c3 = -2*(c1+c2);
@@ -33,7 +37,7 @@ function [ T ] = backwardEulerMethod( Nx,Ny,dt,t )
         residualNorm  = sqrt(residualNorm/(Nx*Ny));
         
         % Exit condition
-        if abs(residualNorm) < 0.0001; break; end
+        if abs(residualNorm) < 1e-4; break; end
     end
 
 end

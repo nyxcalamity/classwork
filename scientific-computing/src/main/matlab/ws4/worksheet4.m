@@ -6,15 +6,12 @@ clc;
 %--------------------------------------------------------------------------
 % Initial conditions
 %--------------------------------------------------------------------------
-hEq = @(x,y) (sin(pi.*x).*sin(pi.*y));
-hPde = @(x,y) (-2*pi^2*sin(pi*x)*sin(pi*y));
-
 N = [3 7 15 31];
 
 dt = 2.^-(6:12);
 t = (1:4)./8;
 
-omitFEM = fase; omitBEM=false;
+omitFEM=false; omitBEM=true;
 
 %--------------------------------------------------------------------------
 % Computation using Forward Euler Method
@@ -34,11 +31,11 @@ if ~omitFEM
                 ls = linspace(0,1,N(i)+2);
                 [X,Y] = meshgrid(ls,ls);
                 Z = meshWrapper(T,N(i),N(i));
-                subplot(length(N), length(dt), (i-1)*length(N)+j);
-    %             figure('Name', ['t=',num2str(k),'/8 ','N=',num2str(N(i)),' dt=1/',num2str(2^(j+5))]);
-                surf(X,Y,Z); axis([0 1 0 1 0 1]);
+                subplot(length(N), length(dt), (i-1)*length(dt)+j);
+                surf(X,Y,Z); % axis([0 1 0 1 0 1]);
             end
         end
+        print('-dpng',strcat('t=',num2str(k),':8'));
     end
 end
 
@@ -47,6 +44,7 @@ end
 %--------------------------------------------------------------------------
 if ~omitBEM
     for k = 1:length(t)
+        figure('Name', ['t=',num2str(k),'/8 ',' dt=1/',num2str(2^6)]);
         for i = 1:length(N)
             T=ones(N(i)^2,1);
             ct = t(k);
@@ -58,8 +56,8 @@ if ~omitBEM
             ls = linspace(0,1,N(i)+2);
             [X,Y] = meshgrid(ls,ls);
             Z = meshWrapper(T,N(i),N(i));
-            figure('Name', ['t=',num2str(k),'/8 ','N=',num2str(N(i)),' dt=1/',num2str(2^6)]);
-            surf(X,Y,Z); axis([0 1 0 1 0 1]);
+            subplot(1,length(N),i);
+            surf(X,Y,Z); %axis([0 1 0 1 0 1]);
         end
     end
 end

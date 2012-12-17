@@ -1,9 +1,9 @@
 function [ T ] = forwardEulerMethod( Nx,Ny,dt,t )
-%EXPEULERMETHOD Summary of this function goes here
-%   Detailed explanation goes here
+%forwardEulerMethod Calculates temperatures at the next timestep
+%   Solves a system of ODEs and provides a column vector of temperatures
+%   at the next timestep.
 
     A = buildMatrix(Nx,Ny);
     dT = A*t;
     T = t + dt.*dT;
 end
-
