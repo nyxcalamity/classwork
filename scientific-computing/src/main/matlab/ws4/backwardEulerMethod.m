@@ -6,19 +6,19 @@ function [ T ] = backwardEulerMethod( Nx,Ny,dt,t )
 %   expected to be below that value for results to be considered as
 %   solution.
     
-    T = zeros(Nx*Ny,1); %guessed value   
-    c1 = (Nx + 1)^2; c2 = (Ny + 1)^2; c3 = -2*(c1+c2);
+    T = ones(Nx*Ny,1); %guessed value   
+    c1 = -dt*(Nx + 1)^2; c2 = -dt*(Ny + 1)^2; c3 = 1-2*(c1+c2);
     
-    while true
+    while true % do-while syntax
         % Iterative calculation of unknown
         for i=1:Nx
             for j=1:Ny
                 sum = 0;
-                if j > 1 ; sum = sum + c2*T((j-2)*Nx + i); end
-                if j < Ny; sum = sum + c2*T((j)*Nx + i); end
                 if i > 1 ; sum = sum + c1*T((j-1)*Nx + i-1); end
                 if i < Nx; sum = sum + c1*T((j-1)*Nx + i+1); end
-                T((j-1)*Nx+i) = (t((j-1)*Nx+i) + dt*sum)/(1-dt*c3);
+                if j > 1 ; sum = sum + c2*T((j-2)*Nx + i); end
+                if j < Ny; sum = sum + c2*T((j)*Nx + i); end
+                T((j-1)*Nx+i) = (t((j-1)*Nx+i) - sum)/c3;
             end
         end
         
@@ -27,11 +27,11 @@ function [ T ] = backwardEulerMethod( Nx,Ny,dt,t )
         for i=1:Nx
             for j=1:Ny
                 sum = 0;
-                if j > 1 ; sum = sum + c2*T((j-2)*Nx + i); end
-                if j < Ny; sum = sum + c2*T((j)*Nx + i); end
                 if i > 1 ; sum = sum + c1*T((j-1)*Nx + i-1); end
                 if i < Nx; sum = sum + c1*T((j-1)*Nx + i+1); end
-                residualNorm = residualNorm + (t((j-1)*Nx+i) + dt*sum - (1-dt*c3)*T((j-1)*Nx+i))^2;
+                if j > 1 ; sum = sum + c2*T((j-2)*Nx + i); end
+                if j < Ny; sum = sum + c2*T((j)*Nx + i); end
+                residualNorm = residualNorm + (t((j-1)*Nx+i) - sum - c3*T((j-1)*Nx+i))^2;
             end
         end
         residualNorm  = sqrt(residualNorm/(Nx*Ny));
@@ -41,4 +41,3 @@ function [ T ] = backwardEulerMethod( Nx,Ny,dt,t )
     end
 
 end
-

@@ -12,7 +12,7 @@ N = [3 7 15 31];
 dt = 2.^-(6:12);
 t = (1:4)./8;
 
-omitFEM=false; omitBEM=true;
+omitFEM=false; omitBEM=false;
 
 %--------------------------------------------------------------------------
 % Computation using Forward Euler Method
@@ -36,7 +36,7 @@ if ~omitFEM
                 surf(X,Y,Z); % axis([0 1 0 1 0 1]);
             end
         end
-        print('-dpng',strcat('t=',num2str(k),':8'));
+        print('-dpng',strcat('figure_t',num2str(k)));
     end
 end
 
@@ -44,8 +44,8 @@ end
 % Computation using Backward Euler Method
 %--------------------------------------------------------------------------
 if ~omitBEM
+    figure('Name', ['Implicit Eulers Method for dt=1/',num2str(2^6)]);
     for k = 1:length(t)
-        figure('Name', ['t=',num2str(k),'/8 ',' dt=1/',num2str(2^6)]);
         for i = 1:length(N)
             T=ones(N(i)^2,1);
             ct = t(k);
@@ -57,8 +57,9 @@ if ~omitBEM
             ls = linspace(0,1,N(i)+2);
             [X,Y] = meshgrid(ls,ls);
             Z = meshWrapper(T,N(i),N(i));
-            subplot(1,length(N),i);
+            subplot(length(t),length(N),(k-1)*length(t)+i);
             surf(X,Y,Z); %axis([0 1 0 1 0 1]);
+            title(['t=',num2str(t(k)),' N=',num2str(N(i))]);
         end
     end
 end
