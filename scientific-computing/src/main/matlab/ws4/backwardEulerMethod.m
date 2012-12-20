@@ -7,7 +7,7 @@ function [ T ] = backwardEulerMethod( Nx,Ny,dt,t )
 %   solution.
     
     T = ones(Nx*Ny,1); %guessed value   
-    c1 = -dt*(Nx + 1)^2; c2 = -dt*(Ny + 1)^2; c3 = 1-2*(c1+c2);
+    c1 = -(Nx + 1)^2; c2 = -(Ny + 1)^2; c3 = 1/dt-2*(c1+c2);
     
     while true % do-while syntax
         % Iterative calculation of unknown
@@ -18,7 +18,7 @@ function [ T ] = backwardEulerMethod( Nx,Ny,dt,t )
                 if i < Nx; sum = sum + c1*T((j-1)*Nx + i+1); end
                 if j > 1 ; sum = sum + c2*T((j-2)*Nx + i); end
                 if j < Ny; sum = sum + c2*T((j)*Nx + i); end
-                T((j-1)*Nx+i) = (t((j-1)*Nx+i) - sum)/c3;
+                T((j-1)*Nx+i) = (t((j-1)*Nx+i)/dt - sum)/c3;
             end
         end
         
@@ -31,7 +31,7 @@ function [ T ] = backwardEulerMethod( Nx,Ny,dt,t )
                 if i < Nx; sum = sum + c1*T((j-1)*Nx + i+1); end
                 if j > 1 ; sum = sum + c2*T((j-2)*Nx + i); end
                 if j < Ny; sum = sum + c2*T((j)*Nx + i); end
-                residualNorm = residualNorm + (t((j-1)*Nx+i) - sum - c3*T((j-1)*Nx+i))^2;
+                residualNorm = residualNorm + (t((j-1)*Nx+i)/dt - sum - c3*T((j-1)*Nx+i))^2;
             end
         end
         residualNorm  = sqrt(residualNorm/(Nx*Ny));
