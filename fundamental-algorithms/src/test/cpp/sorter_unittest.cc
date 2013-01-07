@@ -14,21 +14,16 @@
    limitations under the License.
 */
 
-#include <iostream>
+#include "sorter.h"
+#include "gtest/gtest.h"
 
-class Sorter {
+//Tests BubbleSort()
 
-public:
-	void BubbleSort(int * array, int length){
-		
-	}
-
-};
+//Tests sorting of simple array.
+TEST(BubbleSortTest, Basic){
 
 
-int main (int argc, char* argv[]){
-	
-	return 0;
 }
 
-
+//Tests InsertionSort()
+//TODO
