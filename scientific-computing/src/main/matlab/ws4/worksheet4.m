@@ -1,4 +1,4 @@
-% Script 4
+% Script 4 | Group 9 
 % Solving instationary equations using Euler's methods.
 % =========================================================================
 close all;
