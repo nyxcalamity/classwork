@@ -31,7 +31,7 @@ GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
 all : $(TESTS)
 
 clean :
-	rm -f $(TESTS) gtest.a gtest_main.a *.o
+	rm -f $(BUILD_DIR)/*
 
 # Builds gtest.a and gtest_main.a.
 GTEST_SRCS_ = $(GTEST_DIR)/src/*.cc $(GTEST_DIR)/src/*.h $(GTEST_HEADERS)
@@ -40,25 +40,27 @@ GTEST_SRCS_ = $(GTEST_DIR)/src/*.cc $(GTEST_DIR)/src/*.h $(GTEST_HEADERS)
 # implementation details, the dependencies specified below are
 # conservative and not optimized.  This is fine as Google Test
 # compiles fast and for ordinary users its source rarely changes.
-gtest-all.o : $(GTEST_SRCS_)
-	$(CXX) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c $(GTEST_DIR)/src/gtest-all.cc -o $(BUILD_DIR)/$@
-
-gtest_main.o : $(GTEST_SRCS_)
-	$(CXX) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c $(GTEST_DIR)/src/gtest_main.cc -o $(BUILD_DIR)/$@
-
-gtest.a : $(BUILD_DIR)/gtest-all.o
-	$(AR) $(ARFLAGS) $(BUILD_DIR)/$@ $^
-
-gtest_main.a : $(BUILD_DIR)/gtest-all.o $(BUILD_DIR)/gtest_main.o
-	$(AR) $(ARFLAGS) $(BUILD_DIR)/$@ $^
-
+#gtest-all.o : $(GTEST_SRCS_)
+#	$(CXX) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c $(GTEST_DIR)/src/gtest-all.cc -o $(BUILD_DIR)/$@
+#
+#gtest_main.o : $(GTEST_SRCS_)
+#	$(CXX) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c $(GTEST_DIR)/src/gtest_main.cc -o $(BUILD_DIR)/$@
+#
+#gtest.a : gtest-all.o
+#	$(AR) $(ARFLAGS) $(BUILD_DIR)/$@ $(BUILD_DIR)/$^
+#
+#gtest_main.a : gtest-all.o gtest_main.o
+#	$(AR) $(ARFLAGS) $(BUILD_DIR)/$@ $(BUILD_DIR)/gtest-all.o $(BUILD_DIR)/gtest_main.o
+#
 # Builds a sorter.
-
 sorter.o : $(SRC_DIR)/sorter.cc $(SRC_DIR)/sorter.h $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(SRC_DIR)/sorter.cc -o $(BUILD_DIR)/$@
 
 sorter_unittest.o : $(TEST_DIR)/sorter_unittest.cc $(SRC_DIR)/sorter.h $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) -I$(SRC_DIR) $(CXXFLAGS) -c $(TEST_DIR)/sorter_unittest.cc -o $(BUILD_DIR)/$@
 
-sorter_unittest : $(BUILD_DIR)/sorter.o $(BUILD_DIR)/sorter_unittest.o $(BUILD_DIR)/gtest_main.a
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $^ -lpthread -o $(BUILD_DIR)/$@
+sorter_unittest : sorter.o sorter_unittest.o
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $(BUILD_DIR)/sorter.o $(BUILD_DIR)/sorter_unittest.o ./lib/gtest_main.a \
+	-lpthread -o $(BUILD_DIR)/$@
+	rm -f ~/bin/sorter_unittest
+	cp $(BUILD_DIR)/sorter_unittest ~/bin/

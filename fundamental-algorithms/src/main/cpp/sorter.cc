@@ -18,9 +18,17 @@
 #include "sorter.h"
 
 //Performs a bubble sort on an array of ints.
-void BubbleSort(int &array, int array_length){
-
+void BubbleSort(int *array, int array_size){
+    for (int i = 0; i<array_size; i++){
+        bool swapped = false;
+        for (int j = array_size; j>i; j--){
+            if (array[j-1] > array[j]){
+                int tmp = array[j-1];
+                array[j-1] = array[j];
+                array[j] = tmp;
+                swapped = true;
+            }
+        }
+        if (!swapped) break;
+    }
 };
-
-
-

@@ -17,4 +17,4 @@
 //A program that provides fundamental sorting algorithms.
 
 //Performs a bubble sort on an array of ints.
-void BubbleSort(int &array, int array_length);
+void BubbleSort(int *array, int array_size);
