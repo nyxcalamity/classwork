@@ -19,11 +19,11 @@
 //Performs a bubble sort on an array of ints.
 void BubbleSort(int *array, int array_size);
 
-//Performs a shell sort on an array of ints.
-void ShellSort(int *array, int array_size);
-
 //Performs an insertion sort on an array of ints.
 void InsertionSort(int *array, int array_size);
+
+//Performs a shell sort on an array of ints.
+void ShellSort(int *array, int array_size);
 
 //Performs a selection sort on an array of ints.
 void SelectionSort(int *array, int array_size);

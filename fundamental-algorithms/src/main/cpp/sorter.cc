@@ -29,13 +29,9 @@ void BubbleSort(int *array, int array_size){
                 swapped = true;
             }
         }
+        //-> invariant: array[0..i] is sorted and elements are in final position
         if (!swapped) break;
     }
-};
-
-//Performs a shell sort on an array of ints.
-void ShellSort(int *array, int array_size){
-
 };
 
 //Performs an insertion sort on an array of ints.
@@ -48,12 +44,41 @@ void InsertionSort(int *array, int array_size){
             j--;
         }
         array[j+1] = key;
+        //-> invariant: array[0..j] is sorted
     }
+};
+
+//Performs a shell sort on an array of ints.
+void ShellSort(int *array, int array_size){
+//TODO
+//    int h = 1;
+//    while (h < n && h = 3*h + 1) {
+//        while (h > 0){
+//            h = h / 3;
+//            for (int k = 1; k <= h; k++){
+//                insertion sort a[k:h:n]
+//            }
+//            //->invariant: each h-sub-array is sorted
+//        }
+//    }
 };
 
 //Performs a selection sort on an array of ints.
 void SelectionSort(int *array, int array_size){
+    for (int i = 0; i < array_size; i++){
+        int iMin = i;
 
+        for(int j = i+1; j < array_size; j++){
+            if (array[iMin] > array[j]) iMin = j;
+        }
+
+        if (iMin != i){
+            int tmp = array[i];
+            array[i] = array[iMin];
+            array[iMin] = tmp;
+        }
+        //->invariant: array[0...i] is sorted
+    }
 };
 
 //Performs a heap sort on an array of ints.
