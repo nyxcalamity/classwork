@@ -40,7 +40,15 @@ void ShellSort(int *array, int array_size){
 
 //Performs an insertion sort on an array of ints.
 void InsertionSort(int *array, int array_size){
-
+    for (int i = 1; i < array_size; i++){
+        int key = array[i];
+        int j = i-1;
+        while (j >= 0 && array[j] > key) {
+            array[j+1] = array[j];
+            j--;
+        }
+        array[j+1] = key;
+    }
 };
 
 //Performs a selection sort on an array of ints.
