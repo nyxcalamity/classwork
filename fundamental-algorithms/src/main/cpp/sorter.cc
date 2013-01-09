@@ -55,7 +55,7 @@ void ShellSort(int *array, int array_size){
     while (h > 0){
         h = h/3;
         for (int k = 0; k < h; k++){
-            for (int i = h; i < array_size; i+=h){
+            for (int i = h+k; i < array_size; i+=h){
                 int key = array[i];
                 int j = i-h;
                 while (j>=0 && array[j] > key){
@@ -63,7 +63,7 @@ void ShellSort(int *array, int array_size){
                     j-=h;
                 }
                 array[j+h] = key;
-                //-> invariant: array[0..j] is sorted
+                //-> invariant: array[k,k+h...j] is sorted
             }
         }
         //->invariant: each h-sub-array is sorted
