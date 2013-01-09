@@ -50,17 +50,24 @@ void InsertionSort(int *array, int array_size){
 
 //Performs a shell sort on an array of ints.
 void ShellSort(int *array, int array_size){
-//TODO
-//    int h = 1;
-//    while (h < n && h = 3*h + 1) {
-//        while (h > 0){
-//            h = h / 3;
-//            for (int k = 1; k <= h; k++){
-//                insertion sort a[k:h:n]
-//            }
-//            //->invariant: each h-sub-array is sorted
-//        }
-//    }
+    int h = 1;
+    while (h < array_size) h = 3*h + 1;
+    while (h > 0){
+        h = h/3;
+        for (int k = 0; k < h; k++){
+            for (int i = h; i < array_size; i+=h){
+                int key = array[i];
+                int j = i-h;
+                while (j>=0 && array[j] > key){
+                    array[j+h] = array[j];
+                    j-=h;
+                }
+                array[j+h] = key;
+                //-> invariant: array[0..j] is sorted
+            }
+        }
+        //->invariant: each h-sub-array is sorted
+    }
 };
 
 //Performs a selection sort on an array of ints.
@@ -93,5 +100,4 @@ void MergeSort(int *array, int array_size){
 
 //Performs a quick sort on an array of ints.
 void QuickSort(int *array, int array_size){
-
 };
