@@ -18,8 +18,6 @@
 #include "gtest/gtest.h"
 
 //Tests BubbleSort()
-
-//Tests sorting of simple array.
 TEST(BubbleSortTest, Basic){
     int expected[] = { 1,2,3,4,5,6,7,8,9,10 };
     int actual[] =   { 9,7,5,3,1,8,6,4,2,10 };
@@ -27,4 +25,50 @@ TEST(BubbleSortTest, Basic){
     for (int i=0; i<10; i++) ASSERT_EQ(expected[i],actual[i]);
 }
 
-//TODO Tests InsertionSort()
+//Tests ShellSort()
+TEST(ShellSort, Basic){
+    int expected[] = { 1,2,3,4,5,6,7,8,9,10 };
+    int actual[] =   { 9,7,5,3,1,8,6,4,2,10 };
+    ShellSort(actual, 10);
+    for (int i=0; i<10; i++) ASSERT_EQ(expected[i],actual[i]);
+}
+
+//Tests InsertionSort()
+TEST(InsertionSort, Basic){
+    int expected[] = { 1,2,3,4,5,6,7,8,9,10 };
+    int actual[] =   { 9,7,5,3,1,8,6,4,2,10 };
+    InsertionSort(actual, 10);
+    for (int i=0; i<10; i++) ASSERT_EQ(expected[i],actual[i]);
+}
+
+//Tests SelectionSort()
+TEST(SelectionSort, Basic){
+    int expected[] = { 1,2,3,4,5,6,7,8,9,10 };
+    int actual[] =   { 9,7,5,3,1,8,6,4,2,10 };
+    SelectionSort(actual, 10);
+    for (int i=0; i<10; i++) ASSERT_EQ(expected[i],actual[i]);
+}
+
+//Tests HeapSort()
+TEST(HeapSort, Basic){
+    int expected[] = { 1,2,3,4,5,6,7,8,9,10 };
+    int actual[] =   { 9,7,5,3,1,8,6,4,2,10 };
+    HeapSort(actual, 10);
+    for (int i=0; i<10; i++) ASSERT_EQ(expected[i],actual[i]);
+}
+
+//Tests MergeSort()
+TEST(MergeSort, Basic){
+    int expected[] = { 1,2,3,4,5,6,7,8,9,10 };
+    int actual[] =   { 9,7,5,3,1,8,6,4,2,10 };
+    MergeSort(actual, 10);
+    for (int i=0; i<10; i++) ASSERT_EQ(expected[i],actual[i]);
+}
+
+//Tests QuickSort()
+TEST(QuickSort, Basic){
+    int expected[] = { 1,2,3,4,5,6,7,8,9,10 };
+    int actual[] =   { 9,7,5,3,1,8,6,4,2,10 };
+    QuickSort(actual, 10);
+    for (int i=0; i<10; i++) ASSERT_EQ(expected[i],actual[i]);
+}

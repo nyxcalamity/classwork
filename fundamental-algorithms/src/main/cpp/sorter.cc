@@ -32,3 +32,33 @@ void BubbleSort(int *array, int array_size){
         if (!swapped) break;
     }
 };
+
+//Performs a shell sort on an array of ints.
+void ShellSort(int *array, int array_size){
+
+};
+
+//Performs an insertion sort on an array of ints.
+void InsertionSort(int *array, int array_size){
+
+};
+
+//Performs a selection sort on an array of ints.
+void SelectionSort(int *array, int array_size){
+
+};
+
+//Performs a heap sort on an array of ints.
+void HeapSort(int *array, int array_size){
+
+};
+
+//Performs a merge sort on an array of ints.
+void MergeSort(int *array, int array_size){
+
+};
+
+//Performs a quick sort on an array of ints.
+void QuickSort(int *array, int array_size){
+
+};
