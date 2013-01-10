@@ -15,6 +15,7 @@
 */
 
 #include <iostream>
+#include <climits>
 #include "sorter.h"
 
 //Performs a bubble sort on an array of ints.
@@ -88,16 +89,37 @@ void SelectionSort(int *array, int array_size){
     }
 };
 
-//Performs a heap sort on an array of ints.
-void HeapSort(int *array, int array_size){
-
-};
-
 //Performs a merge sort on an array of ints.
-void MergeSort(int *array, int array_size){
+void MergeSort(int *array, int start, int end){
+//TODO:refactor this "masterpiece" -> feels like the baboon did it's job, now do yours :)
+    if (start >= end) return;
 
+    int mid = (start+end)/2;
+    MergeSort(array,start,mid);
+    MergeSort(array,mid+1,end);
+
+    //merge operation
+    int n1 = mid - start + 2;
+    int n2 = end - mid + 1;
+    int L[n1],R[n2];
+    for (int i = 0; i < n1-1; i++) L[i] = array[start+i];
+    for (int j = 0; j < n2-1; j++) R[j] = array[mid+1+j];
+    L[n1-1] =  INT_MAX;
+    R[n2-1] = INT_MAX;
+
+    for (int k = start,i=0,j=0; k <= end; k++){
+        if (L[i] <= R[j]){
+            array[k] = L[i];
+            i++;
+        } else {
+            array[k] = R[j];
+            j++;
+        }
+    }
 };
+
+//Performs a heap sort on an array of ints.
+void HeapSort(int *array, int array_size){};
 
 //Performs a quick sort on an array of ints.
-void QuickSort(int *array, int array_size){
-};
+void QuickSort(int *array, int array_size){};
