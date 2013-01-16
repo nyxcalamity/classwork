@@ -52,7 +52,7 @@ void InsertionSort(int *array, int array_size){
             j--;
         }
         array[j+1] = key;
-        //-> invariant: array[0..j] is sorted
+        //-> invariant: array[0..i] is sorted
     }
 };
 
@@ -118,9 +118,6 @@ void MergeSort(int *array, int start, int end){
     }
 };
 
-//Performs a heap sort on an array of ints.
-void HeapSort(int *array, int array_size){};
-
 //Performs a quick sort on an array of ints.
 void QuickSort(int *array, int start, int end){
     if (start >= end) return;
@@ -137,3 +134,6 @@ void QuickSort(int *array, int start, int end){
     QuickSort(array, start, k-1);
     QuickSort(array, k+1, end);
 };
+
+//Performs a heap sort on an array of ints.
+void HeapSort(int *array, int array_size){};

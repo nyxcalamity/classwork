@@ -28,11 +28,11 @@ void ShellSort(int *array, int array_size);
 //Performs a selection sort on an array of ints.
 void SelectionSort(int *array, int array_size);
 
-//Performs a heap sort on an array of ints.
-void HeapSort(int *array, int array_size);
-
 //Performs a merge sort on an array of ints.
 void MergeSort(int *array, int start, int end);
 
 //Performs a quick sort on an array of ints.
 void QuickSort(int *array, int start, int end);
+
+//Performs a heap sort on an array of ints.
+void HeapSort(int *array, int array_size);
