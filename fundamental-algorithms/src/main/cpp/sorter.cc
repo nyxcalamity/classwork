@@ -14,9 +14,18 @@
    limitations under the License.
 */
 
-#include <iostream>
+#include <algorithm>
 #include <climits>
 #include "sorter.h"
+
+//swaps two elements of an array
+void swap(int array[], int i, int j){
+    if (i != j) {
+        int tmp = array[i];
+        array[i] = array[j];
+        array[j] = tmp;
+    }
+}
 
 //Performs a bubble sort on an array of ints.
 void BubbleSort(int *array, int array_size){
@@ -24,9 +33,7 @@ void BubbleSort(int *array, int array_size){
         bool swapped = false;
         for (int j = array_size; j>i; j--){
             if (array[j-1] > array[j]){
-                int tmp = array[j-1];
-                array[j-1] = array[j];
-                array[j] = tmp;
+                swap(array, j-1, j);
                 swapped = true;
             }
         }
@@ -81,9 +88,7 @@ void SelectionSort(int *array, int array_size){
         }
 
         if (iMin != i){
-            int tmp = array[i];
-            array[i] = array[iMin];
-            array[iMin] = tmp;
+            swap(array, i, iMin);
         }
         //->invariant: array[0...i] is sorted
     }
@@ -91,7 +96,6 @@ void SelectionSort(int *array, int array_size){
 
 //Performs a merge sort on an array of ints.
 void MergeSort(int *array, int start, int end){
-//TODO:refactor this "masterpiece" -> feels like the baboon did it's job, now do yours :)
     if (start >= end) return;
 
     int mid = (start+end)/2;
@@ -99,22 +103,18 @@ void MergeSort(int *array, int start, int end){
     MergeSort(array,mid+1,end);
 
     //merge operation
-    int n1 = mid - start + 2;
-    int n2 = end - mid + 1;
-    int L[n1],R[n2];
-    for (int i = 0; i < n1-1; i++) L[i] = array[start+i];
-    for (int j = 0; j < n2-1; j++) R[j] = array[mid+1+j];
-    L[n1-1] =  INT_MAX;
-    R[n2-1] = INT_MAX;
+    int left_array[mid+1-start];
+    std::copy(&array[start], &array[mid+1], left_array);
 
-    for (int k = start,i=0,j=0; k <= end; k++){
-        if (L[i] <= R[j]){
-            array[k] = L[i];
-            i++;
-        } else {
-            array[k] = R[j];
-            j++;
-        }
+    int i=0,j=mid+1,k=start;
+    while (i+start<=mid && j <= end){
+        array[k++]= (left_array[i] < array[j]) ? left_array[i++] : array[j++];
+        //->invariant: a[start..k] in final position
+    }
+
+    while (i+start<=mid) {
+        array[k++] = left_array[i++];
+        //->invariant: a[start..k] in final position
     }
 };
 
@@ -122,4 +122,18 @@ void MergeSort(int *array, int start, int end){
 void HeapSort(int *array, int array_size){};
 
 //Performs a quick sort on an array of ints.
-void QuickSort(int *array, int array_size){};
+void QuickSort(int *array, int start, int end){
+    if (start >= end) return;
+
+    //2-way partition
+    int k=0;
+    for (int i=1; i <= end; i++){
+        if (array[i] < array[1])
+            swap(array, ++k, i);
+    }
+    swap(array, start, k);
+    //->invariant: array[start..k-1] < array[k] <= array[k+1..end]
+
+    QuickSort(array, start, k-1);
+    QuickSort(array, k+1, end);
+};
