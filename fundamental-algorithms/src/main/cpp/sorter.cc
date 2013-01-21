@@ -121,6 +121,8 @@ void MergeSort(int array[], int start, int end){
 //Performs a quick sort on an array of ints.
 void QuickSort(int array[], int start, int end){
     if (start >= end) return;
+    //randomized pivot
+    swap(array, start, start+(std::rand()%(end-start)));
 
     //2-way partition
     int k=start;
@@ -138,6 +140,8 @@ void QuickSort(int array[], int start, int end){
 //Performs a quick sort on an array of ints.
 void QuickSort3(int array[], int start, int end){
     if (start >= end) return;
+    //randomized pivot
+    swap(array, end, start+(std::rand()%(end-start)));
 
     //3-way partition
     int i=start, k=start, p=end;
