@@ -28,7 +28,7 @@ void swap(int array[], int i, int j){
 }
 
 //Performs a bubble sort on an array of ints.
-void BubbleSort(int *array, int array_size){
+void BubbleSort(int array[], int array_size){
     for (int i = 0; i<array_size; i++){
         bool swapped = false;
         for (int j = array_size; j>i; j--){
@@ -43,7 +43,7 @@ void BubbleSort(int *array, int array_size){
 }
 
 //Performs an insertion sort on an array of ints.
-void InsertionSort(int *array, int array_size){
+void InsertionSort(int array[], int array_size){
     for (int i = 1; i < array_size; i++){
         int key = array[i];
         int j = i-1;
@@ -57,7 +57,7 @@ void InsertionSort(int *array, int array_size){
 }
 
 //Performs a shell sort on an array of ints.
-void ShellSort(int *array, int array_size){
+void ShellSort(int array[], int array_size){
     int h = 1;
     while (h < array_size) h = 3*h + 1;
     while (h > 0){
@@ -79,7 +79,7 @@ void ShellSort(int *array, int array_size){
 }
 
 //Performs a selection sort on an array of ints.
-void SelectionSort(int *array, int array_size){
+void SelectionSort(int array[], int array_size){
     for (int i = 0; i < array_size; i++){
         int iMin = i;
 
@@ -95,7 +95,7 @@ void SelectionSort(int *array, int array_size){
 }
 
 //Performs a merge sort on an array of ints.
-void MergeSort(int *array, int start, int end){
+void MergeSort(int array[], int start, int end){
     if (start >= end) return;
 
     int mid = (start+end)/2;
@@ -119,7 +119,7 @@ void MergeSort(int *array, int start, int end){
 }
 
 //Performs a quick sort on an array of ints.
-void QuickSort(int *array, int start, int end){
+void QuickSort(int array[], int start, int end){
     if (start >= end) return;
 
     //2-way partition
@@ -136,7 +136,7 @@ void QuickSort(int *array, int start, int end){
 }
 
 //Performs a quick sort on an array of ints.
-void QuickSort3(int *array, int start, int end){
+void QuickSort3(int array[], int start, int end){
     if (start >= end) return;
 
     //3-way partition
@@ -168,7 +168,7 @@ void MaxHeapify(int array[], int array_size, int i){
 }
 
 //Performs a heap sort on an array of ints.
-void HeapSort(int *array, int array_size){
+void HeapSort(int array[], int array_size){
     //Building max-heap
     for (int i = array_size/2; i >= 0; i--)
         MaxHeapify(array, array_size,i);

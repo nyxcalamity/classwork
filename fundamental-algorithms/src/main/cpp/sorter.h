@@ -17,25 +17,25 @@
 //A program that provides fundamental sorting algorithms.
 
 //Performs a bubble sort on an array of ints.
-void BubbleSort(int *array, int array_size);
+void BubbleSort(int array[], int array_size);
 
 //Performs an insertion sort on an array of ints.
-void InsertionSort(int *array, int array_size);
+void InsertionSort(int array[], int array_size);
 
 //Performs a shell sort on an array of ints.
-void ShellSort(int *array, int array_size);
+void ShellSort(int array[], int array_size);
 
 //Performs a selection sort on an array of ints.
-void SelectionSort(int *array, int array_size);
+void SelectionSort(int array[], int array_size);
 
 //Performs a merge sort on an array of ints.
-void MergeSort(int *array, int start, int end);
+void MergeSort(int array[], int start, int end);
 
 //Performs a quick sort on an array of ints.(uses 2-way partitioning)
-void QuickSort(int *array, int start, int end);
+void QuickSort(int array[], int start, int end);
 
 //Performs a quick sort on an array of ints.(uses 3-way partitioning)
-void QuickSort3(int *array, int start, int end);
+void QuickSort3(int array[], int start, int end);
 
 //Performs a heap sort on an array of ints.
-void HeapSort(int *array, int array_size);
+void HeapSort(int array[], int array_size);
