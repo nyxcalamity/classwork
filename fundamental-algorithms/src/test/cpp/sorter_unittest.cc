@@ -17,74 +17,74 @@
 #include "sorter.h"
 #include "gtest/gtest.h"
 
+int array_size = 30;
+
+void FillNonUniqueRandomNumbers(int array[], int max_value){
+    for (int i=0; i<array_size; i++)
+        array[i] = std::rand()%max_value;
+}
+
 //Tests BubbleSort()
-TEST(BubbleSortTest, UniqueRandom){
-    int expected[] = { 1,2,3,4,5,6,7,8,9,10 };
-    int actual[] =   { 9,7,5,3,1,8,6,4,2,10 };
-    BubbleSort(actual, 10);
-    for (int i=0; i<10; i++) ASSERT_EQ(expected[i],actual[i]);
+TEST(BubbleSortTest, NonUniqueRandom){
+    int a[array_size];
+    FillNonUniqueRandomNumbers(a, INT_MAX);
+    BubbleSort(a, array_size);
+    for (int i=1; i<array_size; i++) ASSERT_TRUE(a[i-1] <= a[i]);
 }
 
 //Tests InsertionSort()
-TEST(InsertionSort, UniqueRandom){
-    int expected[] = { 1,2,3,4,5,6,7,8,9,10 };
-    int actual[] =   { 9,7,5,3,1,8,6,4,2,10 };
-    InsertionSort(actual, 10);
-    for (int i=0; i<10; i++) ASSERT_EQ(expected[i],actual[i]);
+TEST(InsertionSort, NonUniqueRandom){
+    int a[array_size];
+    FillNonUniqueRandomNumbers(a, INT_MAX);
+    InsertionSort(a, array_size);
+    for (int i=1; i<array_size; i++) ASSERT_TRUE(a[i-1] <= a[i]);
 }
 
 //Tests ShellSort()
-TEST(ShellSort, UniqueRandom){
-    int expected[] = { 1,2,3,4,5,6,7,8,9,10 };
-    int actual[] =   { 9,7,5,3,1,8,6,4,2,10 };
-    ShellSort(actual, 10);
-    for (int i=0; i<10; i++) ASSERT_EQ(expected[i],actual[i]);
+TEST(ShellSort, NonUniqueRandom){
+    int a[array_size];
+    FillNonUniqueRandomNumbers(a, INT_MAX);
+    ShellSort(a, array_size);
+    for (int i=1; i<array_size; i++) ASSERT_TRUE(a[i-1] <= a[i]);
 }
 
 //Tests SelectionSort()
-TEST(SelectionSort, UniqueRandom){
-    int expected[] = { 1,2,3,4,5,6,7,8,9,10 };
-    int actual[] =   { 9,7,5,3,1,8,6,4,2,10 };
-    SelectionSort(actual, 10);
-    for (int i=0; i<10; i++) ASSERT_EQ(expected[i],actual[i]);
+TEST(SelectionSort, NonUniqueRandom){
+    int a[array_size];
+    FillNonUniqueRandomNumbers(a, INT_MAX);
+    SelectionSort(a, array_size);
+    for (int i=1; i<array_size; i++) ASSERT_TRUE(a[i-1] <= a[i]);
 }
 
 //Tests MergeSort()
-TEST(MergeSort, UniqueRandom){
-    int expected[] = { 1,2,3,4,5,6,7,8,9,10 };
-    int actual[] =   { 9,7,5,3,1,8,6,4,2,10 };
-    MergeSort(actual, 0, 9);
-    for (int i=0; i<10; i++) ASSERT_EQ(expected[i],actual[i]);
+TEST(MergeSort, NonUniqueRandom){
+    int a[array_size];
+    FillNonUniqueRandomNumbers(a, INT_MAX);
+    MergeSort(a, 0, array_size-1);
+    for (int i=1; i<array_size; i++) ASSERT_TRUE(a[i-1] <= a[i]);
 }
 
 //Tests QuickSort()
-TEST(QuickSort, UniqueRandom){
-    int expected[] = { 1,2,3,4,5,6,7,8,9,10 };
-    int actual[] =   { 9,7,5,3,1,8,6,4,2,10 };
-    QuickSort(actual, 0, 9);
-    for (int i=0; i<10; i++) ASSERT_EQ(expected[i],actual[i]);
-}
-
-//Tests QuickSort3()
-TEST(QuickSort3, UniqueRandom){
-    int expected[] = { 1,2,3,4,5,6,7,8,9,10 };
-    int actual[] =   { 9,7,5,3,1,8,6,4,2,10 };
-    QuickSort3(actual, 0, 9);
-    for (int i=0; i<10; i++) ASSERT_EQ(expected[i],actual[i]);
+TEST(QuickSort, NonUniqueRandom){
+    int a[array_size];
+    FillNonUniqueRandomNumbers(a, INT_MAX);
+    QuickSort(a, 0, array_size-1);
+    for (int i=1; i<array_size; i++) ASSERT_TRUE(a[i-1] <= a[i]);
 }
 
 //Tests QuickSort3()
 TEST(QuickSort3, NonUniqueRandom){
-    int expected[] = { 1,2,2,3,4,5,5,5,6,7,8,8,9,10,10 };
-    int actual[] =   { 10,9,5,7,8,2,5,3,1,8,6,4,2,10,5 };
-    QuickSort3(actual, 0, 14);
-    for (int i=0; i<10; i++) ASSERT_EQ(expected[i],actual[i]);
+    int a[array_size];
+    FillNonUniqueRandomNumbers(a, INT_MAX);
+    QuickSort3(a, 0, array_size-1);
+    for (int i=1; i<array_size; i++) ASSERT_TRUE(a[i-1] <= a[i]);
 }
 
 //Tests HeapSort()
-TEST(HeapSort, UniqueRandom){
-    int expected[] = { 1,2,3,4,5,6,7,8,9,10 };
-    int actual[] =   { 9,7,5,3,1,8,6,4,2,10 };
-    HeapSort(actual, 10);
-    for (int i=0; i<10; i++) ASSERT_EQ(expected[i],actual[i]);
+TEST(HeapSort, NonUniqueRandom){
+    int a[array_size];
+    FillNonUniqueRandomNumbers(a, INT_MAX);
+    HeapSort(a, array_size);
+    for (int i=1; i<array_size; i++)
+        ASSERT_TRUE(a[i-1] <= a[i]) << a[i-1] << " is bigger than " << a[i];
 }

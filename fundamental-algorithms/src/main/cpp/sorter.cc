@@ -14,8 +14,6 @@
    limitations under the License.
 */
 
-#include <algorithm>
-#include <climits>
 #include "sorter.h"
 
 //swaps two elements of an array
@@ -175,11 +173,11 @@ void MaxHeapify(int array[], int array_size, int i){
 void HeapSort(int array[], int array_size){
     //Building max-heap
     for (int i = array_size/2; i >= 0; i--)
-        MaxHeapify(array, array_size,i);
+        MaxHeapify(array, array_size, i);
         //->invariant: i..array_size is a root of trivial max-heap (at the start, those are leafs)
 
     for (int i = array_size-1; i > 0; ){
         swap(array, 0, i);
-        MaxHeapify(array, --i, 0);
+        MaxHeapify(array, i--, 0);
     }
 }
