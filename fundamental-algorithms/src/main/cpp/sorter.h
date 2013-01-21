@@ -31,8 +31,11 @@ void SelectionSort(int *array, int array_size);
 //Performs a merge sort on an array of ints.
 void MergeSort(int *array, int start, int end);
 
-//Performs a quick sort on an array of ints.
+//Performs a quick sort on an array of ints.(uses 2-way partitioning)
 void QuickSort(int *array, int start, int end);
+
+//Performs a quick sort on an array of ints.(uses 3-way partitioning)
+void QuickSort3(int *array, int start, int end);
 
 //Performs a heap sort on an array of ints.
 void HeapSort(int *array, int array_size);

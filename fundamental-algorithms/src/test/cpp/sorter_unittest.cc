@@ -18,7 +18,7 @@
 #include "gtest/gtest.h"
 
 //Tests BubbleSort()
-TEST(BubbleSortTest, Random){
+TEST(BubbleSortTest, UniqueRandom){
     int expected[] = { 1,2,3,4,5,6,7,8,9,10 };
     int actual[] =   { 9,7,5,3,1,8,6,4,2,10 };
     BubbleSort(actual, 10);
@@ -26,7 +26,7 @@ TEST(BubbleSortTest, Random){
 }
 
 //Tests InsertionSort()
-TEST(InsertionSort, Random){
+TEST(InsertionSort, UniqueRandom){
     int expected[] = { 1,2,3,4,5,6,7,8,9,10 };
     int actual[] =   { 9,7,5,3,1,8,6,4,2,10 };
     InsertionSort(actual, 10);
@@ -34,7 +34,7 @@ TEST(InsertionSort, Random){
 }
 
 //Tests ShellSort()
-TEST(ShellSort, Random){
+TEST(ShellSort, UniqueRandom){
     int expected[] = { 1,2,3,4,5,6,7,8,9,10 };
     int actual[] =   { 9,7,5,3,1,8,6,4,2,10 };
     ShellSort(actual, 10);
@@ -42,7 +42,7 @@ TEST(ShellSort, Random){
 }
 
 //Tests SelectionSort()
-TEST(SelectionSort, Random){
+TEST(SelectionSort, UniqueRandom){
     int expected[] = { 1,2,3,4,5,6,7,8,9,10 };
     int actual[] =   { 9,7,5,3,1,8,6,4,2,10 };
     SelectionSort(actual, 10);
@@ -50,7 +50,7 @@ TEST(SelectionSort, Random){
 }
 
 //Tests MergeSort()
-TEST(MergeSort, Random){
+TEST(MergeSort, UniqueRandom){
     int expected[] = { 1,2,3,4,5,6,7,8,9,10 };
     int actual[] =   { 9,7,5,3,1,8,6,4,2,10 };
     MergeSort(actual, 0, 9);
@@ -58,15 +58,31 @@ TEST(MergeSort, Random){
 }
 
 //Tests QuickSort()
-TEST(QuickSort, Random){
+TEST(QuickSort, UniqueRandom){
     int expected[] = { 1,2,3,4,5,6,7,8,9,10 };
     int actual[] =   { 9,7,5,3,1,8,6,4,2,10 };
     QuickSort(actual, 0, 9);
     for (int i=0; i<10; i++) ASSERT_EQ(expected[i],actual[i]);
 }
 
+//Tests QuickSort3()
+TEST(QuickSort3, UniqueRandom){
+    int expected[] = { 1,2,3,4,5,6,7,8,9,10 };
+    int actual[] =   { 9,7,5,3,1,8,6,4,2,10 };
+    QuickSort3(actual, 0, 9);
+    for (int i=0; i<10; i++) ASSERT_EQ(expected[i],actual[i]);
+}
+
+//Tests QuickSort3()
+TEST(QuickSort3, NonUniqueRandom){
+    int expected[] = { 1,2,2,3,4,5,5,5,6,7,8,8,9,10,10 };
+    int actual[] =   { 10,9,5,7,8,2,5,3,1,8,6,4,2,10,5 };
+    QuickSort3(actual, 0, 14);
+    for (int i=0; i<10; i++) ASSERT_EQ(expected[i],actual[i]);
+}
+
 //Tests HeapSort()
-TEST(HeapSort, Random){
+TEST(HeapSort, UniqueRandom){
     int expected[] = { 1,2,3,4,5,6,7,8,9,10 };
     int actual[] =   { 9,7,5,3,1,8,6,4,2,10 };
     HeapSort(actual, 10);

@@ -40,7 +40,7 @@ void BubbleSort(int *array, int array_size){
         //-> invariant: array[0..i] is sorted and elements are in final position
         if (!swapped) break;
     }
-};
+}
 
 //Performs an insertion sort on an array of ints.
 void InsertionSort(int *array, int array_size){
@@ -54,7 +54,7 @@ void InsertionSort(int *array, int array_size){
         array[j+1] = key;
         //-> invariant: array[0..i] is sorted
     }
-};
+}
 
 //Performs a shell sort on an array of ints.
 void ShellSort(int *array, int array_size){
@@ -76,7 +76,7 @@ void ShellSort(int *array, int array_size){
         }
         //->invariant: each h-sub-array is sorted
     }
-};
+}
 
 //Performs a selection sort on an array of ints.
 void SelectionSort(int *array, int array_size){
@@ -92,7 +92,7 @@ void SelectionSort(int *array, int array_size){
         }
         //->invariant: array[0...i] is sorted
     }
-};
+}
 
 //Performs a merge sort on an array of ints.
 void MergeSort(int *array, int start, int end){
@@ -116,16 +116,16 @@ void MergeSort(int *array, int start, int end){
         array[k++] = left_array[i++];
         //->invariant: a[start..k] in final position
     }
-};
+}
 
 //Performs a quick sort on an array of ints.
 void QuickSort(int *array, int start, int end){
     if (start >= end) return;
 
     //2-way partition
-    int k=0;
-    for (int i=1; i <= end; i++){
-        if (array[i] < array[1])
+    int k=start;
+    for (int i=start+1; i <= end; i++){
+        if (array[i] < array[start])
             swap(array, ++k, i);
     }
     swap(array, start, k);
@@ -133,15 +133,33 @@ void QuickSort(int *array, int start, int end){
 
     QuickSort(array, start, k-1);
     QuickSort(array, k+1, end);
-};
+}
+
+//Performs a quick sort on an array of ints.
+void QuickSort3(int *array, int start, int end){
+    if (start >= end) return;
+
+    //3-way partition
+    int i=start, k=start, p=end;
+    while (i < p) {
+        if (array[i] < array[end]) swap(array, i++, k++);
+        else if (array[i] > array[end]) swap(array, i, --p);
+        else i++;
+    }
+    swap(array, p, end);
+    //->invariant: array[start..k-1] < array[k..p-1] < array[p..end];
+
+    QuickSort3(array, start, k-1);
+    QuickSort3(array, p+1, end);
+}
 
 //Let's array[i] “float down” in the max-heap so that the subtree rooted at index i obeys the max-heap property.
 void MaxHeapify(int array[], int array_size, int i){
-    int l = 2*i, r = l+1, largest = i;
+    int l = 2*i+1, r = l+1, largest = i;
 
-    if (l <= array_size && array[l] > array[i])
+    if (l < array_size && array[l] > array[i])
         largest = l;
-    if (r <= array_size && array[r] > array[largest])
+    if (r < array_size && array[r] > array[largest])
         largest = r;
     if (largest != i) {
         swap(array, i, largest);
@@ -160,4 +178,4 @@ void HeapSort(int *array, int array_size){
         swap(array, 0, i);
         MaxHeapify(array, --i, 0);
     }
-};
+}
