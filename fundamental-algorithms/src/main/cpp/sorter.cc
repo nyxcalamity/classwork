@@ -135,5 +135,29 @@ void QuickSort(int *array, int start, int end){
     QuickSort(array, k+1, end);
 };
 
+//Let's array[i] “float down” in the max-heap so that the subtree rooted at index i obeys the max-heap property.
+void MaxHeapify(int array[], int array_size, int i){
+    int l = 2*i, r = l+1, largest = i;
+
+    if (l <= array_size && array[l] > array[i])
+        largest = l;
+    if (r <= array_size && array[r] > array[largest])
+        largest = r;
+    if (largest != i) {
+        swap(array, i, largest);
+        MaxHeapify(array, array_size, largest);
+    }
+}
+
 //Performs a heap sort on an array of ints.
-void HeapSort(int *array, int array_size){};
+void HeapSort(int *array, int array_size){
+    //Building max-heap
+    for (int i = array_size/2; i >= 0; i--)
+        MaxHeapify(array, array_size,i);
+        //->invariant: i..array_size is a root of trivial max-heap (at the start, those are leafs)
+
+    for (int i = array_size-1; i > 0; ){
+        swap(array, 0, i);
+        MaxHeapify(array, --i, 0);
+    }
+};
