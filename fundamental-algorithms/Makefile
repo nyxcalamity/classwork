@@ -21,7 +21,7 @@ CPPFLAGS += -I$(GTEST_DIR)/include
 CXXFLAGS += -g -Wall -Wextra
 
 # All tests produced by this Makefile.
-TESTS = sorter_unittest
+TESTS = sorter_unittest search_unittest
 
 # All Google Test headers.
 GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
@@ -52,6 +52,7 @@ GTEST_SRCS_ = $(GTEST_DIR)/src/*.cc $(GTEST_DIR)/src/*.h $(GTEST_HEADERS)
 #gtest_main.a : gtest-all.o gtest_main.o
 #	$(AR) $(ARFLAGS) $(BUILD_DIR)/$@ $(BUILD_DIR)/gtest-all.o $(BUILD_DIR)/gtest_main.o
 #
+#-----------------------------------------------------------------------------------------------------------------------
 # Builds a sorter.
 sorter.o : $(SRC_DIR)/sorter.cc $(SRC_DIR)/sorter.h $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(SRC_DIR)/sorter.cc -o $(BUILD_DIR)/$@
@@ -64,3 +65,17 @@ sorter_unittest : sorter.o sorter_unittest.o
 	-lpthread -o $(BUILD_DIR)/$@
 	rm -f ~/bin/sorter_unittest
 	cp $(BUILD_DIR)/sorter_unittest ~/bin/
+
+#-----------------------------------------------------------------------------------------------------------------------
+# Builds a search.
+search.o : $(SRC_DIR)/search.cc $(SRC_DIR)/search.h $(GTEST_HEADERS)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(SRC_DIR)/search.cc -o $(BUILD_DIR)/$@
+
+search_unittest.o : $(TEST_DIR)/search_unittest.cc $(SRC_DIR)/sorter.h $(SRC_DIR)/search.h $(GTEST_HEADERS)
+	$(CXX) $(CPPFLAGS) -I$(SRC_DIR) $(CXXFLAGS) -c $(TEST_DIR)/search_unittest.cc -o $(BUILD_DIR)/$@
+
+search_unittest : sorter.o search.o search_unittest.o
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $(BUILD_DIR)/sorter.o $(BUILD_DIR)/search.o $(BUILD_DIR)/search_unittest.o ./lib/gtest_main.a \
+	-lpthread -o $(BUILD_DIR)/$@
+	rm -f ~/bin/search_unittest
+	cp $(BUILD_DIR)/search_unittest ~/bin/

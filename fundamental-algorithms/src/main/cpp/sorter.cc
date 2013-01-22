@@ -205,8 +205,9 @@ void RadixSort(int array[], int array_size, int max_value){
         for (int i=0; i < array_size; i++)
             buckets[ (array[i]/exp)%RADIX ].push_back(array[i]);
 
-        for (int i=0,j=0; i < buckets.size() && j < array_size; i++){
-            for (int k = 0; k < buckets[i].size(); k++)
+        int j=0;//making sure no type related warnings arise
+        for (std::vector<int>::size_type i=0; i < buckets.size() && j < array_size; i++){
+            for (std::vector<int>::size_type k = 0; k < buckets[i].size(); k++)
                 array[j++] = buckets[i][k];
             buckets[i].clear();
         }
