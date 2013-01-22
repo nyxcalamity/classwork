@@ -17,7 +17,8 @@
 #include "sorter.h"
 #include "gtest/gtest.h"
 
-int array_size = 30;
+int array_size = 100;
+int max = 300;
 
 void FillNonUniqueRandomNumbers(int array[], int max_value){
     for (int i=0; i<array_size; i++)
@@ -89,11 +90,20 @@ TEST(HeapSort, NonUniqueRandom){
         ASSERT_TRUE(a[i-1] <= a[i]) << a[i-1] << " is bigger than " << a[i];
 }
 
-//Tests HeapSort()
+//Tests CountingSort()
 TEST(CountingSort, NonUniqueRandom){
     int a[array_size];
-    FillNonUniqueRandomNumbers(a, 200);
-    CountingSort(a, array_size, 200);
+    FillNonUniqueRandomNumbers(a, max);
+    CountingSort(a, array_size, max);
+    for (int i=1; i<array_size; i++)
+        ASSERT_TRUE(a[i-1] <= a[i]) << a[i-1] << " is bigger than " << a[i];
+}
+
+//Tests RadixSort()
+TEST(RadixSort, NonUniqueRandom){
+    int a[array_size];
+    FillNonUniqueRandomNumbers(a, max);
+    RadixSort(a, array_size, max);
     for (int i=1; i<array_size; i++)
         ASSERT_TRUE(a[i-1] <= a[i]) << a[i-1] << " is bigger than " << a[i];
 }

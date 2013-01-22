@@ -15,6 +15,7 @@
 */
 #include <algorithm>
 #include <climits>
+#include <vector>
 
 //A program that provides fundamental sorting algorithms.
 
@@ -44,3 +45,6 @@ void HeapSort(int array[], int array_size);
 
 //Performs a counting sort on an array of ints.
 void CountingSort(int array[], int array_size, int max_value);
+
+//Performs a radix sort on an array of ints.
+void RadixSort(int array[], int array_size, int max_value);

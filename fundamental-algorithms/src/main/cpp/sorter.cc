@@ -194,3 +194,21 @@ void CountingSort(int array[], int array_size, int max_value){
 
     delete[] b;
 }
+
+//Performs a radix sort on an array of ints.
+void RadixSort(int array[], int array_size, int max_value){
+    //init buckets
+    const int RADIX = 10; int exp = 1;
+    std::vector< std::vector<int> > buckets(RADIX);
+
+    for (;max_value != 0; max_value/=RADIX, exp *= RADIX){
+        for (int i=0; i < array_size; i++)
+            buckets[ (array[i]/exp)%RADIX ].push_back(array[i]);
+
+        for (int i=0,j=0; i < buckets.size() && j < array_size; i++){
+            for (int k = 0; k < buckets[i].size(); k++)
+                array[j++] = buckets[i][k];
+            buckets[i].clear();
+        }
+    }
+}
