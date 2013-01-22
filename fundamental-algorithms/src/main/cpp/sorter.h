@@ -41,3 +41,6 @@ void QuickSort3(int array[], int start, int end);
 
 //Performs a heap sort on an array of ints.
 void HeapSort(int array[], int array_size);
+
+//Performs a counting sort on an array of ints.
+void CountingSort(int array[], int array_size, int max_value);

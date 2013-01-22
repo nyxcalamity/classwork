@@ -88,3 +88,12 @@ TEST(HeapSort, NonUniqueRandom){
     for (int i=1; i<array_size; i++)
         ASSERT_TRUE(a[i-1] <= a[i]) << a[i-1] << " is bigger than " << a[i];
 }
+
+//Tests HeapSort()
+TEST(CountingSort, NonUniqueRandom){
+    int a[array_size];
+    FillNonUniqueRandomNumbers(a, 200);
+    CountingSort(a, array_size, 200);
+    for (int i=1; i<array_size; i++)
+        ASSERT_TRUE(a[i-1] <= a[i]) << a[i-1] << " is bigger than " << a[i];
+}

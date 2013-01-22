@@ -181,3 +181,16 @@ void HeapSort(int array[], int array_size){
         MaxHeapify(array, i--, 0);
     }
 }
+
+//Performs a counting sort on an array of ints. (max_value must be constant)
+void CountingSort(int array[], int array_size, int max_value){
+    int *b = new int[max_value]();
+    for (int i=0; i<array_size; i++)
+        b[array[i]]++;
+
+    for (int i=0,j=0; i < max_value && j < array_size; i++)
+        for (int k = 0; k < b[i]; k++)
+            array[j++] = i;
+
+    delete[] b;
+}
