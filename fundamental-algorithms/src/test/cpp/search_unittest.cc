@@ -42,8 +42,8 @@ TEST(BinarySearch, NonUniqueRandomSorted){
     int expected_key = std::rand()%_size;
 
     int actual_key = BinarySearch(v, v[expected_key]);
-    ASSERT_EQ(v[expected_key], v[actual_key]) \
-            << "Searched key(" << expected_key << ") didn't match returned key(" << actual_key <<")";
+    ASSERT_EQ(v[expected_key], v[actual_key])
+        << "Searched key(" << expected_key << ") didn't match returned key(" << actual_key <<")";
 
     actual_key = BinarySearch(v, INT_MAX);
     ASSERT_EQ(-1, actual_key)
