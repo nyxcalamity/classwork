@@ -21,8 +21,8 @@
 // Represents a node of a binary tree with int values.
 class BNode {
     private:
-        BNode left_node;
-        BNode right_node;
+        BNode *left;
+        BNode *right;
         int height;
         int value;
     public:

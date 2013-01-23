@@ -18,12 +18,20 @@
 
 //Inserts a new value in the tree and rebalances the tree if necessary.
 BNode BNode::avl_insert(int value){
-
+    return NULL;
 }
 
 //Looks for a provided value in the tree.
 BNode BNode::search(int value){
-    if (this.value == value) return this;
-    if (this.value > value) return this.left.search(value);
-    if (this.value < value) return this
+    BNode *p = &this;
+
+    while (p) {
+        if (p->value == value) return p;
+        if (p->value > value)
+            p = p->left;
+        else
+            p = p->right;
+    }
+
+    return NULL;
 }
