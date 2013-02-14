@@ -14,23 +14,10 @@
    limitations under the License.
 */
 
+#include <algorithm>
 #include <vector>
 
-//Provides various structures (currently limited to trees).
-
-// Represents a node of a binary tree with int values.
-class BNode {
-    private:
-        BNode *left;
-        BNode *right;
-        int height;
-        int value;
-    public:
-        BNode(){}
-        ~BNode(){}
-
-        //Inserts a new value in the tree and rebalances the tree if necessary.
-        BNode avl_insert(int value);
-        //Looks for a provided value in the tree.
-        BNode search(int value);
-}
+// A program that provides fundamental search algorithms.
+//TODO:incorporate this into BTree or AVLTree or both
+// Performs a binary search over the provided vector. Returns -1 if value not found.
+int BinarySearch(std::vector<int> a, int value);
