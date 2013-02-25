@@ -14,6 +14,8 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 """
+import random
+
 __author__ = "Denys Sobchyshak"
 __email__ = "denys.sobchyshak@gmail.com"
 
@@ -21,7 +23,7 @@ class Sorter:
     """
         Provides implementation of basic sorting algorithms.
     """
-
+    #TODO:implement most popular sorting algos
     def __init__(self):
         pass
 
@@ -46,25 +48,21 @@ class Sorter:
 
     @staticmethod
     def quick_sort(list2sort):
+        """
+        Pseudo inplace quick sort randomized 2-way partition implementation.
+        """
         if len(list2sort) <= 1:
             return list2sort
 
-        pivot_idx = len(list2sort)/2
-        pivot = list2sort[pivot_idx]
-        list2sort.remove(pivot)
-        right_part = []
-        left_part = []
-        for i in list2sort:
-            if i <= pivot : left_part.append(i)
-            else : right_part.append(i)
+        pivot_idx = random.randint(0, len(list2sort)-1)
+        list2sort[0], list2sort[pivot_idx] = list2sort[pivot_idx], list2sort[0]
 
-        result = Sorter.quick_sort(left_part)
-        result.append(pivot)
-        result.extend(Sorter.quick_sort(right_part))
+        i = 1; k = 1
+        while i < len(list2sort) and k < len(list2sort):
+            if list2sort[0] > list2sort[i]:
+                list2sort[k], list2sort[i] = list2sort[i], list2sort[k]
+                k+=1
+            i+=1
+        list2sort[0], list2sort[k-1] = list2sort[k-1], list2sort[0]
 
-        return result
-
-    @staticmethod
-    def heap_sort(list2sort):
-        pass
-
+        return Sorter.quick_sort(list2sort[:k]) + Sorter.quick_sort(list2sort[k:])
