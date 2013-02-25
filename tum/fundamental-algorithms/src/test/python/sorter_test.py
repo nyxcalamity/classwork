@@ -17,7 +17,7 @@
 __author__ = "Denys Sobchyshak"
 __email__ = "denys.sobchyshak@gmail.com"
 
-import Sorter as math
+import sorter
 
 import random
 import unittest
@@ -34,13 +34,13 @@ class SorterTestCase(unittest.TestCase):
         self.sorted_sequence = []
 
     def test_bubble_sort(self):
-        self.assertEquals(self.sorted_sequence, math.Sorter.bubble_sort(self.unsorted_sequence))
+        self.assertEquals(self.sorted_sequence, sorter.Sorter.bubble_sort(self.unsorted_sequence))
 
     def test_insertion_sort(self):
-        self.assertEquals(self.sorted_sequence, math.Sorter.insertion_sort(self.unsorted_sequence))
+        self.assertEquals(self.sorted_sequence, sorter.Sorter.insertion_sort(self.unsorted_sequence))
 
     def test_quick_sort(self):
-        self.assertEquals(self.sorted_sequence, math.Sorter.quick_sort(self.unsorted_sequence))
+        self.assertEquals(self.sorted_sequence, sorter.Sorter.quick_sort(self.unsorted_sequence))
 
 if __name__ == '__main__':
     unittest.main()
