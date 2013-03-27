@@ -31,4 +31,10 @@ def regressionLine(data):
 #    TODO: implement regression line calculator algorithm
     return (0,0)
 
+def determinationCoefficient():
+    """
+    Calculates the r^2 or the coefficient of determination.uj
+    """
+    pass
+
 if  __name__ == '__main__':main()

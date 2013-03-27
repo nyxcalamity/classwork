@@ -45,9 +45,9 @@ def arithmeticMean(data):
 
 def variance(data, isPopulation=False):
     avg = arithmeticMean(data)
-    s = 0.0
+    se = 0.0
     for i in data:
-        s += (i-avg)**2
-    return s / (len(data) if isPopulation else len(data)-1)
+        se += (i-avg)**2
+    return se / (len(data) if isPopulation else len(data)-1)
 
 if  __name__ == '__main__':main()
