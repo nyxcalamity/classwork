@@ -67,8 +67,8 @@ def optimizePortfolio():
     allocations = [0.4, 0.4, 0.0, 0.2]
     optimalPortfolio = (allocations,0,0,0,0) #tuple of max sharpe ratio and allocations
     for i in range(11):
+        print str(i)+'0% done'
         for j in range(11):
-            print str(i)+str(j)+'% done'
             for k in range(11):
                 for m in range(11):
                     if i+j+k+m <= 10:
@@ -83,7 +83,7 @@ def optimizePortfolio():
 def assesPerformance(start_date, end_date, symbols, allocations):
     if len(symbols) != len(allocations):
         return None
-    if sum(allocations) > 1:
+    if round(sum(allocations)) > 1: #rounding due to floating-point arithmetics approximation errors
         return None
 
     #Arranging timestamps
@@ -92,7 +92,7 @@ def assesPerformance(start_date, end_date, symbols, allocations):
 
     #Loading data from Yahoo
     keys_to_load = ['open', 'high', 'low', 'close', 'volume', 'actual_close']
-    yahoo_data_source = da.DataAccess('Yahoo', cachestalltime=0)
+    yahoo_data_source = da.DataAccess('Yahoo')
     yahoo_data = yahoo_data_source.get_data(days_from_nyse, symbols, keys_to_load)
     data = dict(zip(keys_to_load, yahoo_data))
 
