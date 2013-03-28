@@ -24,23 +24,67 @@ import QSTK.qstkutil.DataAccess as da
 
 # Third Party Imports
 import datetime as dt
-import matplotlib.pyplot as plt
-import pandas as pd
 import numpy as np
 
 
 def main():
-    sd,avg_dreturns = assesPerformance(dt.datetime(2011,1,1), dt.datetime(2011,12,31), ['AAPL', 'GLD', 'GOOG', 'XOM'], [0.4, 0.4, 0.0, 0.2])
-    print 'Standard deviation: ' + str(sd)
-    print 'Average daily returns: ' + str(avg_dreturns)
+#    testExamples()
+    optimizePortfolio()
 
-def assesPerformance(start_date, end_date, symbols, allocation):
-    if len(symbols) != len(allocation):
-        return None, None
-    if sum(allocation) != 1:
-        return None, None
+def testExamples():
+    #First example
+    start_date = dt.datetime(2011,1,1)
+    end_date = dt.datetime(2011,12,31)
+    symbols = ['AAPL', 'GLD', 'GOOG', 'XOM']
+    allocations = [0.4, 0.4, 0.0, 0.2]
+    avg_daily_rets, cum_rets, volatility, sharpe = assesPerformance(start_date, end_date, symbols, allocations)
+    displayResults(start_date,end_date,symbols,allocations,sharpe,volatility,avg_daily_rets,cum_rets)
 
-    n_symbols = len(symbols)
+    #Second example
+    start_date = dt.datetime(2010,1,1)
+    end_date = dt.datetime(2010,12,31)
+    symbols = ['AXP', 'HPQ', 'IBM', 'HNZ']
+    allocations = [0.0, 0.0, 0.0, 1.0]
+    avg_daily_rets, cum_rets, volatility, sharpe = assesPerformance(start_date, end_date, symbols, allocations)
+    displayResults(start_date,end_date,symbols,allocations,sharpe,volatility,avg_daily_rets,cum_rets)
+
+def displayResults(start_date,end_date,symbols,allocations,sharpe,volatility,avg_daily_rets,cum_rets):
+    print 'Start Date: ' + start_date.strftime("%B %d, %Y")
+    print 'End Date: ' + end_date.strftime("%B %d, %Y")
+    print 'Symbols: ' + str(symbols)
+    print 'Optimal Allocations: ' + str(allocations)
+    print 'Sharpe Ratio: ' + str(sharpe)
+    print 'Volatility (standard deviation of daily returns): ' + str(volatility)
+    print 'Average Daily Return: ' + str(avg_daily_rets)
+    print 'Cumulative Return: ' + str(cum_rets)
+    print '\n\n'
+
+def optimizePortfolio():
+    #We'll use data from first example
+    start_date = dt.datetime(2011,1,1)
+    end_date = dt.datetime(2011,12,31)
+    symbols = ['AAPL', 'GLD', 'GOOG', 'XOM']
+    allocations = [0.4, 0.4, 0.0, 0.2]
+    optimalPortfolio = (allocations,0,0,0,0) #tuple of max sharpe ratio and allocations
+    for i in range(11):
+        for j in range(11):
+            print str(i)+str(j)+'% done'
+            for k in range(11):
+                for m in range(11):
+                    if i+j+k+m <= 10:
+                        allocations=np.array([i,j,k,m])/10.0
+                        avg_daily_rets, cum_rets, volatility, sharpe = assesPerformance(start_date, end_date, symbols, allocations)
+                        if sharpe > optimalPortfolio[-1]:
+                            optimalPortfolio = (allocations, avg_daily_rets, cum_rets, volatility, sharpe)
+    print 'Optimal portfolio would be: '
+    displayResults(start_date,end_date,symbols,optimalPortfolio[0],optimalPortfolio[-1], optimalPortfolio[-2], optimalPortfolio[1], optimalPortfolio[2])
+
+
+def assesPerformance(start_date, end_date, symbols, allocations):
+    if len(symbols) != len(allocations):
+        return None
+    if sum(allocations) > 1:
+        return None
 
     #Arranging timestamps
     time_of_day = dt.timedelta(hours=16)
@@ -48,30 +92,35 @@ def assesPerformance(start_date, end_date, symbols, allocation):
 
     #Loading data from Yahoo
     keys_to_load = ['open', 'high', 'low', 'close', 'volume', 'actual_close']
-    yahoo_data_source = da.DataAccess('Yahoo')
+    yahoo_data_source = da.DataAccess('Yahoo', cachestalltime=0)
     yahoo_data = yahoo_data_source.get_data(days_from_nyse, symbols, keys_to_load)
     data = dict(zip(keys_to_load, yahoo_data))
 
     close_price = data['close'].values
-    n_entries = close_price.size
+    n_entries = close_price.shape[0]
 
-    #Computing standard deviation
-    avg = np.arange(n_symbols)
-    avg[:] = sum(close_price[:,:])/close_price.shape[0]
-    std_dev = np.ones(n_symbols)
-    std_dev[:] = np.sqrt(sum((close_price[:,:]-avg[:])**2)/n_entries)
+    #calculating portfolio close values
+    tmp = close_price/close_price[0]
+    tmp = tmp*allocations
+    portf_close_price = np.zeros(n_entries)
+    for i in range(n_entries):
+        portf_close_price[i] = sum(tmp[i])
 
     #Computing daily returns
-    daily_returns = close_price.copy()
-    daily_returns[1:,:] = (daily_returns[1:,:]/daily_returns[0:-1]) - 1
-    daily_returns[0] = np.zeros(daily_returns.shape[1])
+    daily_returns = portf_close_price.copy()
+    tsu.returnize0(daily_returns) #computes daily returns
+    daily_returns_avg = sum(daily_returns)/n_entries
 
-    #Computing average daily returns
-    avg_daily_returns = np.zeros(n_symbols)
-    avg_daily_returns[:] = sum(daily_returns[:])/daily_returns.shape[0]
+    #Computing cumulative return
+    cumulative_return = portf_close_price[-1]/portf_close_price[0]
 
-    return std_dev, avg_daily_returns
+    #Computing volatility (standard deviation)
+    volatility = np.sqrt(sum((daily_returns[:]-daily_returns_avg)**2)/n_entries)
 
+    #Computing sharpe ratio
+    sharpe_ratio = np.sqrt(252)*daily_returns_avg/volatility
+
+    return daily_returns_avg, cumulative_return, volatility, sharpe_ratio
 
 if __name__ == '__main__':
     main()
