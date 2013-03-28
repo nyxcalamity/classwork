@@ -26,11 +26,10 @@ import QSTK.qstkutil.DataAccess as da
 import datetime as dt
 import numpy as np
 
-
 def main():
     quizQuestion1()
     quizQuestion2()
-#    testExamples() #were checked to give correct results
+#    testExamples()
 
 def quizQuestion1():
     start_date = dt.datetime(2010,1,1)
@@ -51,7 +50,6 @@ def quizQuestion2():
     print '\nOptimal portfolio would be: '
     displayResults(start_date,end_date,symbols,optimal_portfolio[0],optimal_portfolio[-1], optimal_portfolio[-2],\
         optimal_portfolio[1], optimal_portfolio[2])
-
 
 def testExamples():
     #First example
@@ -115,7 +113,6 @@ def optimizePortfolio(start_date, end_date, symbols):
                             optimal_portfolio = (allocations, daily_rets_avg, cum_rets, volatility, sharpe_ratio)
     return optimal_portfolio
 
-
 def assesPerformance(start_date, end_date, symbols, allocations):
     if len(symbols) != len(allocations):
         return None
@@ -157,6 +154,7 @@ def assesPerformance(start_date, end_date, symbols, allocations):
     sharpe_ratio = np.sqrt(252)*daily_returns_avg/volatility
 
     return daily_returns_avg, cumulative_return, volatility, sharpe_ratio
+
 
 if __name__ == '__main__':
     main()
