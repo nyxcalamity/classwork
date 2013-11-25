@@ -35,7 +35,7 @@ clean :
 	rm -rf $(BUILD_DIR)/*
 
 init: clean gtest_main.a
-	mkdir $(BUILD_DIR)
+	mkdir -p $(BUILD_DIR)
 
 #-----------------------------------------------------------------------------------------------------------------------
 # Builds gtest.a and gtest_main.a into lib directory. Should be commented out after first successfull build.

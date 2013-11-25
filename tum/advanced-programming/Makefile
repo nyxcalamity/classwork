@@ -1,19 +1,18 @@
 # Builds the project
 BUILD = ./build
-SRC_CPP = ./src/main/cpp
+SRC_CPP = ./src
 
-all: clean ws1 ws2
-	mkdir -p ~/bin/
+all: init clean ha1 ha2
 	cp $(BUILD)/* ~/bin/
 
-ws1:
+ha1:
 	 g++ -Wall $(SRC_CPP)/average_calculator.cpp -o $(BUILD)/average_calculator
 
-ws2:
+ha2:
 	 g++ -Wall -Wextra $(SRC_CPP)/simple_calculator.cpp -o $(BUILD)/simple_calculator
 
 clean:
-	mkdir -p ${BUILD}
+	rm -rf $(BUILD)/*
 
-distclean:
-	#todo
+init:
+	mkdir -p ${BUILD} ~/bin
