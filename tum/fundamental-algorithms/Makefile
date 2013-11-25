@@ -8,8 +8,9 @@
 GTEST_DIR = ./lib/gtest-1.6.0
 
 # Where to find user code.
-SRC_DIR = ./src/main/cpp
-TEST_DIR = ./src/test/cpp
+SRC_DIR = ./src
+TEST_DIR = ./tests
+LIB_DIR = ./lib
 
 # Where to find build code.
 BUILD_DIR=./build
@@ -33,25 +34,25 @@ all : clean $(TESTS)
 clean :
 	rm -rf $(BUILD_DIR)/*
 
-# Builds gtest.a and gtest_main.a.
+init: clean gtest_main.a
+	mkdir $(BUILD_DIR)
+
+#-----------------------------------------------------------------------------------------------------------------------
+# Builds gtest.a and gtest_main.a into lib directory. Should be commented out after first successfull build.
 GTEST_SRCS_ = $(GTEST_DIR)/src/*.cc $(GTEST_DIR)/src/*.h $(GTEST_HEADERS)
 
-# For simplicity and to avoid depending on Google Test's
-# implementation details, the dependencies specified below are
-# conservative and not optimized.  This is fine as Google Test
-# compiles fast and for ordinary users its source rarely changes.
-#gtest-all.o : $(GTEST_SRCS_)
-#	$(CXX) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c $(GTEST_DIR)/src/gtest-all.cc -o $(BUILD_DIR)/$@
-#
-#gtest_main.o : $(GTEST_SRCS_)
-#	$(CXX) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c $(GTEST_DIR)/src/gtest_main.cc -o $(BUILD_DIR)/$@
-#
-#gtest.a : gtest-all.o
-#	$(AR) $(ARFLAGS) $(BUILD_DIR)/$@ $(BUILD_DIR)/$^
-#
-#gtest_main.a : gtest-all.o gtest_main.o
-#	$(AR) $(ARFLAGS) $(BUILD_DIR)/$@ $(BUILD_DIR)/gtest-all.o $(BUILD_DIR)/gtest_main.o
-#
+gtest-all.o : $(GTEST_SRCS_)
+	$(CXX) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c $(GTEST_DIR)/src/gtest-all.cc -o $(LIB_DIR)/$@
+
+gtest_main.o : $(GTEST_SRCS_)
+	$(CXX) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c $(GTEST_DIR)/src/gtest_main.cc -o $(LIB_DIR)/$@
+
+gtest.a : gtest-all.o
+	$(AR) $(ARFLAGS) $(LIB_DIR)/$@ $(LIB_DIR)/$^
+
+gtest_main.a : gtest-all.o gtest_main.o
+	$(AR) $(ARFLAGS) $(LIB_DIR)/$@ $(LIB_DIR)/gtest-all.o $(LIB_DIR)/gtest_main.o
+
 #-----------------------------------------------------------------------------------------------------------------------
 # Builds a sorter.
 sorter.o : $(SRC_DIR)/sorter.cc $(SRC_DIR)/sorter.h $(GTEST_HEADERS)
@@ -61,7 +62,7 @@ sorter_unittest.o : $(TEST_DIR)/sorter_unittest.cc $(SRC_DIR)/sorter.h $(GTEST_H
 	$(CXX) $(CPPFLAGS) -I$(SRC_DIR) $(CXXFLAGS) -c $(TEST_DIR)/sorter_unittest.cc -o $(BUILD_DIR)/$@
 
 sorter_unittest : sorter.o sorter_unittest.o
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $(BUILD_DIR)/sorter.o $(BUILD_DIR)/sorter_unittest.o ./lib/gtest_main.a \
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $(BUILD_DIR)/sorter.o $(BUILD_DIR)/sorter_unittest.o $(LIB_DIR)/gtest_main.a \
 	-lpthread -o $(BUILD_DIR)/$@
 	rm -f ~/bin/sorter_unittest
 	cp $(BUILD_DIR)/sorter_unittest ~/bin/
@@ -75,7 +76,7 @@ search_unittest.o : $(TEST_DIR)/search_unittest.cc $(SRC_DIR)/sorter.h $(SRC_DIR
 	$(CXX) $(CPPFLAGS) -I$(SRC_DIR) $(CXXFLAGS) -c $(TEST_DIR)/search_unittest.cc -o $(BUILD_DIR)/$@
 
 search_unittest : sorter.o search.o search_unittest.o
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $(BUILD_DIR)/sorter.o $(BUILD_DIR)/search.o $(BUILD_DIR)/search_unittest.o ./lib/gtest_main.a \
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $(BUILD_DIR)/sorter.o $(BUILD_DIR)/search.o $(BUILD_DIR)/search_unittest.o $(LIB_DIR)/gtest_main.a \
 	-lpthread -o $(BUILD_DIR)/$@
 	rm -f ~/bin/search_unittest
 	cp $(BUILD_DIR)/search_unittest ~/bin/

@@ -1,0 +1,3 @@
+To start using/developing the project you need to do next steps first:
+- Download, extract and place gtests-1.6.0 into a $(PROJ)/lib folder.
+- Run make init task which will initiate project structure and build needed libs (gtests).
