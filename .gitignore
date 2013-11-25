@@ -13,7 +13,7 @@
 # Binary files
 build
 lib
-*.pdf
+#*.pdf
 
 # Hidden due to licencing
 
