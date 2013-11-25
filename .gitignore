@@ -15,5 +15,6 @@ build
 lib
 #*.pdf
 
-# Hidden due to licencing
+# Hidden due to licencing or otherwise
+ml_login_data.mat
 
