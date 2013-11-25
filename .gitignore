@@ -13,6 +13,7 @@
 # Binary files
 build
 lib
+*.pdf
 
 # Hidden due to licencing
-edx/ai/*
+
