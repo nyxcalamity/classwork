@@ -4,13 +4,18 @@
 *~
 *.pyc
 
-# IDE
+# Intelij Idea
 .idea
 *.iml
 *.ipr
 *.iws
 
+# Eclipse
+.metadata
+.settings
+
 # Binary files
+bin
 build
 lib
 #*.pdf
