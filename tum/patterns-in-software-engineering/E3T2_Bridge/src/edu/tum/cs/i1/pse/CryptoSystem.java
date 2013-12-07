@@ -2,21 +2,20 @@ package edu.tum.cs.i1.pse;
 
 public class CryptoSystem {
 
-	private Cipher imp;
+	private Encryption encryption;
 	
 	public CryptoSystem(String encryptionType) {
 		if (encryptionType.equalsIgnoreCase("Enterprise"))
-			imp = new Caesar();
+			encryption = new EnterpriseEncryption();
 	    else 
-	    	imp = new Transpose();	
+	    	encryption = new PersonalEncryption();	
 	}
 
 	public String encryptDoc(String plain, byte key) {
-		return imp.encryptWord(plain, key);
+		return encryption.encrypt(plain, key);
 	}
 
 	public String decryptDoc(String secret, byte key) {
-		return imp.decryptWord(secret, key);
+		return encryption.decrypt(secret, key);
 	}
-
 }
