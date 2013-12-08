@@ -45,5 +45,4 @@ public class EnterpriseEncryption extends Encryption {
 			throw new IllegalArgumentException("Key should be at least as large as 10. Provided key: " + key);
 		return super.decrypt(string, key);
 	}
-
 }
