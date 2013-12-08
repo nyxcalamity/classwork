@@ -9,6 +9,10 @@ public class TemperatureModel extends java.util.Observable {
 	public double getC() {
 		return temperatureC;
 	}
+	
+	public double getK(){
+		return temperatureC + 273.15;
+	}
 
 	public void setF(double tempF) {
 		temperatureC = (tempF - 32.0) * 5.0 / 9.0;
@@ -18,6 +22,12 @@ public class TemperatureModel extends java.util.Observable {
 
 	public void setC(double tempC) {
 		temperatureC = tempC;
+		setChanged();
+		notifyObservers();
+	}
+	
+	public void setK(double tempInKelvin) {
+		temperatureC = tempInKelvin - 273.15;
 		setChanged();
 		notifyObservers();
 	}

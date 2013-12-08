@@ -9,7 +9,6 @@ import java.awt.event.WindowEvent;
 
 public abstract class TemperatureGUI implements java.util.Observer {
 	
-	@SuppressWarnings("unused")
 	private String label;
 	private TemperatureModel model;
 	private Frame temperatureFrame;
