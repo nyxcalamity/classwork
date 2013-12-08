@@ -1,3 +1,6 @@
-Quick notes regarding code:
-E3T1_Adapter - OOTB the code crashes with exception of / by 0.
+DISCLAIMER: Part of code is not mine as it comes from TUM stuff.
 
+TO IMPROVE:
+- remove redundant code (arguable, since some find these "real life" examples)
+- use code conventions
+- use meningfull packaging (you don't put sorting algos impl and client, context etc in one package)
