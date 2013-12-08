@@ -1,17 +1,14 @@
 package edu.tum.cs.i1.pse;
 
 import java.awt.Point;
-import java.util.ArrayList;
-import java.util.List;
 
 import edu.tum.cs.i1.pse.exc.NegativeValueException;
 
-public class RectangularBlock {
+public class RectangularBlock extends AbstractCompositeComponent {
 	private Point topLeft;
 	private Point topRight;
 	private Point bottomLeft;
 	private Point bottomRight;
-	private ArrayList<Line> lineList = new ArrayList<Line>();
 
 	public RectangularBlock(Point startPoint, int width, int height) {
 		if (startPoint.x < 0 || startPoint.y < 0 || width < 0 || height < 0) {
@@ -26,17 +23,9 @@ public class RectangularBlock {
 	}
 
 	private void makeRactangle() {
-		Line a = new Line(topLeft, topRight);
-		Line b = new Line(topLeft, bottomLeft);
-		Line c = new Line(bottomLeft, bottomRight);
-		Line d = new Line(topRight, bottomRight);
-		lineList.add(a);
-		lineList.add(b);
-		lineList.add(c);
-		lineList.add(d);
-	}
-
-	public List<Line> getLineList() {
-		return lineList;
+		addComponent(new Line(topLeft, topRight));
+		addComponent(new Line(topLeft, bottomLeft));
+		addComponent(new Line(bottomLeft, bottomRight));
+		addComponent(new Line(topRight, bottomRight));
 	}
 }

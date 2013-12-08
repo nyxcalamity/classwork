@@ -4,7 +4,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 import edu.tum.cs.i1.pse.exc.NegativeValueException;
 
-public class Circle {
+public class Circle extends AbstractComponent {
 	private Point top;
 	private int width;
 	private int height;
@@ -18,8 +18,12 @@ public class Circle {
 			this.height = hegiht;
 		}
 	}
-
-	public void actualDraw(Graphics g) {
-		g.drawOval(top.x, top.y, width, height);
+	
+	/* (non-Javadoc)
+	 * @see edu.tum.cs.i1.pse.AbstractComponent#draw(java.awt.Graphics)
+	 */
+	@Override
+	public void draw(Graphics graphics) {
+		graphics.drawOval(top.x, top.y, width, height);
 	}
 }

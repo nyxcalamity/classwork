@@ -26,7 +26,7 @@ public class Canvas extends JComponent {
 
 		g2d.setStroke(new BasicStroke(2));
 		g2d.setColor(Color.BLACK);
-		shape.makeHouse(g2d);
+		shape.draw(g2d);
 		g2d.setColor(Color.RED);
 	}
 }

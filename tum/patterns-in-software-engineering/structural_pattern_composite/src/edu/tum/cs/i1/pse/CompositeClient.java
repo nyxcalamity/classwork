@@ -10,7 +10,6 @@ public class CompositeClient extends JFrame {
 	private static final long serialVersionUID = -5367005543133927329L;
 
 	public CompositeClient() {
-		super();
 		setSize(new Dimension(650, 650));
 		setLocationRelativeTo(null);
 		setResizable(false);
@@ -19,29 +18,16 @@ public class CompositeClient extends JFrame {
 
 	public static void main(String[] args) {
 		House home = new House();
-		RectangularBlock frontRec = new RectangularBlock(new Point(150, 300),
-				150, 100);
-		RectangularBlock doorRec = new RectangularBlock(new Point(200, 350),
-				50, 50);
-		RectangularBlock sideRec = new RectangularBlock(new Point(300, 300),
-				150, 100);
 
-		Line frontLeft = new Line(new Point(150, 300), new Point(225, 225));
-		Line fromtRight = new Line(new Point(300, 300), new Point(225, 225));
-		Line sideTop = new Line(new Point(225, 225), new Point(375, 225));
-		Line sideRight = new Line(new Point(375, 225), new Point(450, 300));
-
-		RoundedWindow windowRounded = new RoundedWindow(new Point(375, 310),
-				20, 20);
-
-		home.addRectangle(frontRec);
-		home.addRectangle(doorRec);
-		home.addRectangle(sideRec);
-		home.addLine(frontLeft);
-		home.addLine(fromtRight);
-		home.addLine(sideTop);
-		home.addLine(sideRight);
-		home.addCircle(windowRounded);
+		home.addComponent(new RectangularBlock(new Point(150, 300),150, 100)); //front rec
+		home.addComponent(new RectangularBlock(new Point(200, 350),50, 50)); // door rec
+		home.addComponent(new RectangularBlock(new Point(300, 300),150, 100)); //side rec
+		
+		home.addComponent(new Line(new Point(150, 300), new Point(225, 225))); //front left
+		home.addComponent(new Line(new Point(300, 300), new Point(225, 225))); //front right
+		home.addComponent(new Line(new Point(225, 225), new Point(375, 225))); //side top
+		home.addComponent(new Line(new Point(375, 225), new Point(450, 300))); //side right
+		home.addComponent(new RoundedWindow(new Point(375, 310), 20, 20)); //window
 
 		Canvas component = new Canvas(home);
 
