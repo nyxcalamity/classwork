@@ -1,0 +1,843 @@
+<class-diagram version="1.0.11" icons="true" always-add-relationships="true" generalizations="true" realizations="true" 
+  associations="true" dependencies="true" nesting-relationships="true">  
+  <class id="1" corner="BOTTOM_RIGHT" language="java" name="headfirst.factory.pizzaaf.ParmesanCheese" 
+    project="E5T3_AbstractFactory_Handout" 
+    file="/E5T3_AbstractFactory_Handout/src/headfirst/factory/pizzaaf/ParmesanCheese.java" binary="false">    
+    <position height="94" width="142" x="-222" y="277"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="2" corner="BOTTOM_RIGHT" language="java" name="headfirst.factory.pizzaaf.PepperoniPizza" 
+    project="E5T3_AbstractFactory_Handout" 
+    file="/E5T3_AbstractFactory_Handout/src/headfirst/factory/pizzaaf/PepperoniPizza.java" binary="false">    
+    <position height="94" width="234" x="1978" y="58"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="3" corner="BOTTOM_RIGHT" language="java" name="headfirst.factory.pizzaaf.PlumTomatoSauce" 
+    project="E5T3_AbstractFactory_Handout" 
+    file="/E5T3_AbstractFactory_Handout/src/headfirst/factory/pizzaaf/PlumTomatoSauce.java" binary="false">    
+    <position height="94" width="152" x="679" y="277"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="4" corner="BOTTOM_RIGHT" language="java" name="headfirst.factory.pizzaaf.ThinCrustDough" 
+    project="E5T3_AbstractFactory_Handout" 
+    file="/E5T3_AbstractFactory_Handout/src/headfirst/factory/pizzaaf/ThinCrustDough.java" binary="false">    
+    <position height="94" width="138" x="2398" y="277"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <interface id="5" corner="BOTTOM_RIGHT" language="java" name="headfirst.factory.pizzaaf.Cheese" 
+    project="E5T3_AbstractFactory_Handout" 
+    file="/E5T3_AbstractFactory_Handout/src/headfirst/factory/pizzaaf/Cheese.java" binary="false">    
+    <position height="77" width="118" x="639" y="479"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <class id="6" corner="BOTTOM_RIGHT" language="java" name="headfirst.factory.pizzaaf.MozzarellaCheese" 
+    project="E5T3_AbstractFactory_Handout" 
+    file="/E5T3_AbstractFactory_Handout/src/headfirst/factory/pizzaaf/MozzarellaCheese.java" binary="false">    
+    <position height="94" width="147" x="202" y="277"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <interface id="7" corner="BOTTOM_RIGHT" language="java" name="headfirst.factory.pizzaaf.PizzaToppingFactory" 
+    project="E5T3_AbstractFactory_Handout" 
+    file="/E5T3_AbstractFactory_Handout/src/headfirst/factory/pizzaaf/PizzaToppingFactory.java" binary="false">    
+    <position height="162" width="183" x="955" y="277"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <class id="8" corner="BOTTOM_RIGHT" language="java" name="headfirst.factory.pizzaaf.MarinaraSauce" 
+    project="E5T3_AbstractFactory_Handout" 
+    file="/E5T3_AbstractFactory_Handout/src/headfirst/factory/pizzaaf/MarinaraSauce.java" binary="false">    
+    <position height="94" width="125" x="2639" y="277"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <interface id="9" corner="BOTTOM_RIGHT" language="java" name="headfirst.factory.pizzaaf.Sauce" 
+    project="E5T3_AbstractFactory_Handout" file="/E5T3_AbstractFactory_Handout/src/headfirst/factory/pizzaaf/Sauce.java" 
+    binary="false">    
+    <position height="77" width="118" x="1717" y="479"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <class id="10" corner="BOTTOM_RIGHT" language="java" name="headfirst.factory.pizzaaf.ThickCrustDough" 
+    project="E5T3_AbstractFactory_Handout" 
+    file="/E5T3_AbstractFactory_Handout/src/headfirst/factory/pizzaaf/ThickCrustDough.java" binary="false">    
+    <position height="94" width="145" x="452" y="277"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="11" corner="BOTTOM_RIGHT" language="java" name="headfirst.factory.pizzaaf.ReggianoCheese" 
+    project="E5T3_AbstractFactory_Handout" 
+    file="/E5T3_AbstractFactory_Handout/src/headfirst/factory/pizzaaf/ReggianoCheese.java" binary="false">    
+    <position height="94" width="141" x="2154" y="277"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="12" corner="BOTTOM_RIGHT" language="java" name="headfirst.factory.pizzaaf.Eggplant" 
+    project="E5T3_AbstractFactory_Handout" 
+    file="/E5T3_AbstractFactory_Handout/src/headfirst/factory/pizzaaf/Eggplant.java" binary="false">    
+    <position height="94" width="118" x="1220" y="277"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="13" corner="BOTTOM_RIGHT" language="java" name="headfirst.factory.pizzaaf.SlicedPepperoni" 
+    project="E5T3_AbstractFactory_Handout" 
+    file="/E5T3_AbstractFactory_Handout/src/headfirst/factory/pizzaaf/SlicedPepperoni.java" binary="false">    
+    <position height="94" width="136" x="1978" y="277"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="14" corner="BOTTOM_RIGHT" language="java" name="headfirst.factory.pizzaaf.PizzaStore" 
+    project="E5T3_AbstractFactory_Handout" 
+    file="/E5T3_AbstractFactory_Handout/src/headfirst/factory/pizzaaf/PizzaStore.java" binary="false">    
+    <position height="111" width="161" x="1081" y="-480"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="15" corner="BOTTOM_RIGHT" language="java" name="headfirst.factory.pizzaaf.BlackOlives" 
+    project="E5T3_AbstractFactory_Handout" 
+    file="/E5T3_AbstractFactory_Handout/src/headfirst/factory/pizzaaf/BlackOlives.java" binary="false">    
+    <position height="94" width="118" x="1378" y="277"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="16" corner="BOTTOM_RIGHT" language="java" name="headfirst.factory.pizzaaf.FreshClams" 
+    project="E5T3_AbstractFactory_Handout" 
+    file="/E5T3_AbstractFactory_Handout/src/headfirst/factory/pizzaaf/FreshClams.java" binary="false">    
+    <position height="94" width="118" x="1757" y="277"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="17" corner="BOTTOM_RIGHT" language="java" name="headfirst.factory.pizzaaf.NYPizzaStore" 
+    project="E5T3_AbstractFactory_Handout" 
+    file="/E5T3_AbstractFactory_Handout/src/headfirst/factory/pizzaaf/NYPizzaStore.java" binary="false">    
+    <position height="94" width="161" x="1350" y="-329"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="18" corner="BOTTOM_RIGHT" language="java" name="headfirst.factory.pizzaaf.ChicagoPizzaToppingFactory" 
+    project="E5T3_AbstractFactory_Handout" 
+    file="/E5T3_AbstractFactory_Handout/src/headfirst/factory/pizzaaf/ChicagoPizzaToppingFactory.java" binary="false">    
+    <position height="179" width="226" x="679" y="58"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="19" corner="BOTTOM_RIGHT" language="java" name="headfirst.factory.pizzaaf.Mushroom" 
+    project="E5T3_AbstractFactory_Handout" 
+    file="/E5T3_AbstractFactory_Handout/src/headfirst/factory/pizzaaf/Mushroom.java" binary="false">    
+    <position height="94" width="118" x="2867" y="277"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="20" corner="BOTTOM_RIGHT" language="java" name="headfirst.factory.pizzaaf.ChicagoPizzaStore" 
+    project="E5T3_AbstractFactory_Handout" 
+    file="/E5T3_AbstractFactory_Handout/src/headfirst/factory/pizzaaf/ChicagoPizzaStore.java" binary="false">    
+    <position height="94" width="161" x="966" y="-329"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="21" corner="BOTTOM_RIGHT" language="java" name="headfirst.factory.pizzaaf.Pizza" 
+    project="E5T3_AbstractFactory_Handout" file="/E5T3_AbstractFactory_Handout/src/headfirst/factory/pizzaaf/Pizza.java" 
+    binary="false">    
+    <position height="213" width="139" x="1148" y="-195"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <interface id="22" corner="BOTTOM_RIGHT" language="java" name="headfirst.factory.pizzaaf.Veggies" 
+    project="E5T3_AbstractFactory_Handout" 
+    file="/E5T3_AbstractFactory_Handout/src/headfirst/factory/pizzaaf/Veggies.java" binary="false">    
+    <position height="77" width="118" x="2806" y="479"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <interface id="23" corner="BOTTOM_RIGHT" language="java" name="headfirst.factory.pizzaaf.Pepperoni" 
+    project="E5T3_AbstractFactory_Handout" 
+    file="/E5T3_AbstractFactory_Handout/src/headfirst/factory/pizzaaf/Pepperoni.java" binary="false">    
+    <position height="77" width="118" x="2578" y="479"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <class id="24" corner="BOTTOM_RIGHT" language="java" name="headfirst.factory.pizzaaf.PizzaTestDrive" 
+    project="E5T3_AbstractFactory_Handout" 
+    file="/E5T3_AbstractFactory_Handout/src/headfirst/factory/pizzaaf/PizzaTestDrive.java" binary="false">    
+    <position height="94" width="124" x="1263" y="-614"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="25" corner="BOTTOM_RIGHT" language="java" name="headfirst.factory.pizzaaf.ClamPizza" 
+    project="E5T3_AbstractFactory_Handout" 
+    file="/E5T3_AbstractFactory_Handout/src/headfirst/factory/pizzaaf/ClamPizza.java" binary="false">    
+    <position height="94" width="206" x="162" y="58"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <interface id="26" corner="BOTTOM_RIGHT" language="java" name="headfirst.factory.pizzaaf.Clams" 
+    project="E5T3_AbstractFactory_Handout" file="/E5T3_AbstractFactory_Handout/src/headfirst/factory/pizzaaf/Clams.java" 
+    binary="false">    
+    <position height="77" width="118" x="120" y="479"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <class id="27" corner="BOTTOM_RIGHT" language="java" name="headfirst.factory.pizzaaf.VeggiePizza" 
+    project="E5T3_AbstractFactory_Handout" 
+    file="/E5T3_AbstractFactory_Handout/src/headfirst/factory/pizzaaf/VeggiePizza.java" binary="false">    
+    <position height="94" width="216" x="1226" y="58"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="28" corner="BOTTOM_RIGHT" language="java" name="headfirst.factory.pizzaaf.Spinach" 
+    project="E5T3_AbstractFactory_Handout" 
+    file="/E5T3_AbstractFactory_Handout/src/headfirst/factory/pizzaaf/Spinach.java" binary="false">    
+    <position height="94" width="118" x="1536" y="277"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="29" corner="BOTTOM_RIGHT" language="java" name="headfirst.factory.pizzaaf.Garlic" 
+    project="E5T3_AbstractFactory_Handout" 
+    file="/E5T3_AbstractFactory_Handout/src/headfirst/factory/pizzaaf/Garlic.java" binary="false">    
+    <position height="94" width="118" x="3025" y="277"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="30" corner="BOTTOM_RIGHT" language="java" name="headfirst.factory.pizzaaf.RedPepper" 
+    project="E5T3_AbstractFactory_Handout" 
+    file="/E5T3_AbstractFactory_Handout/src/headfirst/factory/pizzaaf/RedPepper.java" binary="false">    
+    <position height="94" width="118" x="3183" y="277"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <interface id="31" corner="BOTTOM_RIGHT" language="java" name="headfirst.factory.pizzaaf.Dough" 
+    project="E5T3_AbstractFactory_Handout" file="/E5T3_AbstractFactory_Handout/src/headfirst/factory/pizzaaf/Dough.java" 
+    binary="false">    
+    <position height="77" width="118" x="873" y="479"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <class id="32" corner="BOTTOM_RIGHT" language="java" name="headfirst.factory.pizzaaf.CheesePizza" 
+    project="E5T3_AbstractFactory_Handout" 
+    file="/E5T3_AbstractFactory_Handout/src/headfirst/factory/pizzaaf/CheesePizza.java" binary="false">    
+    <position height="94" width="220" x="966" y="58"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="33" corner="BOTTOM_RIGHT" language="java" name="headfirst.factory.pizzaaf.NYPizzaToppingFactory" 
+    project="E5T3_AbstractFactory_Handout" 
+    file="/E5T3_AbstractFactory_Handout/src/headfirst/factory/pizzaaf/NYPizzaToppingFactory.java" binary="false">    
+    <position height="179" width="188" x="2639" y="58"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="34" corner="BOTTOM_RIGHT" language="java" name="headfirst.factory.pizzaaf.Onion" 
+    project="E5T3_AbstractFactory_Handout" file="/E5T3_AbstractFactory_Handout/src/headfirst/factory/pizzaaf/Onion.java" 
+    binary="false">    
+    <position height="94" width="118" x="3341" y="277"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="35" corner="BOTTOM_RIGHT" language="java" name="headfirst.factory.pizzaaf.FrozenClams" 
+    project="E5T3_AbstractFactory_Handout" 
+    file="/E5T3_AbstractFactory_Handout/src/headfirst/factory/pizzaaf/FrozenClams.java" binary="false">    
+    <position height="94" width="118" x="-19" y="277"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <dependency id="36">    
+    <bendpoint x="1673" y="-195"/>    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="37">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="15"/>  
+  </dependency>  
+  <realization id="38">    
+    <end type="SOURCE" refId="35"/>    
+    <end type="TARGET" refId="26"/>  
+  </realization>  
+  <dependency id="39">    
+    <bendpoint x="2003" y="-195"/>    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="33"/>  
+  </dependency>  
+  <dependency id="40">    
+    <bendpoint x="1168" y="277"/>    
+    <end type="SOURCE" refId="32"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <dependency id="41">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="23"/>  
+  </dependency>  
+  <dependency id="42">    
+    <bendpoint x="627" y="277"/>    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="31"/>  
+  </dependency>  
+  <association id="43">    
+    <bendpoint x="1947" y="58"/>    
+    <bendpoint x="1947" y="277"/>    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="44" name="sauce"/>      
+      <multiplicity id="45" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="46">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="21"/>  
+  </generalization>  
+  <dependency id="47">    
+    <bendpoint x="2587" y="277"/>    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="23"/>  
+  </dependency>  
+  <dependency id="48">    
+    <bendpoint x="1905" y="277"/>    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="26"/>  
+  </dependency>  
+  <realization id="49">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="5"/>  
+  </realization>  
+  <dependency id="50">    
+    <bendpoint x="2794" y="277"/>    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <realization id="51">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="23"/>  
+  </realization>  
+  <association id="52">    
+    <bendpoint x="3510" y="58"/>    
+    <bendpoint x="3510" y="277"/>    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="53" name="veggies"/>      
+      <multiplicity id="54" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="22" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="55">    
+    <end type="SOURCE" refId="27" navigable="false">      
+      <attribute id="56" name="ingredientFactory"/>      
+      <multiplicity id="57" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="58">    
+    <bendpoint x="648" y="277"/>    
+    <end type="SOURCE" refId="32"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="59">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="22"/>  
+  </dependency>  
+  <dependency id="60">    
+    <bendpoint x="129" y="277"/>    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="26"/>  
+  </dependency>  
+  <dependency id="61">    
+    <bendpoint x="788" y="-195"/>    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <dependency id="62">    
+    <bendpoint x="2815" y="277"/>    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="22"/>  
+  </dependency>  
+  <dependency id="63">    
+    <bendpoint x="882" y="277"/>    
+    <end type="SOURCE" refId="32"/>    
+    <end type="TARGET" refId="31"/>  
+  </dependency>  
+  <dependency id="64">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="65">    
+    <bendpoint x="2566" y="277"/>    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="31"/>  
+  </dependency>  
+  <dependency id="66">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="67">    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="19"/>  
+  </dependency>  
+  <dependency id="68">    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="16"/>  
+  </dependency>  
+  <generalization id="69">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="21"/>  
+  </generalization>  
+  <dependency id="70">    
+    <bendpoint x="3489" y="277"/>    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="22"/>  
+  </dependency>  
+  <dependency id="71">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <realization id="72">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="7"/>  
+  </realization>  
+  <dependency id="73">    
+    <bendpoint x="1105" y="-195"/>    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="27"/>  
+  </dependency>  
+  <association id="74">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="75" name="ingredientFactory"/>      
+      <multiplicity id="76" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="77">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <dependency id="78">    
+    <bendpoint x="1316" y="-480"/>    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <association id="79">    
+    <bendpoint x="421" y="58"/>    
+    <bendpoint x="421" y="277"/>    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="80" name="dough"/>      
+      <multiplicity id="81" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="31" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="82">    
+    <end type="SOURCE" refId="25" navigable="false">      
+      <attribute id="83" name="ingredientFactory"/>      
+      <multiplicity id="84" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="85">    
+    <bendpoint x="903" y="277"/>    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="86">    
+    <bendpoint x="1272" y="-480"/>    
+    <bendpoint x="1272" y="-329"/>    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <dependency id="87">    
+    <bendpoint x="924" y="277"/>    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="23"/>  
+  </dependency>  
+  <realization id="88">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="9"/>  
+  </realization>  
+  <dependency id="89">    
+    <bendpoint x="400" y="277"/>    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <dependency id="90">    
+    <bendpoint x="379" y="277"/>    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <realization id="91">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="5"/>  
+  </realization>  
+  <dependency id="92">    
+    <bendpoint x="1684" y="277"/>    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="22"/>  
+  </dependency>  
+  <realization id="93">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="26"/>  
+  </realization>  
+  <realization id="94">    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="22"/>  
+  </realization>  
+  <dependency id="95">    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="96">    
+    <bendpoint x="809" y="-195"/>    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="25"/>  
+  </dependency>  
+  <dependency id="97">    
+    <bendpoint x="1050" y="-480"/>    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="20"/>  
+  </dependency>  
+  <dependency id="98">    
+    <bendpoint x="1726" y="277"/>    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <dependency id="99">    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="34"/>  
+  </dependency>  
+  <realization id="100">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="31"/>  
+  </realization>  
+  <realization id="101">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="31"/>  
+  </realization>  
+  <realization id="102">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="22"/>  
+  </realization>  
+  <association id="103">    
+    <end type="SOURCE" refId="32" navigable="false">      
+      <attribute id="104" name="ingredientFactory"/>      
+      <multiplicity id="105" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="106">    
+    <bendpoint x="2346" y="277"/>    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <dependency id="107">    
+    <bendpoint x="2367" y="277"/>    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="22"/>  
+  </dependency>  
+  <dependency id="108">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="14"/>  
+  </dependency>  
+  <generalization id="109">    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="21"/>  
+  </generalization>  
+  <dependency id="110">    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="30"/>  
+  </dependency>  
+  <dependency id="111">    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="29"/>  
+  </dependency>  
+  <dependency id="112">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <dependency id="113">    
+    <bendpoint x="975" y="-195"/>    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="32"/>  
+  </dependency>  
+  <dependency id="114">    
+    <bendpoint x="1317" y="-195"/>    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="32"/>  
+  </dependency>  
+  <dependency id="115">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <dependency id="116">    
+    <bendpoint x="-50" y="277"/>    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="117">    
+    <bendpoint x="573" y="-195"/>    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="25"/>  
+  </dependency>  
+  <realization id="118">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="22"/>  
+  </realization>  
+  <association id="119">    
+    <bendpoint x="-274" y="58"/>    
+    <bendpoint x="-274" y="277"/>    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="120" name="clam"/>      
+      <multiplicity id="121" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="122">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <dependency id="123">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="13"/>  
+  </dependency>  
+  <realization id="124">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="5"/>  
+  </realization>  
+  <realization id="125">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="22"/>  
+  </realization>  
+  <dependency id="126">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="26"/>  
+  </dependency>  
+  <generalization id="127">    
+    <end type="SOURCE" refId="32"/>    
+    <end type="TARGET" refId="21"/>  
+  </generalization>  
+  <dependency id="128">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
+  <dependency id="129">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="130">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="35"/>  
+  </dependency>  
+  <dependency id="131">    
+    <bendpoint x="1189" y="277"/>    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="31"/>  
+  </dependency>  
+  <dependency id="132">    
+    <bendpoint x="1359" y="-195"/>    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="27"/>  
+  </dependency>  
+  <realization id="133">    
+    <end type="SOURCE" refId="30"/>    
+    <end type="TARGET" refId="22"/>  
+  </realization>  
+  <association id="134">    
+    <bendpoint x="398" y="58"/>    
+    <bendpoint x="150" y="277"/>    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="135" name="cheese"/>      
+      <multiplicity id="136" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="137">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <dependency id="138">    
+    <bendpoint x="861" y="277"/>    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <dependency id="139">    
+    <bendpoint x="1157" y="-329"/>    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <dependency id="140">    
+    <bendpoint x="-253" y="277"/>    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="26"/>  
+  </dependency>  
+  <dependency id="141">    
+    <bendpoint x="2325" y="277"/>    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="142">    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <dependency id="143">    
+    <bendpoint x="1472" y="-195"/>    
+    <bendpoint x="1472" y="58"/>    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <realization id="144">    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="22"/>  
+  </realization>  
+  <dependency id="145">    
+    <bendpoint x="2836" y="277"/>    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="23"/>  
+  </dependency>  
+  <realization id="146">    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="7"/>  
+  </realization>  
+  <dependency id="147">    
+    <bendpoint x="171" y="277"/>    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="31"/>  
+  </dependency>  
+  <association id="148">    
+    <bendpoint x="2608" y="58"/>    
+    <bendpoint x="2608" y="277"/>    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="149" name="pepperoni"/>      
+      <multiplicity id="150" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="151">    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="11"/>  
+  </dependency>  
+  <dependency id="152">    
+    <bendpoint x="1338" y="-195"/>    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <realization id="153">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="9"/>  
+  </realization>  
+  <dependency id="154">    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="13"/>  
+  </dependency>  
+  <dependency id="155">    
+    <bendpoint x="935" y="-195"/>    
+    <bendpoint x="935" y="58"/>    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <dependency id="156">    
+    <bendpoint x="1926" y="277"/>    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="31"/>  
+  </dependency>  
+  <dependency id="157">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="31"/>  
+  </dependency>  
+  <dependency id="158">    
+    <bendpoint x="1705" y="277"/>    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <generalization id="159">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <realization id="160">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="22"/>  
+  </realization>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true"/>    
+    <operations public="true" package="true" protected="true" private="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
