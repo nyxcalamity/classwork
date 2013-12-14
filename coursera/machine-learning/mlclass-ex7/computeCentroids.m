@@ -27,11 +27,17 @@ centroids = zeros(K, n);
 %
 
 
-
-
-
-
-
+for i=1:K
+	C_k = 0;
+	u_k = 0;
+	for j=1:m
+		if idx(j) == i
+			C_k+=1;
+			u_k+=X(j,:);
+		end
+	end
+	centroids(i,:) = u_k ./ C_k;
+end
 
 % =============================================================
 
