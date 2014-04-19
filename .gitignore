@@ -14,11 +14,14 @@
 # Eclipse
 .metadata
 .settings
+.cproject
+.project
 
 # Binary files
 bin
 build
 lib
+*.o
 #*.pdf
 
 # Hidden due to licencing or otherwise

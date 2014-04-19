@@ -1,4 +1,4 @@
-DISCLAIMER: Part of code is not mine as it comes from TUM stuff.
+DISCLAIMER: The ugly part of code is not mine and comes from TUM stuff.
 
 TO IMPROVE:
 - remove redundant code (arguable, since some find these "real life" examples)
