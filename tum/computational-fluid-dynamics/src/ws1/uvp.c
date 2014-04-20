@@ -3,25 +3,25 @@
 
 double du2dx(int i, int j, double **U, double dx, double alpha){
 	double summand1 = pow((U[i][j]+U[i+1][j])/2, 2) - pow((U[i-1][j]+U[i][j])/2, 2);
-	double summand2 = abs(U[i][j]+U[i+1][j])*(U[i][j]-U[i+1][j])/2 - abs(U[i-1][j]+U[i][j])*(U[i-1][j]-U[i][j])/2;
+	double summand2 = abs(U[i][j]+U[i+1][j])*(U[i][j]-U[i+1][j])/4 - abs(U[i-1][j]+U[i][j])*(U[i-1][j]-U[i][j])/4;
 	return (summand1 + summand2*alpha)/dx;
 }
 
 double dv2dy(int i, int j, double **V, double dy, double alpha){
 	double summand1 = pow((V[i][j]+V[i][j+1])/2, 2) - pow((V[i][j-1]+V[i][j])/2, 2);
-	double summand2 = abs(V[i][j]+V[i][j+1])*(V[i][j]-V[i][j+1])/2 - abs(V[i][j-1]+V[i][j])*(V[i][j-1]-V[i][j])/2;
+	double summand2 = abs(V[i][j]+V[i][j+1])*(V[i][j]-V[i][j+1])/4 - abs(V[i][j-1]+V[i][j])*(V[i][j-1]-V[i][j])/4;
 	return (summand1 + summand2*alpha)/dy;
 }
 
 double duvdy(int i, int j, double **U, double **V, double dy, double alpha){
-	double summand1 = (V[i][j]+V[i+1][j])*(U[i][j]+U[i][j+1])/2 - (V[i][j-1]+V[i+1][j-1])*(U[i][j-1]+U[i][j])/2;
-	double summand2 = abs(V[i][j]+V[i+1][j])*(U[i][j]-U[i][j+1])/2 - abs(V[i][j-1]+V[i+1][j-1])*(U[i][j-1]-U[i][j])/2;
+	double summand1 = (V[i][j]+V[i+1][j])*(U[i][j]+U[i][j+1])/4 - (V[i][j-1]+V[i+1][j-1])*(U[i][j-1]+U[i][j])/4;
+	double summand2 = abs(V[i][j]+V[i+1][j])*(U[i][j]-U[i][j+1])/4 - abs(V[i][j-1]+V[i+1][j-1])*(U[i][j-1]-U[i][j])/4;
 	return (summand1+summand2*alpha)/dy;
 }
 
 double duvdx(int i, int j, double **U, double **V, double dx, double alpha){
-	double summand1 = (U[i][j]+U[i][j+1])*(V[i][j]+V[i+1][j])/2 - (U[i-1][j]+U[i-1][j+1])*(V[i-1][j]+V[i][j])/2;
-	double summand2 = abs(U[i][j]+U[i][j+1])*(V[i][j]-V[i+1][j])/2 - abs(U[i-1][j]+U[i-1][j+1])*(V[i-1][j]-V[i][j])/2;
+	double summand1 = (U[i][j]+U[i][j+1])*(V[i][j]+V[i+1][j])/4 - (U[i-1][j]+U[i-1][j+1])*(V[i-1][j]+V[i][j])/4;
+	double summand2 = abs(U[i][j]+U[i][j+1])*(V[i][j]-V[i+1][j])/4 - abs(U[i-1][j]+U[i-1][j+1])*(V[i-1][j]-V[i][j])/4;
 	return (summand1+summand2*alpha)/dx;
 }
 

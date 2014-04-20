@@ -18,6 +18,7 @@
 .project
 
 # Binary files
+sim
 bin
 build
 lib
