@@ -43,15 +43,15 @@ int main(int argn, char** args){
 	double Re,UI,VI,PI,GX,GY, 				/* problem dependent quantities */
 		xlength,ylength,dx,dy,			 	/* geometry data */
 		t=0,t_end,dt,tau,dt_value,			/* time stepping data */
-		alpha,omg,eps,res=DBL_MAX; 			/* pressure iteration data */
-	int it=0, itermax, n=0, imax, jmax;		/* max iterations, iteration step and # of interior cells */
+		alpha,omg,eps,res;		 			/* pressure iteration data */
+	int it, itermax, n=0, imax, jmax;		/* max iterations, iteration step and # of interior cells */
 	double **U, **V, **F, **G, **P, **RS;
 
 	/* Read the problem parameters */
 	read_parameters("data/cavity100-2.dat", &Re, &UI, &VI, &PI, &GX, &GY, &t_end, &xlength, &ylength, &dt, &dx, &dy,
 			&imax, &jmax, &alpha, &omg, &tau, &itermax, &eps, &dt_value);
 
-	/*	Init matrices */
+	/*	Allocate space for matrices */
 	U = matrix(0, imax, 0, jmax+1);
 	F = matrix(0, imax, 0, jmax+1);
 	V = matrix(0, imax+1, 0, jmax);
@@ -75,6 +75,7 @@ int main(int argn, char** args){
 		/* Compute the right-hand side rs of the pressure equation (12) */
 		calculate_rs(dt, dx, dy, imax, jmax, F, G, RS);
 
+		it = 0; res=DBL_MAX;
 		while (it < itermax && res > eps){
 			/* Perform a SOR iteration according to (19) using the provided function and retrieve the residual res */
 			sor(omg, dx, dy, imax, jmax, P, RS, &res);

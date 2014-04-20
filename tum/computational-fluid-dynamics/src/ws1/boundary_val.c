@@ -16,8 +16,8 @@ void boundaryvalues(
 	/* U:HORISONTAL BOUNDARY */
 	for(i=1; i<=imax;i++){
 		U[i][0] = -U[i][1];
-		U[i][jmax+1] = 2.0-U[i][jmax]; /* as assigned in 10.2 */
-		/* U[i][jmax+1] = -U[i][jmax]; */
+		U[i][jmax+1] = 2.0-U[i][jmax];		/* as assigned in 10.2 */
+		/*U[i][jmax+1] = -U[i][jmax]; */  	/* initial code */
 	}
 
 	/* V:VERTICAL BOUNDARY */

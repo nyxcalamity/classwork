@@ -33,8 +33,8 @@ double fmax( double a, double b)
 
 double maxAbs(double **A, int imax, int jmax){
 	double max = DBL_MIN; int i,j;
-	for (i = 0; i < imax; i++){
-		for (j = 0; j < jmax; j++){
+	for (i = 0; i <= imax; i++){
+		for (j = 0; j <= jmax; j++){
 			if (fabs(A[i][j]) > max){
 				max = A[i][j];
 			}

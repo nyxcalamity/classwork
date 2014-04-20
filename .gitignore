@@ -12,6 +12,7 @@
 *.iws
 
 # Eclipse
+RemoteSystemsTempFiles
 .metadata
 .settings
 .cproject
