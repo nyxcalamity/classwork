@@ -18,8 +18,10 @@ RemoteSystemsTempFiles
 .cproject
 .project
 
+# Netbeans
+nbproject
+
 # Binary files
-sim
 bin
 build
 lib

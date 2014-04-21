@@ -56,7 +56,7 @@ void calculate_fg(
   double **F,
   double **G
 ){
-	/*TODO:for performance perform only 2 loops then fill the missing values*/
+	/*TODO:make it 2 loops instead of 4*/
 	int i,j;
 	for(i=1;i<=imax-1;i++){
 		for(j=1;j<=jmax;j++){
@@ -120,7 +120,7 @@ void calculate_uv(
   double **G,
   double **P
 ){
-	/* TODO:again 4 loops, reduce to 2 */
+	/* TODO:make it 2 loops instead of 4*/
 	int i,j;
 	for(i=1; i<=imax-1; i++){
 		for(j=1; j<=jmax;j++){
