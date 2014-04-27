@@ -26,7 +26,7 @@ double pi_series(long num_terms, long num_threads){
     //TODO:would be nice to check the limit of # of threads
     //ulimit -a | grep "max user processes"
     
-    int q = (int)num_terms / num_threads;   //quotient
+    int q = num_terms / num_threads;        //quotient
     int r = num_terms % num_threads;        //remainder
     int base = 0;                           //term base (n)
     double sum = 0.0;                       //sum that we need to compute
