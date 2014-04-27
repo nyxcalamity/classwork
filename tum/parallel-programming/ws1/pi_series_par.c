@@ -61,8 +61,8 @@ double pi_series(long num_terms, long num_threads){
     }        
 
     //uuu... there is no garbage collector :P
-//    free(thread);
-//    free(data);
+    free(thread);
+    free(data);
 
     return 4*sum;
 }
