@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <math.h>
 
 #define sign(x) ((x > 0) - (x < 0))
 
@@ -26,4 +27,18 @@ struct timespec ts_diff(struct timespec a, struct timespec b)
 double ts_to_double(struct timespec time)
 {
 	return time.tv_sec + time.tv_nsec / 10e9;
+}
+
+int AlmostEqualRelative(double A, double B, double maxRelDiff)
+{
+    // Calculate the difference.
+    double diff = fabs(A - B);
+    A = fabs(A);
+    B = fabs(B);
+    // Find the largest
+    float largest = (B > A) ? B : A;
+
+    if (diff <= largest * maxRelDiff)
+        return 1;
+    return 0;
 }

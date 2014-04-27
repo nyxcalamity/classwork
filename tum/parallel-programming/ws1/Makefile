@@ -1,7 +1,7 @@
 NAME = pi_series
 CC = gcc
 CFLAGS = -std=gnu99 -pthread -fstrict-overflow -Werror -Wall -Wshadow -Wstrict-overflow=5 -pedantic
-LDFLAGS = -lm -lrt -lpthread
+LDFLAGS = -lm -lpthread -lrt
 
 #Compiler flags
 #if mode variable is empty, setting release build mode
@@ -16,6 +16,8 @@ SRC = $(wildcard *.c)
 
 OBJ_SEQ = main.o $(NAME)_seq.o helper.o
 OBJ_PAR = main.o $(NAME)_par.o helper.o
+OBJ_SOL1 = main.o $(NAME)_par_sol1.o helper.o
+OBJ_SOL2 = main.o $(NAME)_par_sol2.o helper.o
 OBJ_UNIT = unit_test.o $(NAME)_par.o $(NAME)_ref.o helper.o
 
 all: sequential parallel
@@ -29,6 +31,12 @@ $(NAME)_seq : $(OBJ_SEQ)
 
 $(NAME)_par : $(OBJ_PAR)
 	$(CC) -o $@ $(OBJ_PAR) $(CFLAGS) $(LDFLAGS)
+	
+$(NAME)_par_sol1 : $(OBJ_SOL1)
+	$(CC) -o $@ $(OBJ_SOL1) $(CFLAGS) $(LDFLAGS)
+	
+$(NAME)_par_sol2 : $(OBJ_SOL2)
+	$(CC) -o $@ $(OBJ_SOL2) $(CFLAGS) $(LDFLAGS)	
 
 unit_test: $(OBJ_UNIT)
 	$(CC) -o $@ $(OBJ_UNIT) $(CFLAGS) $(LDFLAGS)
@@ -40,7 +48,7 @@ unit_test: $(OBJ_UNIT)
 	rm -f $@.$$$$
 
 clean:
-	rm -f $(NAME)_seq $(NAME)_par unit_test *.o *.d
+	rm -f $(NAME)_seq $(NAME)_par $(NAME)_par_sol1 $(NAME)_par_sol2 unit_test *.o *.d
 	
 -include $(SRC:.c=.d)
 

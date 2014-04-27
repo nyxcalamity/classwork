@@ -8,6 +8,8 @@
 #include "pi_series.h"
 #include "helper.h"
 
+#define MIN(X,Y) ((X) < (Y) ? (X) : (Y))
+
 static int digits_terms, pi_precision = 15;
 
 void perror_exit(const char *str, const char *name)
@@ -56,7 +58,7 @@ int main(int argc, char *argv[])
 			                    pi_precision+1, "Absolute Difference");
 
 	for (int i = 1; i <= 10 ; ++i){
-		pi = pi_series(i, num_threads);
+		pi = pi_series(i, MIN(i, num_threads));
 		print_pi(i, pi);
 	}
 
