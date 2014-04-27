@@ -14,7 +14,7 @@ void *worker(void *arg){
     
     data->result = 0.0;
     for(int i=0;i<data->num_terms;i++){
-        data->result += 1.0/((double) data->base*data->base);
+        data->result += pow(-1.0,data->base)/(double)(2*data->base+1);
         data->base++;
     }
     
@@ -28,7 +28,7 @@ double pi_series(long num_terms, long num_threads){
     
     int q = (int)num_terms / num_threads;   //quotient
     int r = num_terms % num_threads;        //remainder
-    int base = 1;                           //term base (n)
+    int base = 0;                           //term base (n)
     double sum = 0.0;                       //sum that we need to compute
     
     pthread_t *thread;
@@ -64,5 +64,5 @@ double pi_series(long num_terms, long num_threads){
 //    free(thread);
 //    free(data);
 
-    return sqrt(6*sum);
+    return 4*sum;
 }
