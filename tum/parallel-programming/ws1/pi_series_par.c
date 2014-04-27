@@ -14,7 +14,7 @@ void *worker(void *arg){
     
     data->result = 0.0;
     for(int i=0;i<data->num_terms;i++){
-        data->result += pow(-1.0,data->base)/(double)(2*data->base+1);
+        data->result += pow(-1.0,(double)data->base)/(double)(2*data->base+1);
         data->base++;
     }
     
