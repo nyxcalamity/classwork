@@ -1,0 +1,5 @@
+xlength                 50
+tau                     1.0
+velocityWall            1.0
+timesteps               100
+timestepsPerPlotting    5
