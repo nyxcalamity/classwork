@@ -26,7 +26,8 @@ static const double C_S = 1.0/SQRT3;
 static const double C_S_POW2_INV = 3.0;
 static const double C_S_POW4_INV = 9.0;
 
-#define EPS 0.1
+#define EPS 0.05
+#define VERBOSE 0
 
 #endif
 

@@ -8,11 +8,9 @@ void computePostCollisionDistributions(double *currentCell, const double * const
     for(i=0;i<Q;i++){
         currentCell[i]=currentCell[i]-(currentCell[i]-feq[i])/(*tau);
         
-        /* If pdf become negative something is going wrong */
-        /*
+        /* Probability distribution function can not be less than 0 */
         if (currentCell[i] < 0)
             ERROR("Probability distribution function can not be negative.");
-        */
     }
 }
 
@@ -27,12 +25,12 @@ void doCollision(double *collideField, int *flagField, const double * const tau,
                 
                 computeDensity(currentCell,&density);
                 computeVelocity(currentCell,&density,velocity);
-                
-                printf("(%d,%d,%d): density=%f, velocity=[%f,%f,%f]\n",x,y,z,
-                        density,velocity[0],velocity[1],velocity[2]);
-                
                 computeFeq(&density,velocity,feq);
                 computePostCollisionDistributions(currentCell,tau,feq);
+                
+                if(VERBOSE)
+                    printf("(%d,%d,%d): density=%f, velocity=[%e,%e,%e]\n",x,y,z,
+                            density,velocity[0],velocity[1],velocity[2]);
             }
         }
     }

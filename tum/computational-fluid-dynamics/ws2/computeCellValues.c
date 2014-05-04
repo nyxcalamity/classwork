@@ -7,7 +7,7 @@ void computeDensity(const double *const currentCell, double *density){
     int i; *density=0;
     for(i=0;i<Q;i++)
         *density+=currentCell[i];
-    
+    /* Density should be close to a unit (ρ~1) */
     if((*density-1.0)>EPS)
         ERROR("Density dropped below error tolerance.");
 }
@@ -42,5 +42,9 @@ void computeFeq(const double * const density, const double * const velocity, dou
         s3 = velocity[1]*velocity[1]+velocity[2]*velocity[2]+velocity[3]*velocity[3];
         
         feq[i]=LATTICEWEIGHTS[i]*(*density)*(1+s1*C_S_POW2_INV+s2*C_S_POW4_INV/2.0-s3*C_S_POW2_INV/2.0);
+        
+        /* Probability distribution function can not be less than 0 */
+        if (feq[i] < 0)
+            ERROR("Probability distribution function can not be negative.");
     }
 }

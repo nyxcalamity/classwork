@@ -36,11 +36,9 @@ int main(int argc, char *argv[]){
     flagField = malloc(num_cells*sizeof(*flagField));
     initialiseFields(collideField,streamField,flagField,xlength);
     
-    printf("Collide field after initialization....\n");
-    /*printField(collideField, xlength);*/
-    
     for(t=0;t<timesteps;t++){
-        printf("Performing iteration #%d\n",t);
+        if(VERBOSE)
+            printf("Performing iteration #%d\n",t);
         /* Copy pdfs from neighbouring cells into collide field */
         doStreaming(collideField,streamField,flagField,xlength);
         /* Perform the swapping of collide and stream fields */
