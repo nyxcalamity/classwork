@@ -7,6 +7,22 @@
 #include "visualLB.h"
 #include "boundary.h"
 
+void printField(double *field, int ncell){
+    int x,y,z,i,step=ncell+2;
+    
+    for(x=0;x<step;x++){
+        for(y=0;y<step;y++){
+            for(z=0;z<step;z++){
+                printf("(%d,%d,%d): ",x,y,z);
+                for(i=0;i<Q;i++){
+                    printf("%f ",field[Q*(x+y*step+z*step*step)+i]);
+                }
+                printf("\n");
+            }
+        }
+    }
+}
+
 int main(int argc, char *argv[]){
     double *collideField=NULL, *streamField=NULL, *swap=NULL, tau, velocityWall[3], num_cells;
     int *flagField=NULL, xlength, t, timesteps, timestepsPerPlotting;
@@ -20,7 +36,11 @@ int main(int argc, char *argv[]){
     flagField = malloc(num_cells*sizeof(*flagField));
     initialiseFields(collideField,streamField,flagField,xlength);
     
+    printf("Collide field after initialization....\n");
+    /*printField(collideField, xlength);*/
+    
     for(t=0;t<timesteps;t++){
+        printf("Performing iteration #%d\n",t);
         /* Copy pdfs from neighbouring cells into collide field */
         doStreaming(collideField,streamField,flagField,xlength);
         /* Perform the swapping of collide and stream fields */

@@ -1,25 +1,34 @@
 #include "computeCellValues.h"
 #include "LBDefinitions.h"
+#include "helper.h"
 
 void computeDensity(const double *const currentCell, double *density){
+    /*TODO:if density is far from 1 something is going wrong */
     int i; *density=0;
     for(i=0;i<Q;i++)
         *density+=currentCell[i];
+    
+    if((*density-1.0)>EPS)
+        ERROR("Density dropped below error tolerance.");
 }
 
 void computeVelocity(const double * const currentCell, const double * const density, double *velocity){
-    int i,d;
-    /*TODO:perhaps if we have D fixed and it will never change it makes more sence 
-     to hardcode this part => saves operating memory and improves performance */
-    for(d=0;d<D;d++)
-        velocity[d]=0;
+    int i;
+    /* Indeces are hardcoded because of the possible performance gains and since 
+     * we do not have alternating D */
+    velocity[0]=0;
+    velocity[1]=0;
+    velocity[2]=0;
     
-    for(i=0;i<Q;i++)
-        for(d=0;d<D;d++)
-            velocity[d]+=currentCell[i]*LATTICEVELOCITIES[i][d];
+    for(i=0;i<Q;i++){
+        velocity[0]+=currentCell[i]*LATTICEVELOCITIES[i][0];
+        velocity[1]+=currentCell[i]*LATTICEVELOCITIES[i][1];
+        velocity[2]+=currentCell[i]*LATTICEVELOCITIES[i][2];
+    }
     
-    for(d=0;d<D;d++)
-        velocity[d]/=*density;
+    velocity[0]/=*density;
+    velocity[1]/=*density;
+    velocity[2]/=*density;
 }
 
 void computeFeq(const double * const density, const double * const velocity, double *feq){
