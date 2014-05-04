@@ -6,40 +6,40 @@
 #include "initLB.h"
 #include "visualLB.h"
 #include "boundary.h"
-#include <tgmath.h>
 
 int main(int argc, char *argv[]){
-    double *collideField=NULL, *streamField=NULL, tau, velocityWall;
-    int *flagField=NULL, xlength, timesteps, timestepsPerPlotting, num_cells;
+    double *collideField=NULL, *streamField=NULL, *swap=NULL, tau, velocityWall[3], num_cells;
+    int *flagField=NULL, xlength, t, timesteps, timestepsPerPlotting;
+    char *vtkOutputFile = "data/lbm-img";
     
-    readParameters(&xlength,&tau,&velocityWall,&timesteps,&timestepsPerPlotting,argc,argv);
+    readParameters(&xlength,&tau,velocityWall,&timesteps,&timestepsPerPlotting,argc,argv);
     
-    num_cells = (xlength+2)*(xlength+2)*(xlength+2);
-    collideField = malloc(Q_LBM*num_cells*sizeof(*collideField));
-    streamField = malloc(Q_LBM*num_cells*sizeof(*collideField));
+    num_cells = pow(xlength+2, D);
+    collideField = malloc(Q*num_cells*sizeof(*collideField));
+    streamField = malloc(Q*num_cells*sizeof(*collideField));
     flagField = malloc(num_cells*sizeof(*flagField));
     initialiseFields(collideField,streamField,flagField,xlength);
     
-    /*
-    for(int t = 0; t < timesteps; t++){
-        double *swap=NULL;
-        doStreaming(collideField,streamField,flagfield,xlength);
-        swap = collideField;
-        collideField = streamField;
-        streamField = swap;
-        doCollision(collideField,flagfield,&tau,xlength);
-        treatBoundary(collideField,flagfield,velocityWall,xlength);
-        if (t%timestepsPerPlotting==0){
-            writeVtkOutput(collideField,flagfield,argv,t,xlength);
-        }
+    for(t=0;t<timesteps;t++){
+        /* Copy pdfs from neighbouring cells into collide field */
+        doStreaming(collideField,streamField,flagField,xlength);
+        /* Perform the swapping of collide and stream fields */
+        swap = collideField; collideField = streamField; streamField = swap;
+        /* Perform collision */
+        doCollision(collideField,flagField,&tau,xlength);
+        /* Treat boundaries */
+        treatBoundary(collideField,flagField,velocityWall,xlength);
+        /* Print out vtk output if needed */
+        if (t%timestepsPerPlotting==0)
+            writeVtkOutput(collideField,flagField,vtkOutputFile,t,xlength);
     }
-    */
 
     /* Free memory */
     free(collideField);
     free(streamField);
     free(flagField);
     
+    printf("Simulation complete.");
     return 0;
 }
 

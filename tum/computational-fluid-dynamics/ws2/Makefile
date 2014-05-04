@@ -9,7 +9,7 @@ CFLAGS=-Werror -pedantic -Wall
 
 # Linker flags
 # ------------
-LDFLAGS= 
+LDFLAGS=-lm
 
 OBJECTS=$(SOURCES:.c=.o)
 EXECUTABLE=lbsim
@@ -17,11 +17,11 @@ EXECUTABLE=lbsim
 all: $(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJECTS)
-	$(CC) $(OBJECTS) -o $@ $(LDFLAGS) 
+	$(CC) $(OBJECTS) -o $@ $(LDFLAGS)
 
 clean:
 	rm -f $(OBJECTS) $(EXECUTABLE)
 
 
 $(OBJECTS): %.o : %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@ $(LDFLAGS)

@@ -1,5 +1,7 @@
 xlength                 50
 tau                     1.0
-velocityWall            1.0
+velocityWall1           1.0
+velocityWall2           2.0
+velocityWall3           3.0
 timesteps               100
 timestepsPerPlotting    5
