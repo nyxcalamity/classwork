@@ -30,4 +30,3 @@ static const double LATTICEWEIGHTS[19] = {
 };
 
 #endif
-

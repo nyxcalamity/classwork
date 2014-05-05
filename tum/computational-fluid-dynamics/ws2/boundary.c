@@ -2,6 +2,13 @@
 #include "LBDefinitions.h"
 #include "computeCellValues.h"
 
+/**
+ * Inverts the value of the lattice index in order to find the vector opposite to the provided one.
+ * @param i
+ *      index to inverse
+ * @return 
+ *      inversed index
+ */
 int inv(int i){
     return (Q-1)-i;
 }
@@ -9,8 +16,18 @@ int inv(int i){
 void treatBoundary(double *collideField, int* flagField, const double * const wallVelocity, int xlength){
     int x,nx,y,ny,z,nz,i,step=xlength+2;
     double density,dotProd;
-    /* TODO:you can improve the performance of this thing by looping over only the boundaries, 
-     * that will save a number memory access calls, comparisons and instruction jumps */
+    /* NOTE:you can improve the performance of this function by looping over only the boundaries,
+     * it will save a number memory access calls, comparisons and control jumps.
+     * 
+     * However, for our case the performance gain was so insignificant that we decided to
+     * stick to this implementation which is more clear and has all the formulas in one place
+     * which reduces the probability of error. 
+     * 
+     * If you are interested in a more efficient implementation, please check 
+     * https://github.com/POWER-Morzh/CFDLab02/blob/master/boundary.c
+     * where we implemented this function in two ways (second one in comments) and
+     * we will gladly substitute current implementation with the mentioned one.
+     *  */
     for(x=0;x<step;x++){
         for(y=0;y<step;y++){
             for(z=0;z<step;z++){
