@@ -6,7 +6,15 @@
 #include "initLB.h"
 #include "visualLB.h"
 #include "boundary.h"
+#include <time.h>
 
+/**
+ * Function that prints out the point by point values of the provided field (4D).
+ * @param field
+ *          linerized 4D array, with (x,y,z,i)=Q*(x+y*(ncell+2)+z*(ncell+2)*(ncell+2))+i
+ * @param ncell
+ *          number of inner cells, the ones which are there before adding a boundary layer
+ */
 void printField(double *field, int ncell){
     int x,y,z,i,step=ncell+2;
     
@@ -25,8 +33,8 @@ void printField(double *field, int ncell){
 
 int main(int argc, char *argv[]){
     double *collideField=NULL, *streamField=NULL, *swap=NULL, tau, velocityWall[3], num_cells;
-    int *flagField=NULL, xlength, t, timesteps, timestepsPerPlotting;
-    char *vtkOutputFile = "data/lbm-img";
+    int *flagField=NULL, xlength, t, timesteps, timestepsPerPlotting, mlups_exp=pow(10,6);
+    clock_t mlups_time;
     
     readParameters(&xlength,&tau,velocityWall,&timesteps,&timestepsPerPlotting,argc,argv);
     
@@ -37,19 +45,24 @@ int main(int argc, char *argv[]){
     initialiseFields(collideField,streamField,flagField,xlength);
     
     for(t=0;t<timesteps;t++){
-        if(VERBOSE)
-            printf("Performing iteration #%d\n",t);
+        mlups_time = clock();
         /* Copy pdfs from neighbouring cells into collide field */
         doStreaming(collideField,streamField,flagField,xlength);
         /* Perform the swapping of collide and stream fields */
         swap = collideField; collideField = streamField; streamField = swap;
-        /* Perform collision */
+        /* Compute post collision distributions */
         doCollision(collideField,flagField,&tau,xlength);
         /* Treat boundaries */
         treatBoundary(collideField,flagField,velocityWall,xlength);
+        /* Print out the MLUPS value */
+        mlups_time = clock()-mlups_time;
+        printf("Time step: #%d MLUPS: %f\n", t, num_cells/(mlups_exp*mlups_time/CLOCKS_PER_SEC));
         /* Print out vtk output if needed */
         if (t%timestepsPerPlotting==0)
-            writeVtkOutput(collideField,flagField,vtkOutputFile,t,xlength);
+            writeVtkOutput(collideField,flagField,"img/lbm-img",t,xlength);
+        
+        if(VERBOSE)
+            printField(collideField, xlength);
     }
 
     /* Free memory */

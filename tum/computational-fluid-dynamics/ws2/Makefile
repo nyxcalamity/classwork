@@ -21,6 +21,7 @@ $(EXECUTABLE): $(OBJECTS)
 
 clean:
 	rm -f $(OBJECTS) $(EXECUTABLE)
+	rm -f img/*.vtk
 
 
 $(OBJECTS): %.o : %.c

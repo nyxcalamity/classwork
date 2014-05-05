@@ -7,7 +7,7 @@ void doStreaming(double *collideField, double *streamField, int *flagField, int 
     for(x=0;x<step;x++){
         for(y=0;y<step;y++){
             for(z=0;z<step;z++){
-                if(flagField[x+y*step+z*step*step] == FLUID){
+                if(flagField[x+y*step+z*step*step]==FLUID){
                     for(i=0;i<Q;i++){
                         nx=x-LATTICEVELOCITIES[i][0];
                         ny=y-LATTICEVELOCITIES[i][1];

@@ -1,22 +1,22 @@
 #--------------------------------------------
 # number of grids
 #--------------------------------------------
-xlength                 10
+xlength                 50
 #--------------------------------------------
 # relaxation time of BGK operator: (0.5, 2.0)
 #--------------------------------------------
-tau                     0.7
+tau                     1.7
 #--------------------------------------------
 # velocity of the moving wall
 #--------------------------------------------
-velocityWall1           0.1
+velocityWall1           0.008
 velocityWall2           0.0
 velocityWall3           0.0
 #--------------------------------------------
 # number of simulated time steps
 #--------------------------------------------
-timesteps               5
+timesteps               100
 #--------------------------------------------
 # number of time steps per vtk plotting
 #--------------------------------------------
-timestepsPerPlotting    5
+timestepsPerPlotting    2
