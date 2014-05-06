@@ -39,6 +39,7 @@ void write_vtkPointCoordinates( FILE *fp, int xlength) {
   }
 }
 
+/* NOTE: We output only the fluid cells */
 void writeVtkOutput(const double * const collideField, const int * const flagField, const char * filename, unsigned int t, int xlength) {
   int i, j, k;
   double velocity[3];

@@ -31,6 +31,7 @@ int readParameters(int *xlength, double *tau, double *velocityWall,
 void initialiseFields(double *collideField, double *streamField, int *flagField, int xlength){
     int x,y,z,i,step=xlength+2;
     
+    /* NOTE: We use z=xlength+1 as the moving wall */
     for(x=0;x<step;x++){
         for(y=0;y<step;y++){
             for(z=0;z<step;z++){
