@@ -57,5 +57,11 @@ xlim([-0.05, 0.05]);
 %plot3(num(:,1), num(:,2), logReturns)
 %plot(logReturns)
 %--------------------------------------------------------------------------
-% Assignment 1.2 Portfolio optimization
+% Assignment 1.2 Portfolio optimization | Hint:quadprog
 %--------------------------------------------------------------------------
+muTotal = 0;%total expected return of portfolio
+mu =[0.05 -0.2   0.15  0.3]; %expected return per stock
+C  =[0.08 -0.05 -0.05 -0.05; ... %covariance of returns of stock i and j
+    -0.05  0.16 -0.02 -0.02; ...
+    -0.05 -0.02  0.35  0.06; ...
+    -0.05 -0.02  0.06  0.35];
