@@ -59,9 +59,23 @@ xlim([-0.05, 0.05]);
 %--------------------------------------------------------------------------
 % Assignment 1.2 Portfolio optimization | Hint:quadprog
 %--------------------------------------------------------------------------
-muTotal = 0;%total expected return of portfolio
-mu =[0.05 -0.2   0.15  0.3]; %expected return per stock
-C  =[0.08 -0.05 -0.05 -0.05; ... %covariance of returns of stock i and j
-    -0.05  0.16 -0.02 -0.02; ...
-    -0.05 -0.02  0.35  0.06; ...
-    -0.05 -0.02  0.06  0.35];
+numStocks=4;
+muTotal = 0.17; %total expected return of portfolio
+mu = [0.05 -0.2   0.15  0.3]; %expected return per stock
+C  = [0.08 -0.05 -0.05 -0.05; ... %covariance of returns of stock i and j
+     -0.05  0.16 -0.02 -0.02; ...
+     -0.05 -0.02  0.35  0.06; ...
+     -0.05 -0.02  0.06  0.35];
+
+f = zeros(1,numStocks);
+A = -mu; b = -muTotal; %A*x<=b => -A*x>=-b
+Aeq = ones(1,numStocks); beq = 1; %Aeq*x=beq
+lb = zeros(1,numStocks); ub = ones(1,numStocks); %lower and upper boundaries
+
+tic
+x = quadprog(C,f,A,b,Aeq,beq,lb,ub);
+elapsedTime = toc;
+
+disp('Optimal stock weights are: ');
+disp(x);
+fprintf('Computation took (s): %d\n', elapsedTime);
