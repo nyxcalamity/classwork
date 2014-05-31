@@ -5,7 +5,7 @@ SOURCES=initLB.c visualLB.c boundary.c collision.c streaming.c computeCellValues
 # --------
 CC=gcc
 
-CFLAGS=-g -Werror -pedantic -Wall
+CFLAGS=-g -Werror -pedantic -Wall -ofast -funroll-loops
 
 # Linker flags
 # ------------
@@ -22,7 +22,6 @@ $(EXECUTABLE): $(OBJECTS)
 clean:
 	rm -f $(OBJECTS) $(EXECUTABLE)
 	rm -f img/*.vtk
-
 
 $(OBJECTS): %.o : %.c
 	$(CC) $(CFLAGS) -c $< -o $@ $(LDFLAGS)

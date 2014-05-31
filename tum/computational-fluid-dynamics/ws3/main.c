@@ -8,68 +8,60 @@
 #include "boundary.h"
 #include <time.h>
 
-/**
- * Function that prints out the point by point values of the provided field (4D).
- * @param field
- *          linerized 4D array, with (x,y,z,i)=Q*(x+y*(ncell+2)+z*(ncell+2)*(ncell+2))+i
- * @param ncell
- *          number of inner cells, the ones which are there before adding a boundary layer
- */
-void printField(double *field, int ncell){
-    int x,y,z,i,step=ncell+2;
-    
-    for(x=0;x<step;x++){
-        for(y=0;y<step;y++){
-            for(z=0;z<step;z++){
-                printf("(%d,%d,%d): ",x,y,z);
-                for(i=0;i<Q;i++){
-                    printf("%f ",field[Q*(x+y*step+z*step*step)+i]);
-                }
-                printf("\n");
-            }
-        }
-    }
-}
-
 int main(int argc, char *argv[]){
-    double *collideField=NULL, *streamField=NULL, *swap=NULL, tau, velocityWall[3], num_cells;
-    int *flagField=NULL, xlength, t, timesteps, timestepsPerPlotting, mlups_exp=pow(10,6);
+    double *collide_field=NULL, *stream_field=NULL, *swap=NULL, tau, velocity_wall[3],
+            density_ref, density_in;
+    int *flag_field=NULL, xlength[3], t, timesteps, timesteps_per_plotting, mlups_exp=pow(10,6), 
+            num_cells, **pgm_data=NULL, obstacle_start, obstacle_end, rotate_pgm_coordinates;
     clock_t mlups_time;
+    /*
+     * boundaries[0] = bottom;  boundaries[1] = top;    boundaries[2] = back;
+     * boundaries[3] = front;   boundaries[4] = left;   boundaries[5] = right;
+     */
+    int boundaries[6];
+
+    readParameters(&rotate_pgm_coordinates, &obstacle_start, &obstacle_end, &pgm_data, &density_ref,
+            &density_in, boundaries, xlength, &tau, velocity_wall, &timesteps, &timesteps_per_plotting,
+            argc, argv);
     
-    readParameters(&xlength,&tau,velocityWall,&timesteps,&timestepsPerPlotting,argc,argv);
+    num_cells = (xlength[0]+2)*(xlength[1]+2)*(xlength[2]+2);
+    collide_field = malloc(Q_LBM*num_cells*sizeof(*collide_field));
+    stream_field = malloc(Q_LBM*num_cells*sizeof(*collide_field));
+    flag_field = malloc(num_cells*sizeof(*flag_field));
     
-    num_cells = pow(xlength+2, D);
-    collideField = malloc(Q*num_cells*sizeof(*collideField));
-    streamField = malloc(Q*num_cells*sizeof(*collideField));
-    flagField = malloc(num_cells*sizeof(*flagField));
-    initialiseFields(collideField,streamField,flagField,xlength);
-    
-    for(t=0;t<timesteps;t++){
+    initialiseFields(rotate_pgm_coordinates, obstacle_start, obstacle_end, pgm_data, boundaries,
+            collide_field, stream_field, flag_field, xlength);
+
+    for(t=0;t<=timesteps;t++){
         mlups_time = clock();
         /* Copy pdfs from neighbouring cells into collide field */
-        doStreaming(collideField,streamField,flagField,xlength);
+        doStreaming(collide_field, stream_field, flag_field, xlength);
         /* Perform the swapping of collide and stream fields */
-        swap = collideField; collideField = streamField; streamField = swap;
+        swap = collide_field; collide_field = stream_field; stream_field = swap;
         /* Compute post collision distributions */
-        doCollision(collideField,flagField,&tau,xlength);
+        doCollision(collide_field, flag_field, &tau, xlength);
         /* Treat boundaries */
-        treatBoundary(collideField,flagField,velocityWall,xlength);
+        treatBoundary(collide_field, flag_field, velocity_wall,xlength, density_ref, density_in);
         /* Print out the MLUPS value */
         mlups_time = clock()-mlups_time;
         printf("Time step: #%d MLUPS: %f\n", t, num_cells/(mlups_exp*(double)mlups_time/CLOCKS_PER_SEC));
         /* Print out vtk output if needed */
-        if (t%timestepsPerPlotting==0)
-            writeVtkOutput(collideField,flagField,"img/lbm-img",t,xlength);
+        if (t%timesteps_per_plotting==0)
+            writeVtkOutput(collide_field, flag_field, "img/lbm-img", t, xlength);
         
+        /* Output for debugging */
         if(VERBOSE)
-            printField(collideField, xlength);
+            printField(collide_field, xlength);
+        if(OUTPUT_FLAGFIELD)
+            printFlagField(flag_field, xlength);
     }
 
     /* Free memory */
-    free(collideField);
-    free(streamField);
-    free(flagField);
-    
+    free(collide_field);
+    free(stream_field);
+    free(flag_field);
+    free_imatrix(pgm_data,0,xlength[0]+2,0,xlength[1]+2);
+
     printf("Simulation complete.");
     return 0;
 }

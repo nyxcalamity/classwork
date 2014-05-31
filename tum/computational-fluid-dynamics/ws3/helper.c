@@ -422,7 +422,7 @@ void init_imatrix( int **m, int nrl, int nrh, int ncl, int nch, int a)
 }
 
 
-int **read_pgm(const char *filename)
+int **read_pgm(const char *filename, int *xlength, int *ylength)
 {
     FILE *input = NULL;
     char line[1024];
@@ -454,6 +454,10 @@ int **read_pgm(const char *filename)
     /* read the width and height */
     sscanf(line,"%d %d\n",&xsize,&ysize);
 
+    /* Save size of the domain to use it in subsequent code */
+    *xlength = xsize;
+    *ylength = ysize;
+
     printf("Image size: %d x %d\n", xsize,ysize);
 
     /* read # of gray levels */
@@ -480,7 +484,7 @@ int **read_pgm(const char *filename)
             else
             {
                 pic[i1][ysize+1-j1] = byte;
-                printf("%d,%d: %d\n", i1,ysize+1-j1,byte);
+                /*printf("%d,%d: %d\n", i1,ysize+1-j1,byte);*/
             }
          }
     }

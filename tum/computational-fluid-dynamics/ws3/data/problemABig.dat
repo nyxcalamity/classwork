@@ -1,0 +1,65 @@
+#-------------------------------------------------------------------------------
+# Name of pgm file
+#-------------------------------------------------------------------------------
+pgm_file_name             problemABig
+#-------------------------------------------------------------------------------
+# Our PGM files have coordinates which are corresponding to coordinates of the problem.
+# If you use PGM data from VTK file, given in moodle, you have to rotate coordinates!!!
+#-------------------------------------------------------------------------------
+rotate_pgm_coordinates     1
+#-------------------------------------------------------------------------------
+# Size of fluid domain.
+#
+# We don't need to give xlength and ylength because we get it from PGM file.
+#-------------------------------------------------------------------------------
+zlength                 1
+#-------------------------------------------------------------------------------
+# Start and begin of obstacle in z axes starts from 1 and ends by zlength
+#-------------------------------------------------------------------------------
+obstacle_start        1
+obstacle_end          1
+#-------------------------------------------------------------------------------
+# relaxation time of BGK operator
+#-------------------------------------------------------------------------------
+tau                     0.59
+#-------------------------------------------------------------------------------
+# velocity of the moving wall or of fluid which is moving in
+# x, y, z directions respectivly
+#-------------------------------------------------------------------------------
+velocity_wall_1           0.035
+velocity_wall_2           0.0
+velocity_wall_3           0.0
+#-------------------------------------------------------------------------------
+# number of simulated time steps
+#-------------------------------------------------------------------------------
+timesteps               20000
+#-------------------------------------------------------------------------------
+# number of time steps per vtk plotting
+#-------------------------------------------------------------------------------
+timesteps_per_plotting    400
+#-------------------------------------------------------------------------------
+# Our boundaries implemented in respect to ParaView
+#     (bottom, top) === (y=0,y=maxY)
+#     (back, front) === (z=0,z=maxZ)
+#     (left, rigth) === (x=0,x=maxX)
+#
+# FREE_SLIP = 1
+# NO_SLIP = 2
+# MOVING_WALL = 3
+# INFLOW = 4
+# OUTFLOW = 5
+# PRESSURE_IN =  6
+#-------------------------------------------------------------------------------
+boundary_bottom          2
+boundary_top             2
+boundary_back            1
+boundary_front           1
+boundary_left            4
+boundary_right           5
+#-------------------------------------------------------------------------------
+# Used for outflow and PRESSURE_IN
+#-------------------------------------------------------------------------------
+density_ref              1.0
+density_in               1.005
+
+

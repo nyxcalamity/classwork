@@ -5,6 +5,13 @@
 
 /* reads the parameters for the lid driven cavity scenario from a config file */
 int readParameters(
+    int *rotatePGMCoordinates,          /* To know if rotation of coordinates from PGM file is needed */
+    int *obstacleStart,                 /* Used to set up thikness of obstacle in z direction */
+    int *obstacleEnd,                   /* Used to set up thikness of obstacle in z direction */
+    int ***pgmData,                     /* How our obstacle looks like */
+    double *densityRef,                 /* ρ(ref) */
+    double *densityIn,                  /* ρ(in) */
+    int *boundaries,                    /* reads boundaries type for each wall */
     int *xlength,                       /* reads domain size. Parameter name: "xlength" */
     double *tau,                        /* relaxation parameter tau. Parameter name: "tau" */
     double *velocityWall,               /* velocity of the lid. Parameter name: "characteristicvelocity" */
@@ -16,7 +23,17 @@ int readParameters(
 
 
 /* initialises the particle distribution functions and the flagfield */
-void initialiseFields(double *collideField, double *streamField,int *flagField, int xlength);
+void initialiseFields(
+    const int rotatePGMCoordinates,
+    const int obstacleStart,
+    const int obstacleEnd,
+    int **pgmData,
+    int *boundaries,
+    double *collideField,
+    double *streamField,
+    int *flagField,
+    int *xlength
+);
 
 #endif
 
