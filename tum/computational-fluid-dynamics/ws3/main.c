@@ -44,16 +44,16 @@ int main(int argc, char *argv[]){
         treatBoundary(collide_field, flag_field, velocity_wall,xlength, density_ref, density_in);
         /* Print out the MLUPS value */
         mlups_time = clock()-mlups_time;
-        printf("Time step: #%d MLUPS: %f\n", t, num_cells/(mlups_exp*(double)mlups_time/CLOCKS_PER_SEC));
+        if(num_cells > MLUPS_THRESHOLD)
+            printf("Time step: #%d MLUPS: %f\n", t, num_cells/(mlups_exp*(double)mlups_time/CLOCKS_PER_SEC));
         /* Print out vtk output if needed */
         if (t%timesteps_per_plotting==0)
             writeVtkOutput(collide_field, flag_field, "img/lbm-img", t, xlength);
-        
         /* Output for debugging */
-        if(VERBOSE)
+        if(VERBOSE){
             printField(collide_field, xlength);
-        if(OUTPUT_FLAGFIELD)
             printFlagField(flag_field, xlength);
+        }
     }
 
     /* Free memory */
@@ -65,5 +65,4 @@ int main(int argc, char *argv[]){
     printf("Simulation complete.");
     return 0;
 }
-
 #endif

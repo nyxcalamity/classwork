@@ -1,6 +1,3 @@
 Things to check:
 - cheeck how one can optimize computation of density and velocity
-- check that D and Q definitions are unique
-- restrict MLUPS computation to certain size of grids
 - check Re and Ma numbers before even starting the computation to make sure that the whole model is correct
-- check that input file has correct grid structure

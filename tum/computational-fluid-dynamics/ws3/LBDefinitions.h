@@ -2,7 +2,7 @@
 #define _LBDEFINITIONS_H_
 
 #define VERBOSE 0
-#define OUTPUT_FLAGFIELD 0
+#define MLUPS_THRESHOLD 1000
 
 #define D_LBM 3
 #define Q_LBM 19
@@ -45,5 +45,4 @@ static const double MIRROREDVELOCITIES12_6[5] = { 0, 5, 6, 7, 14, };
 
 static const double NORMALVELOCITIES10_8[5] = { 3, 7, 10, 13, 17, };
 static const double MIRROREDVELOCITIES10_8[5] = { 1, 5, 8, 11, 15, };
-
 #endif
