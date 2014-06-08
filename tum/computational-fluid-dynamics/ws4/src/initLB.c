@@ -2,8 +2,8 @@
 #include "helper.h"
 #include <unistd.h>
 
-int readParameters(int *xlength, double *tau, double *velocityWall, 
-        int *timesteps, int *timestepsPerPlotting, int argc, char *argv[]){
+int readParameters(int *xlength, double *tau, double *velocityWall, int *timesteps, 
+        int *timestepsPerPlotting, int argc, char *argv[], int *x_proc, int *y_proc, int *z_proc){
     double *velocityWall1, *velocityWall2, *velocityWall3;
     
     if(argc<2)

@@ -7,6 +7,7 @@
 #include "visualLB.h"
 #include "boundary.h"
 #include <time.h>
+#include "mpi.h"
 
 /**
  * Function that prints out the point by point values of the provided field (4D).
@@ -31,14 +32,21 @@ void printField(double *field, int ncell){
     }
 }
 
-int main(int argc, char *argv[]){
-    double *collideField=NULL, *streamField=NULL, *swap=NULL, tau, velocityWall[3], u_wall_length, 
-            num_cells, mach_number, reynolds_number;
-    int *flagField=NULL, xlength, t, timesteps, timestepsPerPlotting, mlups_exp=pow(10,6);
-    clock_t mlups_time;
-    
-    readParameters(&xlength,&tau,velocityWall,&timesteps,&timestepsPerPlotting,argc,argv);
-    
+
+void initializeMPI(int *rank, int *rank_size, int *argc, char **argv[]){
+    MPI_Init(argc,argv);
+    MPI_Comm_size(MPI_COMM_WORLD, rank);
+    MPI_Comm_rank(MPI_COMM_WORLD, rank_size);
+}
+
+
+void finalizeMPI(){
+    MPI_Finalize();
+}
+
+
+void validateModel(double velocityWall[3], int xlength, double tau){
+    double u_wall_length,mach_number, reynolds_number;
     /* Compute Mach number and Reynolds number */
     u_wall_length=sqrt(velocityWall[0]*velocityWall[0]+velocityWall[1]*velocityWall[1]+
             velocityWall[2]*velocityWall[2]);
@@ -52,6 +60,18 @@ int main(int argc, char *argv[]){
         ERROR("Computed Mach number is too large.");
     if(reynolds_number > 500)
         ERROR("Computed Reynolds number is too large for simulation to be run on a laptop/pc.");
+}
+
+
+int main(int argc, char *argv[]){
+    double *collideField=NULL, *streamField=NULL, *swap=NULL, tau, velocityWall[3], num_cells;
+    int *flagField=NULL, xlength, t, timesteps, timestepsPerPlotting, mlups_exp=pow(10,6), 
+            x_proc, y_proc, z_proc;
+    clock_t mlups_time;
+    
+    readParameters(&xlength,&tau,velocityWall,&timesteps,&timestepsPerPlotting,argc,argv,&x_proc,
+            &y_proc,&z_proc);
+    validateModel(velocityWall, xlength, tau);
 
     num_cells = pow(xlength+2, D_LBM);
     collideField = malloc(Q_LBM*num_cells*sizeof(*collideField));
