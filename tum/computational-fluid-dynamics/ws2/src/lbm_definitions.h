@@ -2,6 +2,7 @@
 #define _LBDEFINITIONS_H_
 
 #define VERBOSE 0
+#define MLUPS_MIN_CELLS 500
 
 #define D_LBM 3
 #define Q_LBM 19

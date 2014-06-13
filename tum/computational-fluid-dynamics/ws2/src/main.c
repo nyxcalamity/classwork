@@ -77,7 +77,9 @@ int main(int argc, char *argv[]){
         treatBoundary(collideField,flagField,velocityWall,xlength);
         /* Print out the MLUPS value */
         mlups_time = clock()-mlups_time;
-        printf("Time step: #%d MLUPS: %f\n", t, num_cells/(mlups_exp*(double)mlups_time/CLOCKS_PER_SEC));
+        if(num_cells > MLUPS_MIN_CELLS)
+            printf("Time step: #%d MLUPS: %f\n", t, 
+                    num_cells/(mlups_exp*(double)mlups_time/CLOCKS_PER_SEC));
         /* Print out vtk output if needed */
         if (t%timestepsPerPlotting==0)
             writeVtkOutput(collideField,flagField,"img/lbm-img",t,xlength);
