@@ -2,6 +2,8 @@
 #include "helper.h"
 #include <stdio.h>
 #include "visualLB.h"
+#include "LBDefinitions.h"
+#include "initLB.h"
 
 void write_vtkHeader( FILE *fp, int xlength) {
   if( fp == NULL ){
@@ -22,34 +24,32 @@ void write_vtkHeader( FILE *fp, int xlength) {
 }
 
 
-void write_vtkPointCoordinates( FILE *fp, int xlength) {
-  double originX = 0.0;
-  double originY = 0.0;
-
-  int i = 0;
-  int j = 0;
-  int k = 0;
-
-  for(k = 0; k < xlength; k++) {
-    for(j = 0; j < xlength; j++) {
-      for(i = 0; i < xlength; i++) {
-        fprintf(fp, "%f %f %f\n", originX+(i*1.0/xlength), originY+(j*1.0/xlength), originY+(k*1.0/xlength) );
-      }
+void write_vtkPointCoordinates( FILE *fp, int xlength, int rank, int x_proc) {
+    double origin_x=getRankX(rank,x_proc)*(xlength-1.0)/xlength,
+            origin_y=getRankY(rank,x_proc)*(xlength-1.0)/xlength,
+            origin_z=getRankZ(rank,x_proc)*(xlength-1.0)/xlength;
+    int i=0, j=0, k=0;
+    
+    for(k = 0; k<xlength; k++){
+        for(j = 0; j<xlength; j++){
+            for(i = 0; i<xlength; i++){
+                fprintf(fp, "%f %f %f\n", origin_x+(i*1.0/xlength), origin_y+(j*1.0/xlength), origin_z+(k*1.0/xlength));
+            }
+        }
     }
-  }
 }
 
 /* NOTE: We output only the fluid cells */
-void writeVtkOutput(const double * const collideField, const int * const flagField, const char * filename, unsigned int t, int xlength) {
+void writeVtkOutput(const double * const collideField, const int * const flagField, 
+        const char * filename, unsigned int t, int xlength, int rank, int x_proc) {
   int i, j, k;
-  double velocity[3];
-  double density;
+  double velocity[3], density;
   /* len is used to set values in lexicographic order "[ Q * ( z*len*len + y*len + x) + i ]" */
   int len = xlength + 2;
 
   char szFileName[80];
   FILE *fp=NULL;
-  sprintf( szFileName, "%s.%i.vtk", filename, t );
+  sprintf( szFileName, "%s-rank%i.%i.vtk", filename, rank, t );
   fp = fopen( szFileName, "w");
   if( fp == NULL ){
     char szBuff[80];
@@ -58,8 +58,8 @@ void writeVtkOutput(const double * const collideField, const int * const flagFie
     return;
   }
 
-  write_vtkHeader( fp, xlength);
-  write_vtkPointCoordinates( fp, xlength);
+  write_vtkHeader(fp, xlength);
+  write_vtkPointCoordinates(fp,xlength,rank,x_proc);
 
   fprintf(fp,"POINT_DATA %i \n", xlength*xlength*xlength );
 
@@ -85,6 +85,158 @@ void writeVtkOutput(const double * const collideField, const int * const flagFie
         fprintf(fp, "%f\n",  density);
       }
     }
+  }
+
+  if(fclose(fp)){
+    char szBuff[80];
+    sprintf( szBuff, "Failed to close %s", szFileName );
+    ERROR( szBuff );
+  }
+}
+
+
+void printField(double *field, int xlength){
+    int x,y,z,i;
+    int stepX=xlength+2,stepY=xlength+2,stepZ=xlength+2;
+
+    for(x=0;x<stepX;x++){
+        for(y=0;y<stepY;y++){
+            for(z=0;z<stepZ;z++){
+                printf("(%d,%d,%d): ",x,y,z);
+                for(i=0;i<Q_LBM;i++){
+                    printf("%f ",field[Q_LBM*(x+y*stepX+z*stepX*stepY)+i]);
+                }
+                printf("\n");
+            }
+        }
+    }
+}
+
+
+void printFlagField(int *flagField, int xlength){
+    int x,y,z;
+    int stepX=xlength+2,stepY=xlength+2,stepZ=xlength+2;
+
+    printf("(y,z)\\x  ");
+    for(x=0; x<stepX; x++) {
+        printf("%2i ",x);
+    }
+    printf("\n-------");
+    for(x=0; x<stepX; x++) {
+        printf("---");
+    }
+    printf("\n");
+
+    for(z=0;z<stepZ;z++){
+        for(y=stepY-1;y>=0;y--){
+            printf("(%2d,%2d): ",y,z);
+            for(x=0;x<stepX;x++){
+                printf("%2i ",flagField[x+y*stepX+z*stepX*stepY]);
+            }
+            printf("\n");
+        }
+        printf("\n");
+    }
+}
+
+
+void writeField(const double * const field, const char * filename, unsigned int t, const int xlength, const int rank) {
+  int x,y,z,i, stepX=xlength+2,stepY=xlength+2,stepZ=xlength+2;
+
+  char szFileName[80];
+  FILE *fp=NULL;
+  sprintf( szFileName, "%s-rank%i.%i.dat", filename, rank, t );
+  fp = fopen( szFileName, "w");
+  if( fp == NULL ){
+    char szBuff[80];
+    sprintf( szBuff, "Failed to open %s", szFileName );
+    ERROR( szBuff );
+    return;
+  }
+
+  for(z=0;z<stepZ;z++){
+      for(x=0;x<stepX;x++){
+          for(y=0;y<stepY;y++){
+              fprintf(fp, "(%d,%d,%d): ",x,y,z);
+              for(i=0;i<Q_LBM;i++)
+                  fprintf(fp, "%f ",field[Q_LBM*(x+y*stepX+z*stepX*stepY)+i]);
+              fprintf(fp, "\n");
+          }
+      }
+  }
+
+  if(fclose(fp)){
+    char szBuff[80];
+    sprintf( szBuff, "Failed to close %s", szFileName );
+    ERROR( szBuff );
+  }
+}
+
+
+void writeFlagField(const int * const flagField, const char * filename, const int xlength, const int rank) {
+  int x,y,z, stepX=xlength+2,stepY=xlength+2,stepZ=xlength+2;
+
+  char szFileName[80];
+  FILE *fp=NULL;
+  sprintf( szFileName, "%s-rank%i.vtk", filename, rank );
+  fp = fopen( szFileName, "w");
+  if( fp == NULL ){
+    char szBuff[80];
+    sprintf( szBuff, "Failed to open %s", szFileName );
+    ERROR( szBuff );
+    return;
+  }
+
+  fprintf(fp, "(y,z)\\x  ");
+  for(x=0; x<stepX; x++) {
+      fprintf(fp, "%2i ",x);
+  }
+  fprintf(fp, "\n-------");
+  for(x=0; x<stepX; x++) {
+      fprintf(fp, "---");
+  }
+  fprintf(fp, "\n");
+
+  for(z=0;z<stepZ;z++){
+      for(y=stepY-1;y>=0;y--){
+          fprintf(fp, "(%2d,%2d): ",y,z);
+          for(x=0;x<stepX;x++){
+              fprintf(fp, "%2i ",flagField[x+y*stepX+z*stepX*stepY]);
+          }
+          fprintf(fp, "\n");
+      }
+      fprintf(fp, "\n");
+  }
+
+  if(fclose(fp)){
+    char szBuff[80];
+    sprintf( szBuff, "Failed to close %s", szFileName );
+    ERROR( szBuff );
+  }
+}
+
+
+void writeBuffer(const double * const buffer, const char * filename, const unsigned int t, const int x_sub_length, const int rank) {
+  int x,y,i, stepX=x_sub_length+2,stepY=x_sub_length+2;
+
+  char szFileName[80];
+  FILE *fp=NULL;
+  sprintf( szFileName, "%s-rank%i.%i.dat", filename, rank, t );
+  fp = fopen( szFileName, "w");
+  if( fp == NULL ){
+    char szBuff[80];
+    sprintf( szBuff, "Failed to open %s", szFileName );
+    ERROR( szBuff );
+    return;
+  }
+
+  for(y=0;y<stepY;y++){
+      for(x=0;x<stepX;x++){
+          fprintf(fp, "(%d,%d): ",x,y);
+          for(i=0;i<N_NORMAL;i++)
+              fprintf(fp, "%f ",buffer[N_NORMAL*(x+y*stepX)+i]);
+          fprintf(fp, "\n");
+      }
   }
 
   if(fclose(fp)){

@@ -1,7 +1,7 @@
 # --------------------------------------------------------------------------------------------------
 #Source files
 SOURCES=src/initLB.c src/visualLB.c src/boundary.c src/collision.c src/streaming.c \
-    src/computeCellValues.c src/main.c src/helper.c
+    src/computeCellValues.c src/main.c src/helper.c src/extraction_swap_injection.c
 EXECUTABLE=lbsim
 SRC_DIR=src
 BUILD_DIR=build
@@ -23,6 +23,7 @@ $(EXECUTABLE): $(OBJECTS)
 clean:
 	rm -f $(OBJECTS) $(EXECUTABLE)
 	rm -f img/*.vtk
+	mkdir -p $(BUILD_DIR)
 
 $(OBJECTS): $(BUILD_DIR)/%.o : $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@ $(LDFLAGS)

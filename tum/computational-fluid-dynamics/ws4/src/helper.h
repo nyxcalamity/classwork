@@ -9,6 +9,7 @@
 #include <string.h>
 #include <float.h>
 #include <time.h>
+#include <mpi.h>
 
 #ifdef PI
 #undef PI
