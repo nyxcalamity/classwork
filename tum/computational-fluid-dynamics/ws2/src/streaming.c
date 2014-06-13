@@ -1,24 +1,23 @@
 #include "streaming.h"
-#include "LBDefinitions.h"
+#include "lbm_definitions.h"
 
-void doStreaming(double *collideField, double *streamField, int *flagField, int xlength){
+void doStreaming(double *collide_field, double *stream_field, int *flag_field, int xlength){
     int x,nx,y,ny,z,nz,i,step=xlength+2;
     
     for(x=0;x<step;x++){
         for(y=0;y<step;y++){
             for(z=0;z<step;z++){
-                if(flagField[x+y*step+z*step*step]==FLUID){
-                    for(i=0;i<Q;i++){
+                if(flag_field[x+y*step+z*step*step]==FLUID){
+                    for(i=0;i<Q_LBM;i++){
                         nx=x-LATTICEVELOCITIES[i][0];
                         ny=y-LATTICEVELOCITIES[i][1];
                         nz=z-LATTICEVELOCITIES[i][2];
                         
-                        streamField[Q*(x+y*step+z*step*step)+i]=
-                                collideField[Q*(nx+ny*step+nz*step*step)+i];
+                        stream_field[Q_LBM*(x+y*step+z*step*step)+i]=
+                                collide_field[Q_LBM*(nx+ny*step+nz*step*step)+i];
                     }
                 }
             }
         }
     }
 }
-

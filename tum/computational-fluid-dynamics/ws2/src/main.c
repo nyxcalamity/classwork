@@ -3,8 +3,8 @@
 
 #include "collision.h"
 #include "streaming.h"
-#include "initLB.h"
-#include "visualLB.h"
+#include "initialization.h"
+#include "visualization.h"
 #include "boundary.h"
 #include <time.h>
 
@@ -22,14 +22,15 @@ void printField(double *field, int ncell){
         for(y=0;y<step;y++){
             for(z=0;z<step;z++){
                 printf("(%d,%d,%d): ",x,y,z);
-                for(i=0;i<Q;i++){
-                    printf("%f ",field[Q*(x+y*step+z*step*step)+i]);
+                for(i=0;i<Q_LBM;i++){
+                    printf("%f ",field[Q_LBM*(x+y*step+z*step*step)+i]);
                 }
                 printf("\n");
             }
         }
     }
 }
+
 
 int main(int argc, char *argv[]){
     double *collideField=NULL, *streamField=NULL, *swap=NULL, tau, velocityWall[3], num_cells;
@@ -38,9 +39,9 @@ int main(int argc, char *argv[]){
     
     readParameters(&xlength,&tau,velocityWall,&timesteps,&timestepsPerPlotting,argc,argv);
     
-    num_cells = pow(xlength+2, D);
-    collideField = malloc(Q*num_cells*sizeof(*collideField));
-    streamField = malloc(Q*num_cells*sizeof(*collideField));
+    num_cells = pow(xlength+2, D_LBM);
+    collideField = malloc(Q_LBM*num_cells*sizeof(*collideField));
+    streamField = malloc(Q_LBM*num_cells*sizeof(*collideField));
     flagField = malloc(num_cells*sizeof(*flagField));
     initialiseFields(collideField,streamField,flagField,xlength);
     
@@ -73,5 +74,4 @@ int main(int argc, char *argv[]){
     printf("Simulation complete.");
     return 0;
 }
-
 #endif

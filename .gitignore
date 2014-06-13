@@ -21,12 +21,19 @@ RemoteSystemsTempFiles
 # Netbeans
 nbproject
 
+# RStudio
+*.Rproj
+.Rproj.user
+
 # Binary files
 bin
 build
 lib
 *.o
 #*.pdf
+
+# Heavy visualisation files
+*.vtk
 
 # Hidden due to licencing or otherwise
 ml_login_data.mat

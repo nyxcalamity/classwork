@@ -1,17 +1,19 @@
-#include "computeCellValues.h"
-#include "LBDefinitions.h"
+#include "compute_cell_values.h"
+#include "lbm_definitions.h"
 #include "helper.h"
 
-void computeDensity(const double *const currentCell, double *density){
+void computeDensity(const double *const current_cell, double *density){
     int i; *density=0;
-    for(i=0;i<Q;i++)
-        *density+=currentCell[i];
+    for(i=0;i<Q_LBM;i++)
+        *density+=current_cell[i];
     /* Density should be close to a unit (ρ~1) */
     if((*density-1.0)>EPS)
         ERROR("Density dropped below error tolerance.");
 }
 
-void computeVelocity(const double * const currentCell, const double * const density, double *velocity){
+
+void computeVelocity(const double * const current_cell, const double * const density, 
+        double *velocity){
     int i;
     /* NOTE:Indeces are hardcoded because of the possible performance gains and since 
      * we do not have alternating D */
@@ -19,10 +21,10 @@ void computeVelocity(const double * const currentCell, const double * const dens
     velocity[1]=0;
     velocity[2]=0;
     
-    for(i=0;i<Q;i++){
-        velocity[0]+=currentCell[i]*LATTICEVELOCITIES[i][0];
-        velocity[1]+=currentCell[i]*LATTICEVELOCITIES[i][1];
-        velocity[2]+=currentCell[i]*LATTICEVELOCITIES[i][2];
+    for(i=0;i<Q_LBM;i++){
+        velocity[0]+=current_cell[i]*LATTICEVELOCITIES[i][0];
+        velocity[1]+=current_cell[i]*LATTICEVELOCITIES[i][1];
+        velocity[2]+=current_cell[i]*LATTICEVELOCITIES[i][2];
     }
     
     velocity[0]/=*density;
@@ -30,11 +32,12 @@ void computeVelocity(const double * const currentCell, const double * const dens
     velocity[2]/=*density;
 }
 
+
 void computeFeq(const double * const density, const double * const velocity, double *feq){
     int i;
     double s1, s2, s3; /* summands */
     /* NOTE:Indexes are hardcoded to improve program performance */
-    for(i=0;i<Q;i++){
+    for(i=0;i<Q_LBM;i++){
         s1 = LATTICEVELOCITIES[i][0]*velocity[0]+LATTICEVELOCITIES[i][1]*velocity[1]+
                 LATTICEVELOCITIES[i][2]*velocity[2];
         s2 = s1*s1;
