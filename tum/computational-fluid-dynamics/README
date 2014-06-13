@@ -1,0 +1,4 @@
+This folder contains a collection of CFD lab mini projects as well as the final project. All code is written by the owner of the repo except next:
+- helper.c
+- helper.h
+- some parts of Makefiles

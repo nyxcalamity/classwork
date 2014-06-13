@@ -32,12 +32,32 @@ void printField(double *field, int ncell){
 }
 
 
+/* Validates the configured physical model by calculating characteristic numbers */
+void validateModel(double velocity_wall[3], int xlength, double tau){
+    double u_wall_length,mach_number, reynolds_number;
+    /* Compute Mach number and Reynolds number */
+    u_wall_length=sqrt(velocity_wall[0]*velocity_wall[0]+velocity_wall[1]*velocity_wall[1]+
+            velocity_wall[2]*velocity_wall[2]);
+    mach_number = u_wall_length*SQRT3;
+    reynolds_number=u_wall_length*xlength*C_S_POW2_INV/(tau-0.5);
+    printf("Computed Mach number: %f\n", mach_number);
+    printf("Computed Reynolds number: %f\n", reynolds_number);
+    
+    /* Check if characteristic numbers are correct */
+    if(mach_number >= 1)
+        ERROR("Computed Mach number is too large.");
+    if(reynolds_number > 500)
+        ERROR("Computed Reynolds number is too large for simulation to be run on a laptop/pc.");
+}
+
+
 int main(int argc, char *argv[]){
     double *collideField=NULL, *streamField=NULL, *swap=NULL, tau, velocityWall[3], num_cells;
     int *flagField=NULL, xlength, t, timesteps, timestepsPerPlotting, mlups_exp=pow(10,6);
     clock_t mlups_time;
     
     readParameters(&xlength,&tau,velocityWall,&timesteps,&timestepsPerPlotting,argc,argv);
+    validateModel(velocityWall, xlength, tau);
     
     num_cells = pow(xlength+2, D_LBM);
     collideField = malloc(Q_LBM*num_cells*sizeof(*collideField));
