@@ -112,7 +112,7 @@ char* find_string( const char* szFileName, const char *szVarName )
         ++nLine;
 
         /* remove comments */
-        for( i = 0; i < strlen(szLine); i++)
+        for( i = 0; i < (int)strlen(szLine); i++)
             if( szLine[i] == '#' )
             {
                 szLine[i] = '\0'; /* Stringende setzen */

@@ -1,39 +1,36 @@
 # --------------------------------------------------------------------------------------------------
-#Source files
 SOURCES=src/initialization.c src/visualization.c src/boundary.c src/collision.c src/streaming.c \
     src/compute_cell_values.c src/helper.c src/main.c
-CUSOURCES=src/cuda_calls.cu
+SOURCES_CU=src/collision_gpu.cu
 EXECUTABLE=build/lbm-sim
 SRC_DIR=src
 BUILD_DIR=build
+COMPUTE_CAPABILITY=30
 # --------------------------------------------------------------------------------------------------
 #Compiler command
 CC=g++
-CUCC=nvcc
+CC_CU=nvcc
 #Compiler flags
-CFLAGS=-g #-Werror -Wall -ofast -funroll-loops -pedantic
-CUFLAGS=-arch=sm_30
+CFLAGS=-g -Wall -ofast -funroll-loops #-Werror -pedantic
+CFLAGS_CU=-g #-arch=sm_$(COMPUTE_CAPABILITY)
 # Linker flags
 LDFLAGS=-lm
-CULDFLAGS=-lcuda -lcudart
+LDFLAGS_CU=-lcuda -lcudart
 # --------------------------------------------------------------------------------------------------
 OBJECTS=$(SOURCES:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
-CUOBJECTS=$(CUSOURCES:$(SRC_DIR)/%.cu=$(BUILD_DIR)/%.o)
+OBJECTS_CU=$(SOURCES_CU:$(SRC_DIR)/%.cu=$(BUILD_DIR)/%.o)
 
-all: $(EXECUTABLE)
+all: clean $(EXECUTABLE)
 
-$(EXECUTABLE): $(OBJECTS) $(CUOBJECTS)
-	$(CC) $(CUOBJECTS) $(OBJECTS) -o $@ $(LDFLAGS) $(CULDFLAGS)
-
-#$(EXECUTABLE): $(OBJECTS) 
-#	$(CC) $(OBJECTS) -o $@ $(LDFLAGS)
+$(EXECUTABLE): $(OBJECTS) $(OBJECTS_CU)
+	$(CC) $(OBJECTS_CU) $(OBJECTS) -o $@ $(LDFLAGS) $(LDFLAGS_CU)
 
 clean:
-	rm -f $(OBJECTS) $(CUOBJECTS) $(EXECUTABLE)
+	rm -f $(OBJECTS) $(OBJECTS_CU) $(EXECUTABLE)
 	rm -f img/*.vtk
 	
 $(OBJECTS): $(BUILD_DIR)/%.o : $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@ $(LDFLAGS)
 
-$(CUOBJECTS): $(BUILD_DIR)/%.o : $(SRC_DIR)/%.cu
-	$(CUCC) $(CFLAGS) -c $< -o $@
+$(OBJECTS_CU): $(BUILD_DIR)/%.o : $(SRC_DIR)/%.cu
+	$(CC_CU) $(CFLAGS_CU) -c $< -o $@ $(LDFLAGS_CU)

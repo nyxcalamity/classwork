@@ -7,7 +7,7 @@
 #include "initialization.h"
 #include "visualization.h"
 #include "boundary.h"
-#include "cuda_calls.h"
+#include "collision_gpu.h"
 
 /**
  * Function that prints out the point by point values of the provided field (4D).
@@ -46,16 +46,16 @@ void validateModel(double velocity_wall[3], int xlength, double tau){
     
     /* Check if characteristic numbers are correct */
     if(mach_number >= 1)
-        printf("Computed Mach number is too large.");
+        ERROR("Computed Mach number is too large.");
     if(reynolds_number > 500)
-        printf("Computed Reynolds number is too large for simulation to be run on a laptop/pc.");
+        ERROR("Computed Reynolds number is too large for simulation to be run on a laptop/pc.");
 }
 
 
 int main(int argc, char *argv[]){
-    double *collide_field=NULL, *stream_field=NULL, *swap=NULL, tau, velocity_wall[3], num_cells;
-    int *flag_field=NULL, xlength, t, timesteps, timesteps_per_plotting, mlups_exp=pow(10,6);
-    clock_t mlups_time;
+    double *collide_field=NULL, *stream_field=NULL, tau, velocity_wall[3], num_cells;
+    int *flag_field=NULL, xlength, t, timesteps, timesteps_per_plotting;
+    //clock_t mlups_time; double *swap=NULL; int mlups_exp=pow(10,6);
     size_t size;
     
     readParameters(&xlength,&tau,velocity_wall,&timesteps,&timesteps_per_plotting,argc,argv);
@@ -68,7 +68,6 @@ int main(int argc, char *argv[]){
     flag_field = (int*)malloc(num_cells*sizeof(int));
     initialiseFields(collide_field,stream_field,flag_field,xlength);
     
-    //CUDA call
     CudaTest(collide_field, size);
 
 //    for(t=0;t<timesteps;t++){
@@ -94,12 +93,15 @@ int main(int argc, char *argv[]){
 //            printField(collide_field, xlength);
 //    }
 
+    t=0;
+    writeVtkOutput(collide_field,flag_field,"img/lbm-img",t,xlength);
+
     /* Free memory */
     free(collide_field);
     free(stream_field);
     free(flag_field);
     
-    printf("Simulation complete.");
+    printf("Simulation complete.\n");
     return 0;
 }
 #endif
