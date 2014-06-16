@@ -1,12 +1,13 @@
 #ifndef _MAIN_C_
 #define _MAIN_C_
 
+#include <time.h>
 #include "collision.h"
 #include "streaming.h"
 #include "initialization.h"
 #include "visualization.h"
 #include "boundary.h"
-#include <time.h>
+#include "cuda_calls.h"
 
 /**
  * Function that prints out the point by point values of the provided field (4D).
@@ -45,53 +46,58 @@ void validateModel(double velocity_wall[3], int xlength, double tau){
     
     /* Check if characteristic numbers are correct */
     if(mach_number >= 1)
-        ERROR("Computed Mach number is too large.");
+        printf("Computed Mach number is too large.");
     if(reynolds_number > 500)
-        ERROR("Computed Reynolds number is too large for simulation to be run on a laptop/pc.");
+        printf("Computed Reynolds number is too large for simulation to be run on a laptop/pc.");
 }
 
 
 int main(int argc, char *argv[]){
-    double *collideField=NULL, *streamField=NULL, *swap=NULL, tau, velocityWall[3], num_cells;
-    int *flagField=NULL, xlength, t, timesteps, timestepsPerPlotting, mlups_exp=pow(10,6);
+    double *collide_field=NULL, *stream_field=NULL, *swap=NULL, tau, velocity_wall[3], num_cells;
+    int *flag_field=NULL, xlength, t, timesteps, timesteps_per_plotting, mlups_exp=pow(10,6);
     clock_t mlups_time;
+    size_t size;
     
-    readParameters(&xlength,&tau,velocityWall,&timesteps,&timestepsPerPlotting,argc,argv);
-    validateModel(velocityWall, xlength, tau);
+    readParameters(&xlength,&tau,velocity_wall,&timesteps,&timesteps_per_plotting,argc,argv);
+    validateModel(velocity_wall, xlength, tau);
     
     num_cells = pow(xlength+2, D_LBM);
-    collideField = malloc(Q_LBM*num_cells*sizeof(*collideField));
-    streamField = malloc(Q_LBM*num_cells*sizeof(*collideField));
-    flagField = malloc(num_cells*sizeof(*flagField));
-    initialiseFields(collideField,streamField,flagField,xlength);
+    size = Q_LBM*num_cells*sizeof(double);
+    collide_field = (double*)malloc(size);
+    stream_field = (double*)malloc(size);
+    flag_field = (int*)malloc(num_cells*sizeof(int));
+    initialiseFields(collide_field,stream_field,flag_field,xlength);
     
-    for(t=0;t<timesteps;t++){
-        mlups_time = clock();
+    //CUDA call
+    CudaTest(collide_field, size);
+
+//    for(t=0;t<timesteps;t++){
+//        mlups_time = clock();
         /* Copy pdfs from neighbouring cells into collide field */
-        doStreaming(collideField,streamField,flagField,xlength);
+//        doStreaming(collide_field,stream_field,flag_field,xlength);
         /* Perform the swapping of collide and stream fields */
-        swap = collideField; collideField = streamField; streamField = swap;
+//        swap = collide_field; collide_field = stream_field; stream_field = swap;
         /* Compute post collision distributions */
-        doCollision(collideField,flagField,&tau,xlength);
+//        doCollision(collide_field,flag_field,&tau,xlength);
         /* Treat boundaries */
-        treatBoundary(collideField,flagField,velocityWall,xlength);
+//        treatBoundary(collide_field,flag_field,velocity_wall,xlength);
         /* Print out the MLUPS value */
-        mlups_time = clock()-mlups_time;
-        if(num_cells > MLUPS_MIN_CELLS)
-            printf("Time step: #%d MLUPS: %f\n", t, 
-                    num_cells/(mlups_exp*(double)mlups_time/CLOCKS_PER_SEC));
+//        mlups_time = clock()-mlups_time;
+//        if(VERBOSE && num_cells > MLUPS_MIN_CELLS)
+//            printf("Time step: #%d MLUPS: %f\n", t,
+//                    num_cells/(mlups_exp*(double)mlups_time/CLOCKS_PER_SEC));
         /* Print out vtk output if needed */
-        if (t%timestepsPerPlotting==0)
-            writeVtkOutput(collideField,flagField,"img/lbm-img",t,xlength);
+//        if (t%timesteps_per_plotting==0)
+//            writeVtkOutput(collide_field,flag_field,"img/lbm-img",t,xlength);
         
-        if(VERBOSE)
-            printField(collideField, xlength);
-    }
+//        if(VERBOSE)
+//            printField(collide_field, xlength);
+//    }
 
     /* Free memory */
-    free(collideField);
-    free(streamField);
-    free(flagField);
+    free(collide_field);
+    free(stream_field);
+    free(flag_field);
     
     printf("Simulation complete.");
     return 0;
