@@ -1,7 +1,7 @@
 # --------------------------------------------------------------------------------------------------
 SOURCES=src/initialization.c src/visualization.c src/boundary.c src/collision.c src/streaming.c \
     src/compute_cell_values.c src/helper.c src/main.c
-SOURCES_CU=src/collision_gpu.cu
+SOURCES_CU=src/collision_gpu.cu src/gpu_utils.cu
 EXECUTABLE=build/lbm-sim
 SRC_DIR=src
 BUILD_DIR=build

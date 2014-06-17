@@ -8,6 +8,7 @@
 #include "visualization.h"
 #include "boundary.h"
 #include "collision_gpu.h"
+#include "gpu_utils.h"
 
 /**
  * Function that prints out the point by point values of the provided field (4D).
@@ -68,7 +69,13 @@ int main(int argc, char *argv[]){
     flag_field = (int*)malloc(num_cells*sizeof(int));
     initialiseFields(collide_field,stream_field,flag_field,xlength);
     
-    CudaTest(collide_field, size);
+    if(hasCudaGpu()){
+    	printf("This computer has CUDA enabled GPU\n"); //TODO:remove me
+    	CudaTest(collide_field, size);
+    }else{
+    	printf("This computer has no CUDA enabled GPU\n");//TODO:remove me
+    	//cpu code here
+    }
 
 //    for(t=0;t<timesteps;t++){
 //        mlups_time = clock();

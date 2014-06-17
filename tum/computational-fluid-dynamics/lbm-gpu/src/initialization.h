@@ -4,7 +4,7 @@
 #include "helper.h"
 #include "lbm_definitions.h"
 
-/* reads the parameters for the lid driven cavity scenario from a config file */
+/** reads the parameters for the lid driven cavity scenario from a config file */
 int readParameters(
     int *xlength,                       /* reads domain size. Parameter name: "xlength" */
     double *tau,                        /* relaxation parameter tau. Parameter name: "tau" */

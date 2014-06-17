@@ -3,7 +3,7 @@
 __global__
 void DoNothing(){
 //    int i = blockDim.x*blockIdx.x + threadIdx.x;
-//    cuPrintf("Hi there pretty! Wanna come up for a tee? My address is: block #%d thread #%d gridwise #%d",
+//    cuPrintf("Hi there pretty! Wanna come up for a tea? My address is: block #%d thread #%d gridwise #%d",
 //    		blockIdx.x, threadIdx.x, i);
 }
 
