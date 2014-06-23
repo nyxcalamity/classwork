@@ -49,23 +49,23 @@ int main(int argc, char *argv[]){
     InitialiseFields(collide_field,stream_field,flag_field,xlength);
 
     for(t=0;t<timesteps;t++){
-        printf("Time step: #%d\n", t);
+        printf("\nTime step: #%d", t);
         mlups_time = clock();
         /* Copy pdfs from neighbouring cells into collide field */
         DoStreaming(collide_field,stream_field,flag_field,xlength);
         /* Perform the swapping of collide and stream fields */
         swap = collide_field; collide_field = stream_field; stream_field = swap;
         /* Compute post collision distributions */
-//		if(HasCudaGpu())
-//			DoCollisionCuda(collide_field,flag_field,&tau,xlength);
-//		else
-			DoCollision(collide_field,flag_field,&tau,xlength);
+		if(HasCudaGpu())
+			DoCollisionCuda(collide_field,flag_field,tau,xlength);
+		else
+			DoCollision(collide_field,flag_field,tau,xlength);
         /* Treat boundaries */
         TreatBoundary(collide_field,flag_field,velocity_wall,xlength);
         /* Print out the MLUPS value */
         mlups_time = clock()-mlups_time;
-        if(VERBOSE && num_cells > MLUPS_MIN_CELLS)
-            printf("MLUPS: %f\n", num_cells/(mlups_exp*(double)mlups_time/CLOCKS_PER_SEC));
+        if(num_cells > MLUPS_MIN_CELLS)
+            printf(" MLUPS: %f", num_cells/(mlups_exp*(double)mlups_time/CLOCKS_PER_SEC));
         /* Print out vtk output if needed */
         if (t%timesteps_per_plotting==0)
             WriteVtkOutput(collide_field,flag_field,"img/lbm-img",t,xlength);

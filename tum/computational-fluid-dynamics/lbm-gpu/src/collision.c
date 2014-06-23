@@ -7,11 +7,10 @@
 /** Computes the post-collision distribution functions according to the BGK update rule and
  *  stores the results again at the same position.
  */
-void ComputePostCollisionDistributions(double *current_cell, const double * const tau, 
-		const double *const feq){
+void ComputePostCollisionDistributions(double *current_cell, double tau, const double *const feq){
     int i;
     for(i=0;i<Q_LBM;i++){
-        current_cell[i]=current_cell[i]-(current_cell[i]-feq[i])/(*tau);
+        current_cell[i]=current_cell[i]-(current_cell[i]-feq[i])/tau;
         
         /* Probability distribution function can not be less than 0 */
         if (current_cell[i] < 0)
@@ -20,7 +19,7 @@ void ComputePostCollisionDistributions(double *current_cell, const double * cons
 }
 
 
-void DoCollision(double *collide_field, int *flag_field, const double * const tau, int xlength){
+void DoCollision(double *collide_field, int *flag_field, double tau, int xlength){
     double density, velocity[3], feq[Q_LBM], *currentCell;
     int x,y,z,step=xlength+2;
     

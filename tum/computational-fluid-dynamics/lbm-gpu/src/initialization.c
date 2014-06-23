@@ -51,7 +51,7 @@ void InitialiseFields(double *collide_field, double *stream_field, int *flag_fie
                      * computation further on.
                      */
                     stream_field[Q_LBM*(x+y*step+z*step*step)+i]=0;
-                    collide_field[Q_LBM*(x+y*step+z*step*step)+i]=LATTICEWEIGHTS[i];
+                    collide_field[Q_LBM*(x+y*step+z*step*step)+i]=LATTICE_WEIGHTS[i];
                 }
             }
         }
