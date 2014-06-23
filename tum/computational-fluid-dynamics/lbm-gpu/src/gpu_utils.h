@@ -2,6 +2,6 @@
 #define GPU_UTILS_H_
 
 /** Determines if the computer has CUDA enabled GPU and returns true or false */
-int hasCudaGpu();
+int HasCudaGpu();
 
 #endif

@@ -1,7 +1,7 @@
+#include "visualization.h"
+#include "lbm_definitions.h"
 #include "compute_cell_values.h"
 #include "helper.h"
-#include <stdio.h>
-#include "visualization.h"
 
 void write_vtkHeader( FILE *fp, int xlength) {
     if( fp == NULL ){
@@ -34,7 +34,7 @@ void write_vtkPointCoordinates( FILE *fp, int xlength) {
 }
 
 
-void writeVtkOutput(const double * const collideField, const int * const flagField, const char * filename, unsigned int t, int xlength) {
+void WriteVtkOutput(const double * const collideField, const int * const flagField, const char * filename, unsigned int t, int xlength) {
     int i, j, k, len = xlength+2; /* lexicographic order "[ Q * ( z*len*len + y*len + x) + i ]" */
     double velocity[3], density;
 
@@ -58,8 +58,8 @@ void writeVtkOutput(const double * const collideField, const int * const flagFie
     for(k = 1; k < xlength+1; k++) {
         for(j = 1; j < xlength+1; j++) {
             for(i = 1; i < xlength+1; i++) {
-                computeDensity (&collideField[ 19 * ( k*len*len + j*len + i) ], &density);
-                computeVelocity(&collideField[ 19 * ( k*len*len + j*len + i) ], &density, velocity);
+                ComputeDensity (&collideField[ 19 * ( k*len*len + j*len + i) ], &density);
+                ComputeVelocity(&collideField[ 19 * ( k*len*len + j*len + i) ], &density, velocity);
                 fprintf(fp, "%f %f %f\n",  velocity[0], velocity[1], velocity[2]);
             }
         }
@@ -71,7 +71,7 @@ void writeVtkOutput(const double * const collideField, const int * const flagFie
     for(k = 1; k < xlength+1; k++) {
         for(j = 1; j < xlength+1; j++) {
             for(i = 1; i < xlength+1; i++) {
-                computeDensity (&collideField[ 19 * ( k*len*len + j*len + i) ], &density);
+                ComputeDensity (&collideField[ 19 * ( k*len*len + j*len + i) ], &density);
                 fprintf(fp, "%f\n",  density);
             }
         }
@@ -81,5 +81,22 @@ void writeVtkOutput(const double * const collideField, const int * const flagFie
         char szBuff[80];
         sprintf( szBuff, "Failed to close %s", szFileName );
         ERROR( szBuff );
+    }
+}
+
+
+void PrintField(double *field, int ncell){
+    int x,y,z,i,step=ncell+2;
+
+    for(x=0;x<step;x++){
+        for(y=0;y<step;y++){
+            for(z=0;z<step;z++){
+                printf("(%d,%d,%d): ",x,y,z);
+                for(i=0;i<Q_LBM;i++){
+                    printf("%f ",field[Q_LBM*(x+y*step+z*step*step)+i]);
+                }
+                printf("\n");
+            }
+        }
     }
 }

@@ -1,8 +1,9 @@
 #include "initialization.h"
+#include "lbm_definitions.h"
 #include "helper.h"
 #include <unistd.h>
 
-int readParameters(int *xlength, double *tau, double *velocity_wall, int *timesteps, 
+int ReadParameters(int *xlength, double *tau, double *velocity_wall, int *timesteps, 
         int *timesteps_per_plotting, int argc, char *argv[]){
     double *velocity_wall_1, *velocity_wall_2, *velocity_wall_3;
     
@@ -28,7 +29,7 @@ int readParameters(int *xlength, double *tau, double *velocity_wall, int *timest
 }
 
 
-void initialiseFields(double *collide_field, double *stream_field, int *flag_field, int xlength){
+void InitialiseFields(double *collide_field, double *stream_field, int *flag_field, int xlength){
     int x,y,z,i,step=xlength+2;
     
     /* NOTE: We use z=xlength+1 as the moving wall */

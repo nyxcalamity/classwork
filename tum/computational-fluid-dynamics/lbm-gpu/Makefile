@@ -12,7 +12,7 @@ CC=g++
 CC_CU=nvcc
 #Compiler flags
 CFLAGS=-g -Wall -ofast -funroll-loops #-Werror -pedantic
-CFLAGS_CU=-g #-arch=sm_$(COMPUTE_CAPABILITY)
+CFLAGS_CU=-g --ptxas-options=-v
 # Linker flags
 LDFLAGS=-lm
 LDFLAGS_CU=-lcuda -lcudart

@@ -1,11 +1,8 @@
 #ifndef _INITLB_H_
 #define _INITLB_H_
 
-#include "helper.h"
-#include "lbm_definitions.h"
-
 /** reads the parameters for the lid driven cavity scenario from a config file */
-int readParameters(
+int ReadParameters(
     int *xlength,                       /* reads domain size. Parameter name: "xlength" */
     double *tau,                        /* relaxation parameter tau. Parameter name: "tau" */
     double *velocity_wall,              /* velocity of the lid. Parameter name: "characteristicvelocity" */
@@ -17,5 +14,5 @@ int readParameters(
 
 
 /* initialises the particle distribution functions and the flagfield */
-void initialiseFields(double *collide_field, double *stream_field,int *flag_field, int xlength);
+void InitialiseFields(double *collide_field, double *stream_field,int *flag_field, int xlength);
 #endif

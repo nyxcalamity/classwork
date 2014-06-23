@@ -1,8 +1,16 @@
+#include <stdio.h>
 #include "gpu_utils.h"
 
 
-int hasCudaGpu(){
+int HasCudaGpu(){
 	int devices = 0;
 	cudaError_t err = cudaGetDeviceCount(&devices);
-	return (devices > 0 && err == cudaSuccess) ? 1 : 0;
+	devices = (devices > 0 && err == cudaSuccess) ? 1 : 0;
+	//TODO:consider removing printouts
+	if (devices)
+		printf("This computer has CUDA enabled GPU\n");
+	else
+		printf("This computer has no CUDA enabled GPU\n");
+
+	return devices;
 }

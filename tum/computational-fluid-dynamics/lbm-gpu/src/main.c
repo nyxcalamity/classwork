@@ -2,40 +2,19 @@
 #define _MAIN_C_
 
 #include <time.h>
-#include "collision.h"
-#include "streaming.h"
+#include "lbm_definitions.h"
 #include "initialization.h"
-#include "visualization.h"
-#include "boundary.h"
+#include "streaming.h"
+#include "collision.h"
 #include "collision_gpu.h"
+#include "boundary.h"
+#include "visualization.h"
 #include "gpu_utils.h"
-
-/**
- * Function that prints out the point by point values of the provided field (4D).
- * @param field
- *          linerized 4D array, with (x,y,z,i)=Q*(x+y*(ncell+2)+z*(ncell+2)*(ncell+2))+i
- * @param ncell
- *          number of inner cells, the ones which are there before adding a boundary layer
- */
-void printField(double *field, int ncell){
-    int x,y,z,i,step=ncell+2;
-    
-    for(x=0;x<step;x++){
-        for(y=0;y<step;y++){
-            for(z=0;z<step;z++){
-                printf("(%d,%d,%d): ",x,y,z);
-                for(i=0;i<Q_LBM;i++){
-                    printf("%f ",field[Q_LBM*(x+y*step+z*step*step)+i]);
-                }
-                printf("\n");
-            }
-        }
-    }
-}
+#include "helper.h"
 
 
 /* Validates the configured physical model by calculating characteristic numbers */
-void validateModel(double velocity_wall[3], int xlength, double tau){
+void ValidateModel(double velocity_wall[3], int xlength, double tau){
     double u_wall_length,mach_number, reynolds_number;
     /* Compute Mach number and Reynolds number */
     u_wall_length=sqrt(velocity_wall[0]*velocity_wall[0]+velocity_wall[1]*velocity_wall[1]+
@@ -54,54 +33,46 @@ void validateModel(double velocity_wall[3], int xlength, double tau){
 
 
 int main(int argc, char *argv[]){
-    double *collide_field=NULL, *stream_field=NULL, tau, velocity_wall[3], num_cells;
-    int *flag_field=NULL, xlength, t, timesteps, timesteps_per_plotting;
-    //clock_t mlups_time; double *swap=NULL; int mlups_exp=pow(10,6);
+    double *collide_field=NULL, *stream_field=NULL, *swap=NULL, tau, velocity_wall[3], num_cells;
+    int *flag_field=NULL, xlength, t, timesteps, timesteps_per_plotting, mlups_exp=pow(10,6);
+    clock_t mlups_time;
     size_t size;
     
-    readParameters(&xlength,&tau,velocity_wall,&timesteps,&timesteps_per_plotting,argc,argv);
-    validateModel(velocity_wall, xlength, tau);
+    ReadParameters(&xlength,&tau,velocity_wall,&timesteps,&timesteps_per_plotting,argc,argv);
+    ValidateModel(velocity_wall, xlength, tau);
     
     num_cells = pow(xlength+2, D_LBM);
     size = Q_LBM*num_cells*sizeof(double);
     collide_field = (double*)malloc(size);
     stream_field = (double*)malloc(size);
     flag_field = (int*)malloc(num_cells*sizeof(int));
-    initialiseFields(collide_field,stream_field,flag_field,xlength);
-    
-//    if(hasCudaGpu()){
-//    	printf("This computer has CUDA enabled GPU\n"); //TODO:remove me
-    	CudaTest(collide_field, size);
-//    }else{
-//    	printf("This computer has no CUDA enabled GPU\n");//TODO:remove me
-    	//cpu code here
-//    }
+    InitialiseFields(collide_field,stream_field,flag_field,xlength);
 
-//    for(t=0;t<timesteps;t++){
-//        mlups_time = clock();
+    for(t=0;t<timesteps;t++){
+        printf("Time step: #%d\n", t);
+        mlups_time = clock();
         /* Copy pdfs from neighbouring cells into collide field */
-//        doStreaming(collide_field,stream_field,flag_field,xlength);
+        DoStreaming(collide_field,stream_field,flag_field,xlength);
         /* Perform the swapping of collide and stream fields */
-//        swap = collide_field; collide_field = stream_field; stream_field = swap;
+        swap = collide_field; collide_field = stream_field; stream_field = swap;
         /* Compute post collision distributions */
-//        doCollision(collide_field,flag_field,&tau,xlength);
+//		if(HasCudaGpu())
+//			DoCollisionCuda(collide_field,flag_field,&tau,xlength);
+//		else
+			DoCollision(collide_field,flag_field,&tau,xlength);
         /* Treat boundaries */
-//        treatBoundary(collide_field,flag_field,velocity_wall,xlength);
+        TreatBoundary(collide_field,flag_field,velocity_wall,xlength);
         /* Print out the MLUPS value */
-//        mlups_time = clock()-mlups_time;
-//        if(VERBOSE && num_cells > MLUPS_MIN_CELLS)
-//            printf("Time step: #%d MLUPS: %f\n", t,
-//                    num_cells/(mlups_exp*(double)mlups_time/CLOCKS_PER_SEC));
+        mlups_time = clock()-mlups_time;
+        if(VERBOSE && num_cells > MLUPS_MIN_CELLS)
+            printf("MLUPS: %f\n", num_cells/(mlups_exp*(double)mlups_time/CLOCKS_PER_SEC));
         /* Print out vtk output if needed */
-//        if (t%timesteps_per_plotting==0)
-//            writeVtkOutput(collide_field,flag_field,"img/lbm-img",t,xlength);
+        if (t%timesteps_per_plotting==0)
+            WriteVtkOutput(collide_field,flag_field,"img/lbm-img",t,xlength);
         
-//        if(VERBOSE)
-//            printField(collide_field, xlength);
-//    }
-
-    t=0;
-    writeVtkOutput(collide_field,flag_field,"img/lbm-img",t,xlength);
+        if(VERBOSE)
+            PrintField(collide_field, xlength);
+    }
 
     /* Free memory */
     free(collide_field);

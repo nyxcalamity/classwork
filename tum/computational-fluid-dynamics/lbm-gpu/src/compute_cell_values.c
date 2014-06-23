@@ -2,7 +2,7 @@
 #include "lbm_definitions.h"
 #include "helper.h"
 
-void computeDensity(const double *const current_cell, double *density){
+void ComputeDensity(const double *const current_cell, double *density){
     int i; *density=0;
     for(i=0;i<Q_LBM;i++)
         *density+=current_cell[i];
@@ -12,7 +12,7 @@ void computeDensity(const double *const current_cell, double *density){
 }
 
 
-void computeVelocity(const double * const current_cell, const double * const density, 
+void ComputeVelocity(const double * const current_cell, const double * const density, 
         double *velocity){
     int i;
     /* NOTE:Indeces are hardcoded because of the possible performance gains and since 
@@ -33,7 +33,7 @@ void computeVelocity(const double * const current_cell, const double * const den
 }
 
 
-void computeFeq(const double * const density, const double * const velocity, double *feq){
+void ComputeFeq(const double * const density, const double * const velocity, double *feq){
     int i;
     double s1, s2, s3; /* summands */
     /* NOTE:Indexes are hardcoded to improve program performance */

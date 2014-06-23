@@ -14,7 +14,7 @@ int inv(int i){
 }
 
 
-void treatBoundary(double *collide_field, int* flag_field, const double * const wall_velocity, 
+void TreatBoundary(double *collide_field, int* flag_field, const double * const wall_velocity, 
         int xlength){
     int x,nx,y,ny,z,nz,i,step=xlength+2;
     double density,dot_prod;
@@ -32,7 +32,7 @@ void treatBoundary(double *collide_field, int* flag_field, const double * const 
                         if(0<nx && nx<step-1 && 0<ny && ny<step-1 && 0<nz && nz<step-1){
                             if (flag_field[x+y*step+z*step*step]==MOVING_WALL){
                                 /* Compute density in the neighbour cell */
-                                computeDensity(&collide_field[Q_LBM*(nx+ny*step+nz*step*step)],&density);
+                                ComputeDensity(&collide_field[Q_LBM*(nx+ny*step+nz*step*step)],&density);
                                 /* Compute dot product */
                                 dot_prod=LATTICEVELOCITIES[i][0]*wall_velocity[0]+
                                         LATTICEVELOCITIES[i][1]*wall_velocity[1]+
