@@ -1,1 +1,3 @@
-lbm_simulation
+lbm-sim
+*.out
+output

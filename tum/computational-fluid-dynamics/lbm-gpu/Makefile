@@ -5,14 +5,14 @@ SOURCES_CU=src/collision_gpu.cu src/gpu_utils.cu
 EXECUTABLE=build/lbm-sim
 SRC_DIR=src
 BUILD_DIR=build
-COMPUTE_CAPABILITY=30
+COMPUTE_CAPABILITY=21
 # --------------------------------------------------------------------------------------------------
 #Compiler command
 CC=g++
 CC_CU=nvcc
 #Compiler flags
 CFLAGS=-g -Wall -ofast -funroll-loops #-Werror -pedantic
-CFLAGS_CU=-g --ptxas-options=-v
+CFLAGS_CU=-g --ptxas-options=-v -arch=sm_$(COMPUTE_CAPABILITY)
 # Linker flags
 LDFLAGS=-lm
 LDFLAGS_CU=-lcuda -lcudart

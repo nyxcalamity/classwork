@@ -17,4 +17,7 @@ void WriteVtkOutput(const double * const collide_field, const int * const flag_f
  */
 void PrintField(double *field, int ncell);
 
+void WriteField(const double * const field, const char * filename, unsigned int t, const int xlength,
+		const int rank);
+
 #endif

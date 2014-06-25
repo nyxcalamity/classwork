@@ -32,10 +32,6 @@ void DoCollision(double *collide_field, int *flag_field, double tau, int xlength
                 ComputeVelocity(currentCell,&density,velocity);
                 ComputeFeq(&density,velocity,feq);
                 ComputePostCollisionDistributions(currentCell,tau,feq);
-                
-                if(VERBOSE)
-                    printf("(%d,%d,%d): density=%f, velocity=[%e,%e,%e]\n",x,y,z,
-                            density,velocity[0],velocity[1],velocity[2]);
             }
         }
     }

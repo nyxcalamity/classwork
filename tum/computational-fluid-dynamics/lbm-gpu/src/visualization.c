@@ -92,11 +92,43 @@ void PrintField(double *field, int ncell){
         for(y=0;y<step;y++){
             for(z=0;z<step;z++){
                 printf("(%d,%d,%d): ",x,y,z);
-                for(i=0;i<Q_LBM;i++){
+                for(i=0;i<Q_LBM;i++)
                     printf("%f ",field[Q_LBM*(x+y*step+z*step*step)+i]);
-                }
                 printf("\n");
             }
         }
     }
+}
+
+
+void WriteField(const double * const field, const char * filename, unsigned int t, const int xlength, const int rank) {
+	int x,y,z,i, stepX=xlength+2,stepY=xlength+2,stepZ=xlength+2;
+
+	char szFileName[80];
+	FILE *fp=NULL;
+	sprintf( szFileName, "%s-rank%i.%i.out", filename, rank, t );
+	fp = fopen( szFileName, "w");
+	if( fp == NULL ){
+		char szBuff[80];
+		sprintf( szBuff, "Failed to open %s", szFileName );
+		ERROR( szBuff );
+		return;
+	}
+
+	for(z=0;z<stepZ;z++){
+		for(x=0;x<stepX;x++){
+			for(y=0;y<stepY;y++){
+				fprintf(fp, "(%d,%d,%d): ",x,y,z);
+					for(i=0;i<Q_LBM;i++)
+					  fprintf(fp, "%f ",field[Q_LBM*(x+y*stepX+z*stepX*stepY)+i]);
+				fprintf(fp, "\n");
+			}
+		}
+	}
+
+	if(fclose(fp)){
+		char szBuff[80];
+		sprintf( szBuff, "Failed to close %s", szFileName );
+		ERROR( szBuff );
+	}
 }
