@@ -37,7 +37,7 @@ int main(int argc, char *argv[]){
     int *flag_field=NULL, xlength, t, timesteps, timesteps_per_plotting, mlups_exp=pow(10,6);
     clock_t mlups_time;
     size_t size;
-    int use_cpu = argc > 2 ? 1 : 0;
+    int use_gpu = argc > 2 ? 1 : 0;
 
     ReadParameters(&xlength,&tau,velocity_wall,&timesteps,&timesteps_per_plotting,argc,argv);
     ValidateModel(velocity_wall, xlength, tau);
@@ -56,7 +56,7 @@ int main(int argc, char *argv[]){
         /* Perform the swapping of collide and stream fields */
         swap = collide_field; collide_field = stream_field; stream_field = swap;
         /* Compute post collision distributions */
-		if(use_cpu)
+		if(use_gpu)
 			DoCollisionCuda(collide_field,flag_field,tau,xlength);
 		else
 			DoCollision(collide_field,flag_field,tau,xlength);
@@ -70,7 +70,8 @@ int main(int argc, char *argv[]){
             WriteVtkOutput(collide_field,flag_field,"img/lbm-img",t,xlength);
     }
 
-    WriteField(collide_field,"img/collide-field",t,xlength,use_cpu);
+    WriteVtkOutput(collide_field,flag_field,"img/lbm-img",t,xlength);
+    WriteField(collide_field,"img/collide-field",t,xlength,use_gpu);
 
     /* Free memory */
     free(collide_field);
