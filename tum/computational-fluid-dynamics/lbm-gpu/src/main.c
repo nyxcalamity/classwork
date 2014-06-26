@@ -13,8 +13,10 @@
 #include "helper.h"
 
 
-/* Validates the configured physical model by calculating characteristic numbers */
-void ValidateModel(double velocity_wall[3], int xlength, double tau){
+/**
+ * Validates the configured physical model by calculating characteristic numbers
+ */
+void ValidateModel(double velocity_wall[D_LBM], int xlength, double tau){
     double u_wall_length,mach_number, reynolds_number;
     /* Compute Mach number and Reynolds number */
     u_wall_length=sqrt(velocity_wall[0]*velocity_wall[0]+velocity_wall[1]*velocity_wall[1]+
@@ -33,19 +35,22 @@ void ValidateModel(double velocity_wall[3], int xlength, double tau){
 
 
 int main(int argc, char *argv[]){
-    double *collide_field=NULL, *stream_field=NULL, *swap=NULL, tau, velocity_wall[3], num_cells;
+    double *collide_field=NULL, *stream_field=NULL, *swap=NULL, tau, velocity_wall[D_LBM], num_cells;
     int *flag_field=NULL, xlength, t, timesteps, timesteps_per_plotting, mlups_exp=pow(10,6);
     clock_t mlups_time;
-    size_t size;
+    size_t field_size;
     int use_gpu = argc > 2 ? 1 : 0;
 
     ReadParameters(&xlength,&tau,velocity_wall,&timesteps,&timesteps_per_plotting,argc,argv);
     ValidateModel(velocity_wall, xlength, tau);
     
+    //pre-computing params
     num_cells = pow(xlength+2, D_LBM);
-    size = Q_LBM*num_cells*sizeof(double);
-    collide_field = (double*)malloc(size);
-    stream_field = (double*)malloc(size);
+    field_size = Q_LBM*num_cells*sizeof(double);
+
+    //initializing fields
+    collide_field = (double*)malloc(field_size);
+    stream_field = (double*)malloc(field_size);
     flag_field = (int*)malloc(num_cells*sizeof(int));
     InitialiseFields(collide_field,stream_field,flag_field,xlength);
 
@@ -70,8 +75,8 @@ int main(int argc, char *argv[]){
             WriteVtkOutput(collide_field,flag_field,"img/lbm-img",t,xlength);
     }
 
-    WriteVtkOutput(collide_field,flag_field,"img/lbm-img",t,xlength);
-    WriteField(collide_field,"img/collide-field",t,xlength,use_gpu);
+    if (VERBOSE)
+    	WriteField(collide_field,"img/collide-field",t,xlength,use_gpu);
 
     /* Free memory */
     free(collide_field);
