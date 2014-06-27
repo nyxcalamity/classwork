@@ -1,7 +1,9 @@
 #include <math.h>
 #include <stdio.h>
-#include "lbm_definitions.h"
+
+#include "lbm_model.h"
 #include "collision_gpu.h"
+#include "compute_cell_values_gpu.cuh"
 
 //restricts 3D blocks to have 512 threads (limits: 512 CC<2.x; 1024 CC>2.x)
 #define BLOCK_SIZE 8
@@ -20,83 +22,12 @@ inline void cudaAssert(cudaError_t code, char *file, int line, bool abort=true){
 
 __constant__ float tau_d;
 __constant__ int xlength_d;
-//TODO:move lattice constants to gpu constant memory
-__device__ static const int LATTICE_VELOCITIES_D[19][3] = {
-    {0,-1,-1},{-1,0,-1},{0,0,-1},{1,0,-1},{0,1,-1},{-1,-1,0},{0,-1,0},{1,-1,0},
-    {-1,0,0}, {0,0,0},  {1,0,0}, {-1,1,0},{0,1,0}, {1,1,0},  {0,-1,1},{-1,0,1},
-    {0,0,1},  {1,0,1},  {0,1,1}
-};
-__device__ static const float LATTICE_WEIGHTS_D[19] = {
-    1.0/36.0, 1.0/36.0, 2.0/36.0, 1.0/36.0, 1.0/36.0, 1.0/36.0, 2.0/36.0, 1.0/36.0,
-    2.0/36.0, 12.0/36.0,2.0/36.0, 1.0/36.0, 2.0/36.0, 1.0/36.0, 1.0/36.0, 1.0/36.0,
-    2.0/36.0, 1.0/36.0, 1.0/36.0
-};
-
-
-/**
- * Computes the density from the particle distribution functions stored at currentCell.
- * currentCell thus denotes the address of the first particle distribution function of the
- * respective cell. The result is stored in density.
- */
-__device__ void ComputeDensity(float *current_cell, float *density){
-    int i; *density=0;
-    for(i=0;i<Q_LBM;i++)
-        *density+=current_cell[i];
-
-    /* Density should be close to a unit (ρ~1) */
-//    if((*density-1.0)>EPS)
-//        ERROR("Density dropped below error tolerance.");
-}
-
-
-/**
- * Computes the velocity within currentCell and stores the result in velocity
- */
-__device__ void ComputeVelocity(float *current_cell, float *density, float *velocity){
-    int i;
-    velocity[0]=0;
-    velocity[1]=0;
-    velocity[2]=0;
-
-    for(i=0;i<Q_LBM;i++){
-        velocity[0]+=current_cell[i]*LATTICE_VELOCITIES_D[i][0];
-        velocity[1]+=current_cell[i]*LATTICE_VELOCITIES_D[i][1];
-        velocity[2]+=current_cell[i]*LATTICE_VELOCITIES_D[i][2];
-    }
-
-    velocity[0]/=*density;
-    velocity[1]/=*density;
-    velocity[2]/=*density;
-}
-
-
-/**
- * Computes the equilibrium distributions for all particle distribution functions of one
- * cell from density and velocity and stores the results in feq.
- */
-__device__ void ComputeFeq(float *density, float *velocity, float *feq){
-    int i;
-    float s1, s2, s3;
-    for(i=0;i<Q_LBM;i++){
-        s1 = LATTICE_VELOCITIES_D[i][0]*velocity[0]+LATTICE_VELOCITIES_D[i][1]*velocity[1]+
-        		LATTICE_VELOCITIES_D[i][2]*velocity[2];
-        s2 = s1*s1;
-        s3 = velocity[0]*velocity[0]+velocity[1]*velocity[1]+velocity[2]*velocity[2];
-
-        feq[i]=LATTICE_WEIGHTS_D[i]*(*density)*(1+s1*C_S_POW2_INV+s2*C_S_POW4_INV/2.0-s3*C_S_POW2_INV/2.0);
-
-        /* Probability distribution function can not be less than 0 */
-//        if (feq[i] < 0)
-//            ERROR("Probability distribution function can not be negative.");
-    }
-}
-
 
 /**
  * Computes the post-collision distribution functions according to the BGK update rule and
  * stores the results again at the same position.
  */
-__device__ void ComputePostCollisionDistributions(float *current_cell, float *feq){
+__device__ void ComputePostCollisionDistributionsGpu(float *current_cell, float *feq){
     int i;
     for(i=0;i<Q_LBM;i++){
         current_cell[i]=current_cell[i]-(current_cell[i]-feq[i])/tau_d;
@@ -122,10 +53,10 @@ __global__ void DoColision(float *collide_field_d){
 	//check that indices are within the bounds since there could be more threads than needed
 	if (x<(step-1) && y<(step-1) && z<(step-1)){
 		currentCell=&collide_field_d[Q_LBM*idx];
-		ComputeDensity(currentCell,&density);
-		ComputeVelocity(currentCell,&density,velocity);
-		ComputeFeq(&density,velocity,feq);
-		ComputePostCollisionDistributions(currentCell,feq);
+		ComputeDensityGpu(currentCell,&density);
+		ComputeVelocityGpu(currentCell,&density,velocity);
+		ComputeFeqGpu(&density,velocity,feq);
+		ComputePostCollisionDistributionsGpu(currentCell,feq);
 	}
 }
 

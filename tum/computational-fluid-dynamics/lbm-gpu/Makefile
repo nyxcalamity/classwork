@@ -1,10 +1,14 @@
 # --------------------------------------------------------------------------------------------------
-SOURCES=src/initialization.c src/visualization.c src/boundary.c src/collision.c src/streaming.c \
-    src/compute_cell_values.c src/utils.c src/main.c
-SOURCES_CU=src/collision_gpu.cu src/utils_gpu.cu
-EXECUTABLE=build/lbm-sim
 SRC_DIR=src
 BUILD_DIR=build
+
+SOURCES=$(SRC_DIR)/initialization.c $(SRC_DIR)/visualization.c $(SRC_DIR)/boundary.c \
+	$(SRC_DIR)/collision.c $(SRC_DIR)/streaming.c $(SRC_DIR)/compute_cell_values.c \
+	$(SRC_DIR)/utils.c $(SRC_DIR)/main.c $(SRC_DIR)/lbm_model.c
+SOURCES_CU=$(SRC_DIR)/collision_gpu.cu $(SRC_DIR)/utils_gpu.cu $(SRC_DIR)/compute_cell_values_gpu.cu
+EXECUTABLE=$(BUILD_DIR)/lbm-sim
+
+#cuda settings
 COMPUTE_CAPABILITY=30
 # --------------------------------------------------------------------------------------------------
 #Compiler command

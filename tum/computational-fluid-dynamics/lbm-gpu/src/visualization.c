@@ -1,6 +1,6 @@
 #include <cstdio>
 
-#include "lbm_definitions.h"
+#include "lbm_model.h"
 #include "visualization.h"
 #include "compute_cell_values.h"
 #include "utils.h"

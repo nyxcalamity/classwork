@@ -1,6 +1,6 @@
 #include "collision.h"
 #include "compute_cell_values.h"
-#include "lbm_definitions.h"
+#include "lbm_model.h"
 #include "utils.h"
 
 

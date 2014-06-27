@@ -3,6 +3,7 @@
 
 #define VERBOSE 0
 #define MLUPS_MIN_CELLS 300
+#define MLUPS_EXPONENT 1000000
 //simulation parameters
 #define D_LBM 3
 #define Q_LBM 19
@@ -28,4 +29,11 @@ static const float LATTICE_WEIGHTS[19] = {
     2.0/36.0, 12.0/36.0,2.0/36.0, 1.0/36.0, 2.0/36.0, 1.0/36.0, 1.0/36.0, 1.0/36.0, 
     2.0/36.0, 1.0/36.0, 1.0/36.0
 };
+
+
+/**
+ * Validates the configured physical model by calculating characteristic numbers
+ */
+void ValidateModel(float wall_velocity[D_LBM], int domain_size, float tau);
+
 #endif

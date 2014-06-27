@@ -1,5 +1,5 @@
 #include "compute_cell_values.h"
-#include "lbm_definitions.h"
+#include "lbm_model.h"
 #include "utils.h"
 
 void ComputeDensity(const float *const current_cell, float *density){
@@ -13,8 +13,7 @@ void ComputeDensity(const float *const current_cell, float *density){
 }
 
 
-void ComputeVelocity(const float * const current_cell, const float * const density,
-        float *velocity){
+void ComputeVelocity(const float * const current_cell, const float * const density, float *velocity){
     int i;
     /* NOTE:Indeces are hardcoded because of the possible performance gains and since 
      * we do not have alternating D */

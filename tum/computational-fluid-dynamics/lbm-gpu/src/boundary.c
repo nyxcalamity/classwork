@@ -1,5 +1,5 @@
 #include "boundary.h"
-#include "lbm_definitions.h"
+#include "lbm_model.h"
 #include "compute_cell_values.h"
 
 /**
