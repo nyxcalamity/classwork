@@ -1,5 +1,5 @@
-#ifndef _VISUALLB_H_
-#define _VISUALLB_H_
+#ifndef _VISUALIZATION_H_
+#define _VISUALIZATION_H_
 
 /** writes the density and velocity field (derived from the distributions in collideField)
  *  to a file determined by 'filename' and timestep 't'. You can re-use parts of the code

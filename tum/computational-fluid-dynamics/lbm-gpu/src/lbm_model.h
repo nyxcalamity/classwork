@@ -1,5 +1,5 @@
-#ifndef _LBDEFINITIONS_H_
-#define _LBDEFINITIONS_H_
+#ifndef _LBM_MODEL_H_
+#define _LBM_MODEL_H_
 
 #define VERBOSE 0
 #define MLUPS_MIN_CELLS 300

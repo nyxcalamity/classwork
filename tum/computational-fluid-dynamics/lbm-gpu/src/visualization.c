@@ -2,7 +2,7 @@
 
 #include "lbm_model.h"
 #include "visualization.h"
-#include "compute_cell_values.h"
+#include "cell_computation.h"
 #include "utils.h"
 
 void write_vtkHeader( FILE *fp, int xlength) {

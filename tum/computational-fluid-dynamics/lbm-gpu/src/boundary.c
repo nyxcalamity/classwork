@@ -1,6 +1,6 @@
 #include "boundary.h"
 #include "lbm_model.h"
-#include "compute_cell_values.h"
+#include "cell_computation.h"
 
 /**
  * Inverts the value of the lattice index in order to find the vector opposite to the provided one.
@@ -14,8 +14,7 @@ int inv(int i){
 }
 
 
-void TreatBoundary(float *collide_field, int* flag_field, const float * const wall_velocity,
-        int xlength){
+void TreatBoundary(float *collide_field, int* flag_field, float *wall_velocity, int xlength){
     int x,nx,y,ny,z,nz,i,step=xlength+2;
     float density,dot_prod;
     

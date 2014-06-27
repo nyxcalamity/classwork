@@ -1,4 +1,4 @@
-#include "compute_cell_values.h"
+#include "cell_computation.h"
 #include "lbm_model.h"
 #include "utils.h"
 

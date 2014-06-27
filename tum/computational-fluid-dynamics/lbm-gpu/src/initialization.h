@@ -1,5 +1,5 @@
-#ifndef _INITLB_H_
-#define _INITLB_H_
+#ifndef _INITIALIZATION_H_
+#define _INITIALIZATION_H_
 
 
 /** Reads the parameters for the lid driven cavity scenario from a configuration file */

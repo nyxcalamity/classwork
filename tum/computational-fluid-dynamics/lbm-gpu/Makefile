@@ -3,9 +3,10 @@ SRC_DIR=src
 BUILD_DIR=build
 
 SOURCES=$(SRC_DIR)/initialization.c $(SRC_DIR)/visualization.c $(SRC_DIR)/boundary.c \
-	$(SRC_DIR)/collision.c $(SRC_DIR)/streaming.c $(SRC_DIR)/compute_cell_values.c \
+	$(SRC_DIR)/collision.c $(SRC_DIR)/streaming.c $(SRC_DIR)/cell_computation.c \
 	$(SRC_DIR)/utils.c $(SRC_DIR)/main.c $(SRC_DIR)/lbm_model.c
-SOURCES_CU=$(SRC_DIR)/collision_gpu.cu $(SRC_DIR)/utils_gpu.cu $(SRC_DIR)/compute_cell_values_gpu.cu
+SOURCES_CU=$(SRC_DIR)/collision_gpu.cu $(SRC_DIR)/streaming_gpu.cu $(SRC_DIR)/boundary_gpu.cu \
+	$(SRC_DIR)/utils_gpu.cu
 EXECUTABLE=$(BUILD_DIR)/lbm-sim
 
 #cuda settings

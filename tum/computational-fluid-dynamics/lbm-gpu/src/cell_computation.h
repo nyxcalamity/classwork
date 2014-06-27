@@ -1,5 +1,5 @@
-#ifndef _COMPUTECELLVALUES_H_
-#define _COMPUTECELLVALUES_H_
+#ifndef _CELL_COMPUTATIONS_H_
+#define _CELL_COMPUTATIONS_H_
 
 /**
  * Computes the density from the particle distribution functions stored at currentCell.
