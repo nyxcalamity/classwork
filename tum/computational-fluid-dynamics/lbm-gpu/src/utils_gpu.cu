@@ -1,5 +1,6 @@
 #include <stdio.h>
-#include "gpu_utils.h"
+
+#include "utils_gpu.h"
 
 
 int HasCudaGpu(){

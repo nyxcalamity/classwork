@@ -14,10 +14,10 @@ int inv(int i){
 }
 
 
-void TreatBoundary(double *collide_field, int* flag_field, const double * const wall_velocity, 
+void TreatBoundary(float *collide_field, int* flag_field, const float * const wall_velocity,
         int xlength){
     int x,nx,y,ny,z,nz,i,step=xlength+2;
-    double density,dot_prod;
+    float density,dot_prod;
     
     for(x=0;x<step;x++){
         for(y=0;y<step;y++){

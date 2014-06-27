@@ -1,25 +1,26 @@
-#include "initialization.h"
-#include "lbm_definitions.h"
-#include "helper.h"
 #include <unistd.h>
 
-int ReadParameters(int *xlength, double *tau, double *velocity_wall, int *timesteps, 
+#include "initialization.h"
+#include "lbm_definitions.h"
+#include "utils.h"
+
+int ReadParameters(int *xlength, float *tau, float *velocity_wall, int *timesteps,
         int *timesteps_per_plotting, int argc, char *argv[]){
-    double *velocity_wall_1, *velocity_wall_2, *velocity_wall_3;
+    float *velocity_wall_1, *velocity_wall_2, *velocity_wall_3;
     
     if(argc<2)
         ERROR("Not enough arguments. At least a path to init file is required.");
     if(access(argv[1], R_OK) != 0)
         ERROR("Provided file path either doesn't exist or can not be read.");
     
-    READ_DOUBLE(argv[1], *tau);
+    READ_FLOAT(argv[1], *tau);
     
     velocity_wall_1=&velocity_wall[0];
     velocity_wall_2=&velocity_wall[1];
     velocity_wall_3=&velocity_wall[2];
-    READ_DOUBLE(argv[1], *velocity_wall_1);
-    READ_DOUBLE(argv[1], *velocity_wall_2);
-    READ_DOUBLE(argv[1], *velocity_wall_3);
+    READ_FLOAT(argv[1], *velocity_wall_1);
+    READ_FLOAT(argv[1], *velocity_wall_2);
+    READ_FLOAT(argv[1], *velocity_wall_3);
     
     READ_INT(argv[1], *xlength);
     READ_INT(argv[1], *timesteps);
@@ -29,7 +30,7 @@ int ReadParameters(int *xlength, double *tau, double *velocity_wall, int *timest
 }
 
 
-void InitialiseFields(double *collide_field, double *stream_field, int *flag_field, int xlength){
+void InitialiseFields(float *collide_field, float *stream_field, int *flag_field, int xlength){
     int x,y,z,i,step=xlength+2;
     
     /* NOTE: We use z=xlength+1 as the moving wall */

@@ -1,7 +1,9 @@
-#include "visualization.h"
+#include <cstdio>
+
 #include "lbm_definitions.h"
+#include "visualization.h"
 #include "compute_cell_values.h"
-#include "helper.h"
+#include "utils.h"
 
 void write_vtkHeader( FILE *fp, int xlength) {
     if( fp == NULL ){
@@ -23,7 +25,7 @@ void write_vtkHeader( FILE *fp, int xlength) {
 
 
 void write_vtkPointCoordinates( FILE *fp, int xlength) {
-    double originX = 0.0, originY = 0.0;
+    float originX = 0.0, originY = 0.0;
     int i = 0, j = 0, k = 0;
 
     for(k = 0; k < xlength; k++)
@@ -34,9 +36,9 @@ void write_vtkPointCoordinates( FILE *fp, int xlength) {
 }
 
 
-void WriteVtkOutput(const double * const collideField, const int * const flagField, const char * filename, unsigned int t, int xlength) {
+void WriteVtkOutput(const float * const collideField, const int * const flagField, const char * filename, unsigned int t, int xlength) {
     int i, j, k, len = xlength+2; /* lexicographic order "[ Q * ( z*len*len + y*len + x) + i ]" */
-    double velocity[3], density;
+    float velocity[3], density;
 
     char szFileName[80];
     FILE *fp=NULL;
@@ -85,7 +87,7 @@ void WriteVtkOutput(const double * const collideField, const int * const flagFie
 }
 
 
-void PrintField(double *field, int ncell){
+void PrintField(float *field, int ncell){
     int x,y,z,i,step=ncell+2;
 
     for(x=0;x<step;x++){
@@ -101,7 +103,7 @@ void PrintField(double *field, int ncell){
 }
 
 
-void WriteField(const double * const field, const char * filename, unsigned int t, const int xlength, const int rank) {
+void WriteField(const float * const field, const char * filename, unsigned int t, const int xlength, const int rank) {
 	int x,y,z,i, stepX=xlength+2,stepY=xlength+2,stepZ=xlength+2;
 
 	char szFileName[80];

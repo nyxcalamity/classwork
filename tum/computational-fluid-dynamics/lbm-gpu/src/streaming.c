@@ -1,7 +1,7 @@
 #include "streaming.h"
 #include "lbm_definitions.h"
 
-void DoStreaming(double *collide_field, double *stream_field, int *flag_field, int xlength){
+void DoStreaming(float *collide_field, float *stream_field, int *flag_field, int xlength){
     int x,nx,y,ny,z,nz,i,step=xlength+2;
 
     for(x=0;x<step;x++){

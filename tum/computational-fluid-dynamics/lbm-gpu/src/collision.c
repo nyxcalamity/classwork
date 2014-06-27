@@ -1,13 +1,13 @@
 #include "collision.h"
 #include "compute_cell_values.h"
 #include "lbm_definitions.h"
-#include "helper.h"
+#include "utils.h"
 
 
 /** Computes the post-collision distribution functions according to the BGK update rule and
  *  stores the results again at the same position.
  */
-void ComputePostCollisionDistributions(double *current_cell, double tau, const double *const feq){
+void ComputePostCollisionDistributions(float *current_cell, float tau, const float *const feq){
     int i;
     for(i=0;i<Q_LBM;i++){
         current_cell[i]=current_cell[i]-(current_cell[i]-feq[i])/tau;
@@ -19,8 +19,8 @@ void ComputePostCollisionDistributions(double *current_cell, double tau, const d
 }
 
 
-void DoCollision(double *collide_field, int *flag_field, double tau, int xlength){
-    double density, velocity[3], feq[Q_LBM], *currentCell;
+void DoCollision(float *collide_field, int *flag_field, float tau, int xlength){
+    float density, velocity[3], feq[Q_LBM], *currentCell;
     int x,y,z,step=xlength+2;
     
     for(x=1;x<step-1;x++){

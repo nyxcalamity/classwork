@@ -1,8 +1,8 @@
 #include "compute_cell_values.h"
 #include "lbm_definitions.h"
-#include "helper.h"
+#include "utils.h"
 
-void ComputeDensity(const double *const current_cell, double *density){
+void ComputeDensity(const float *const current_cell, float *density){
     int i; *density=0;
     for(i=0;i<Q_LBM;i++)
         *density+=current_cell[i];
@@ -13,8 +13,8 @@ void ComputeDensity(const double *const current_cell, double *density){
 }
 
 
-void ComputeVelocity(const double * const current_cell, const double * const density, 
-        double *velocity){
+void ComputeVelocity(const float * const current_cell, const float * const density,
+        float *velocity){
     int i;
     /* NOTE:Indeces are hardcoded because of the possible performance gains and since 
      * we do not have alternating D */
@@ -34,9 +34,9 @@ void ComputeVelocity(const double * const current_cell, const double * const den
 }
 
 
-void ComputeFeq(const double * const density, const double * const velocity, double *feq){
+void ComputeFeq(const float * const density, const float * const velocity, float *feq){
     int i;
-    double s1, s2, s3; /* summands */
+    float s1, s2, s3; /* summands */
     /* NOTE:Indexes are hardcoded to improve program performance */
     for(i=0;i<Q_LBM;i++){
         s1 = LATTICE_VELOCITIES[i][0]*velocity[0]+LATTICE_VELOCITIES[i][1]*velocity[1]+
