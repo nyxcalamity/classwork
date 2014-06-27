@@ -57,7 +57,10 @@ int main(int argc, char *argv[]){
     for(t=0;t<timesteps;t++){
         mlups_time = clock();
         /* Copy pdfs from neighbouring cells into collide field */
-        DoStreaming(collide_field,stream_field,flag_field,xlength);
+        if(use_gpu)
+        	DoStreamingCuda(collide_field,stream_field,flag_field,xlength);
+		else
+			DoStreaming(collide_field,stream_field,flag_field,xlength);
         /* Perform the swapping of collide and stream fields */
         swap = collide_field; collide_field = stream_field; stream_field = swap;
         /* Compute post collision distributions */

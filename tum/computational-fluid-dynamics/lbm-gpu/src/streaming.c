@@ -3,7 +3,7 @@
 
 void DoStreaming(double *collide_field, double *stream_field, int *flag_field, int xlength){
     int x,nx,y,ny,z,nz,i,step=xlength+2;
-    
+
     for(x=0;x<step;x++){
         for(y=0;y<step;y++){
             for(z=0;z<step;z++){
