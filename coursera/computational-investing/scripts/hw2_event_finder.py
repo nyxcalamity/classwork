@@ -26,36 +26,30 @@ import datetime as dt
 import numpy as np
 import copy as cp
 
+
 def main():
     dt_start = dt.datetime(2008,01,01)
     dt_end = dt.datetime(2009,12,31)
-    dt_timestamps = du.getNYSEdays(dt_start, dt_end, dt.timedelta(hours=16))
-    price_threshold = 10.0
+    analyzePeriod(dt_start,dt_end,8.0,"sp5002008")
+    analyzePeriod(dt_start,dt_end,8.0,"sp5002012")
+
+
+def analyzePeriod(dt_start, dt_end, price_threshold, list):
     keys = ['open', 'high', 'low', 'close', 'volume', 'actual_close']
-
     data_source = da.DataAccess('Yahoo')
-
-    #Analysis of S&P500 2008
-    symbols = data_source.get_symbols_from_list("sp5002008")
+    dt_timestamps = du.getNYSEdays(dt_start, dt_end, dt.timedelta(hours=16))
+    symbols = data_source.get_symbols_from_list(list)
     symbols.append('SPY')
+
     data = cleanUpData(dict(zip(keys, data_source.get_data(dt_timestamps, symbols, keys))), keys)
     num_events, event_map = findEvent(symbols, data, price_threshold)
-    print 'S&P500 in 2008 (price threshold=$'+str(price_threshold)+'): '+str(num_events)+' events ' \
+
+    print 'For the '+str(price_threshold)+'$ event with S&P500 in '+list[-4:]+', we find '+str(num_events)+' events.' \
         '('+dt_start.strftime("%B %d, %Y")+' to '+dt_end.strftime("%B %d, %Y")+').'
-    #Note: quantities in printout don't match with those of pdfs (quizes require pdf numbers)
-    ep.eventprofiler(event_map, data, i_lookback=20, i_lookforward=20,s_filename='EventStudy2008.pdf',
+    # #Note: quantities in printout don't match with those of pdfs (quizes require pdf numbers)
+    ep.eventprofiler(event_map, data, i_lookback=20, i_lookforward=20, s_filename='EventStudy'+list[-4:]+'.pdf',
         b_market_neutral=True, b_errorbars=True,s_market_sym='SPY')
 
-    #Analysis of S&P500 2012
-    symbols = data_source.get_symbols_from_list("sp5002012")
-    symbols.append('SPY')
-    data = cleanUpData(dict(zip(keys, data_source.get_data(dt_timestamps, symbols, keys))), keys)
-    num_events, event_map = findEvent(symbols, data, price_threshold)
-    print 'S&P500 in 2012 (price threshold=$'+str(price_threshold)+'): '+str(num_events)+' events '\
-         '('+dt_start.strftime("%B %d, %Y")+' to '+dt_end.strftime("%B %d, %Y")+').'
-    #Note: quantities in printout don't match with those of pdfs (quizes require pdf numbers)
-    ep.eventprofiler(event_map, data, i_lookback=20, i_lookforward=20,s_filename='EventStudy2012.pdf',
-        b_market_neutral=True, b_errorbars=True,s_market_sym='SPY')
 
 def cleanUpData(data, keys):
     for key in keys:
@@ -64,9 +58,10 @@ def cleanUpData(data, keys):
         data[key] = data[key].fillna(1.0)
     return data
 
+
 def findEvent(symbols, data, price_threshold):
     df_actual_close = data['actual_close']
-    df_events = cp.deepcopy(df_actual_close)*np.NAN
+    df_events = cp.deepcopy(df_actual_close)*np.NaN
     dt_timestamps = df_actual_close.index
     num_events = 0
 

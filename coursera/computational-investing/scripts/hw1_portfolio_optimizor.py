@@ -48,7 +48,7 @@ def assesPerformance(start_date, end_date, symbols, allocations):
     n_entries = close_price.shape[0]
 
     #calculating portfolio close values
-    tmp = close_price/close_price[0]
+    tmp = close_price/close_price[0] #normalization
     tmp = tmp*allocations
     portfolio_close_price = np.zeros(n_entries)
     for i in range(n_entries):
