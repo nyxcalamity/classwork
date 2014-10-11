@@ -5,6 +5,10 @@
 *.pyc
 .DS_Store
 
+#Latex
+*.log
+*.aux
+
 # Intelij Idea
 .idea
 *.iml
@@ -35,7 +39,3 @@ lib
 
 # Heavy visualisation files
 *.vtk
-
-# Hidden due to licencing or otherwise
-ml_login_data.mat
-

@@ -1,0 +1,87 @@
+\documentclass{article}
+\usepackage{ws_template}
+
+\usepackage{amsmath}
+\usepackage{listings}
+
+\title{homework sheet 01}
+\author{
+	\name{Denys Sobchyshak}\\
+	\imat{03636581}\\
+	\email{denys.sobchyshak@gmail.com}
+	\And
+	\name{Serge Zakharov} \\
+	\imat{03636642}\\
+	\email{zsn2008@gmail.com}
+}
+
+\begin{document}
+	\maketitle
+	
+	\section{Problem 1: computeing eigenvalues and eigenvectors of a given matrix}
+	To find eigenvalues of the matrix A we have to solve $ det(A-\lambda I)=0 $. \\
+	$
+	det(A-\lambda I)= det
+	\begin{pmatrix} 
+		2-\lambda & -1 & 0  \\ 
+		-1 & 2-\lambda & -1 \\ 
+		0 & -1 & 2-\lambda
+	\end{pmatrix}\\
+	=(2-\lambda)^3-(2-\lambda)(-1)(-1)-(2-\lambda)(-1)(-1)\\
+	=(2-\lambda)^3-2(2-\lambda)=(2-\lambda)((2-\lambda)^2-2)=0
+	$\\
+	Thus we can see that $\lambda_1=2, \lambda_{2,3}=2\mp\sqrt{2}$. To find the corresponding eigenvectors we substitute our eigenvalues into the eigenvalue equation.\\
+	\begin{enumerate}
+		\item For $\lambda=2$:\\
+		$
+		A-2I=0 \Rightarrow
+		\left(\begin{array}{ccc|c}
+		2-2 & -1 & 0 & 0 \\ 
+		-1 & 2-2 & -1 & 0\\ 
+		0 & -1 & 2-2 & 0
+		\end{array}\right)
+		\Rightarrow \left\{
+		\begin{array}{cc}
+		x=-z\\
+		y=0\\
+		\end{array}\right.
+		$\\
+		Thus using $z=1$ we get the next basis eigenvector $v_1=\begin{pmatrix}1 \\0\\ -1\end{pmatrix}$.
+
+		\item For $\lambda=2-\sqrt{2}$:\\
+		$
+		A-2I=0 \Rightarrow
+		\left(\begin{array}{ccc|c}
+		2-2+\sqrt{2} & -1 & 0 & 0 \\
+		0 & -1 & 2-2+\sqrt{2} & 0 \\
+		-1 & 2-2+\sqrt{2} & -1 & 0 
+		\end{array}\right)
+		\Rightarrow \left\{
+		\begin{array}{cc}
+		x=\frac{y}{\sqrt{2}}\\
+		y=\sqrt{2}z\\
+		z=\frac{y}{\sqrt{2}}\\
+		\end{array}\right.
+		$\\
+		Thus using $z=1$ we get the next basis eigenvector $v_2=\begin{pmatrix}1 \\\sqrt{2}\\ 1\end{pmatrix}$.
+		
+		\item For $\lambda=2+\sqrt{2}$:\\
+		$
+		A-2I=0 \Rightarrow
+		\left(\begin{array}{ccc|c}
+		2-2-\sqrt{2} & -1 & 0 & 0 \\ 
+		-1 & 2-2-\sqrt{2} & -1 & 0\\ 
+		0 & -1 & 2-2-\sqrt{2} & 0
+		\end{array}\right)
+		\Rightarrow \left\{
+		\begin{array}{cc}
+		x=-\frac{y}{\sqrt{2}}\\
+		y=-\sqrt{2}z\\
+		z=-\frac{y}{\sqrt{2}}\\
+		\end{array}\right.
+		$\\
+		Thus using $z=1$ we get the next basis eigenvector $v_3=\begin{pmatrix}1 \\-\sqrt{2} \\ 1\end{pmatrix}$.
+	\end{enumerate}
+	The corresponding python/numpy code looks as follows:\\
+	\lstinputlisting[language=Python,firstline=21]{scripts/ws1-linear-algebra.py}
+\end{document}
