@@ -10,9 +10,9 @@
 	\imat{03636581}\\
 	\email{denys.sobchyshak@gmail.com}
 	\And
-	\name{Serge Zakharov} \\
+	\name{Sergey Zakharov}\\
 	\imat{03636642}\\
-	\email{zsn2008@gmail.com}
+	\email{ga39pad@mytum.de}
 }
 
 \begin{document}
@@ -20,16 +20,15 @@
 	
 	\section{Problem}
 	To find eigenvalues of the matrix A we have to solve $ det(A-\lambda I)=0 $ which cane be derived from an eigenvelue equation. \\
-	$
+	\[
 	det(A-\lambda I)= det
 	\begin{pmatrix} 
 		2-\lambda & -1 & 0  \\ 
-		-1 & 2-\lambda & -1 \\ 
+		-1 & 2-\lambda & -1 \\
 		0 & -1 & 2-\lambda
-	\end{pmatrix}\\
-	=(2-\lambda)^3-(2-\lambda)(-1)(-1)-(2-\lambda)(-1)(-1)\\
+	\end{pmatrix}
 	=(2-\lambda)^3-2(2-\lambda)=(2-\lambda)((2-\lambda)^2-2)=0
-	$\\
+	\]\\
 	Thus we can see that the spectrum of the matrix is given by $\lambda(A)=\left\{2, 2-\sqrt{2},2+\sqrt{2}\right\}$. To find the corresponding eigenvectors we substitute our eigenvalues into the eigenvalue equation.\\
 	\begin{enumerate}
 		\item For $\lambda=2$:\\
@@ -46,7 +45,7 @@
 		y=0\\
 		\end{array}\right.
 		$\\
-		Thus using $z=1$ we get the next basis eigenvector $v_1=\begin{pmatrix}1 \\0\\ -1\end{pmatrix}$.
+		Thus using $z=-1$ we get the next eigenvector $v_1=\begin{pmatrix}1 \\0\\ -1\end{pmatrix}$.
 
 		\item For $\lambda=2-\sqrt{2}$:\\
 		$
@@ -63,7 +62,7 @@
 		z=\frac{y}{\sqrt{2}}\\
 		\end{array}\right.
 		$\\
-		Thus using $z=1$ we get the next basis eigenvector $v_2=\begin{pmatrix}1 \\\sqrt{2}\\ 1\end{pmatrix}$.
+		Thus using $z=1$ we get the next eigenvector $v_2=\begin{pmatrix}1 \\\sqrt{2}\\ 1\end{pmatrix}$.
 		
 		\item For $\lambda=2+\sqrt{2}$:\\
 		$
@@ -80,24 +79,24 @@
 		z=-\frac{y}{\sqrt{2}}\\
 		\end{array}\right.
 		$\\
-		Thus using $z=1$ we get the next basis eigenvector $v_3=\begin{pmatrix}1 \\-\sqrt{2} \\ 1\end{pmatrix}$.
+		Thus using $z=1$ we get the next eigenvector $v_3=\begin{pmatrix}1 \\-\sqrt{2} \\ 1\end{pmatrix}$.
 	\end{enumerate}
 	The corresponding python/numpy code looks as follows:\\
 	\lstinputlisting[language=Python,firstline=21]{scripts/ws1-linear-algebra.py}
 	
 	\section{Problem}
-	To show that $B=UDU^{-1}$ it is sufficient to show that B is diagonalizable. A square matrix is diagonalizable if it has n distinct eigenvelues. We know that B has n linearly independent eigenvectors and by definition of linear independence all of the vectors are distinct, which implies that we have n distinct eigenvelues, since otherwise we would have less linearly independent eigenvectors. Thus matrix B is diagonalizable and according to the eigen decomposition teorem $B=UDU^{-1}$. This can also be shown as follows:\\
+	If $ x_1, x_2 ... x_n$ are linearly independent eigenvectors of $ B \in  R^{n \times n} $ and $ \lambda_i $ are its eigenvalues then the following equation is satisfied: $ Bx_i = \lambda_i x_i $.
+	This equation can be rewritten as $ BU = UD $ from here we get matrix $ B = UDU^{-1} $ as follows:\\\\
 	$
-	AP=A\begin{bmatrix} X_{1} & X_{2} & \cdots & X_n \end{bmatrix}\\
-	=\begin{bmatrix} AX_{1} & AX_{2} & \cdots & AX_n \end{bmatrix}\\
-	=\begin{bmatrix} \lambda_1X_{1} & \lambda_2X_{2} & \cdots & \lambda_nX_n \end{bmatrix}\\
+	BU=B\begin{bmatrix} X_{1} & X_{2} & \cdots & X_n \end{bmatrix}
+	=\begin{bmatrix} BX_{1} & BX_{2} & \cdots & BX_n \end{bmatrix}
 	=\begin{bmatrix} \lambda_1X_{1} & \lambda_2X_{2} & \cdots & \lambda_nX_n \end{bmatrix}\\
 	=\begin{bmatrix} 
-		\lambda_1x_{1,1} & \lambda_2x_{2,1} & \cdots & \lambda_nx_{n,1} \\
-		\lambda_1x_{1,2} & \lambda_2x_{2,2} & \cdots & \lambda_nx_{n,2} \\
-		\vdots & \vdots & \ddots & \vdots \\
-		\lambda_1x_{1,n} & \lambda_2x_{2,n} & \cdots & \lambda_nx_{n,n}
-	\end{bmatrix}\\
+	\lambda_1x_{1,1} & \lambda_2x_{2,1} & \cdots & \lambda_nx_{n,1} \\
+	\lambda_1x_{1,2} & \lambda_2x_{2,2} & \cdots & \lambda_nx_{n,2} \\
+	\vdots & \vdots & \ddots & \vdots \\
+	\lambda_1x_{1,n} & \lambda_2x_{2,n} & \cdots & \lambda_nx_{n,n}
+	\end{bmatrix}
 	=\begin{bmatrix} 
 	x_{1,1} & x_{2,1} & \cdots & x_{n,1} \\
 	x_{1,2} & x_{2,2} & \cdots & x_{n,2} \\
@@ -109,30 +108,30 @@
 	0 & \lambda_2 & \cdots & 0 \\
 	\vdots & \vdots & \ddots & \vdots \\
 	0 & 0 & \cdots & \lambda_n
-	\end{bmatrix}
-	=PD
+	\end{bmatrix}\\
+	=UD \Leftrightarrow BUU^{-1}=B=UDU^{-1}
 	$
+	\section{Problem}
+	\begin{itemize}
+		\item $B \bar{x} = \lambda \bar{x} $. Suppose that $\lambda$ and $\bar{x}$ are possibly complex and  $x \not=0$  .
+		We take conjugate transpose to get $\bar{\lambda} x^* = (\lambda x)^* = (Ax)^* =x^*A^* = x^*A$  (because A is real and symmetric). Then $\bar{\lambda}^*x = (x^*A)x = x^*(Ax) = \lambda x^*x$. $x^*x$ is nonzero and real. So we get $\bar{\lambda} = \lambda$, which means that $\lambda$ is real.
+		\item Assume $Av =\lambda v$ and  $ Aw =\mu w$. Then  \[ \lambda(v, w) = (\lambda v, w) = (Av, w) = (v, A^T w) = (v, Aw) = (v, \mu w) = \mu (v, w) \] is possible only if $(v, w) = 0$.
+	\end{itemize}
 	
 	\section{Problem}
-	Note: provided matrix $B$ is square.
-	\begin{enumerate}
-		\item Generally since any real matrix is a Hermittian matrix and the finite-dimensional spectral theorem says that any Hermitian matrix can be diagonalized by a unitary matrix, and that the resulting diagonal matrix has only real entries. This implies that all eigenvalues of a Hermitian matrix $B$ are real.\\
-		
-		However the proof to the first task can be obtained from eigenvelue equation $Bu=\lambda u$. If $\lambda$ is an eigenvalue of $B$, that is, $det(B-\lambda I) = 0$, then $B-\lambda I$ must be non-invertible. This means that there exist a non-zero real vector $u$ such that $Au = \lambda u$. We can always normalize $u$ so that $u^Tu = 1$. Thus, $\lambda = u^TAu$ is real. That is, the eigenvalues of a symmetric matrix are always real.
-		
-		\item Proof of this comes straight from the eigen decomposition theorem and is considered to be a special case where it states that any symmeteric $n \times n$ real matrix $B$ can be decomposed as $B=UDU^T$ (using definitions from problem 2).
-	\end{enumerate}
+	\begin{itemize}
+		\item $ |B| =  |UDU^{-1}| = |DU^{-1}U| = |D| = \prod_i{\lambda_i} $
+		\item $ tr(B) = tr(UDU^{-1}) = tr(DU^{-1}U) = tr(D) = \sum_i{\lambda_i} $
+	\end{itemize}
 	
 	\section{Problem}
-	\begin{enumerate}
-		\item From the eigenvelue equation we know that $det(B-\lambda I)=(\lambda_1 - \lambda)(\lambda_2 - \lambda)\cdots(\lambda_n-\lambda)$ Substituting $\lambda=0$ we will obtain $det(B)=\prod_{n=1}^{n}\lambda_n.$
-		\item Using the definition of a characteristic equation of a $n \times n$ matrix $B$:\\
-		$p(\lambda)=det(B-\lambda I)=(-1)^n(\lambda^n-tr(B)t^{n-1}+\cdots+det(B))$\\
-		and also\\
-		$p(\lambda)=(-1)^n(\lambda-\lambda_1)(\lambda-\lambda_2)\cdots(\lambda-\lambda_n)$.\\
-		By simply comparing coefficients we have that $tr(A)=\lambda_1+\lambda_2+\cdots+\lambda_n=\sum_{1}^{n}\lambda_n$.
-	\end{enumerate}
-	
-	\section{Problem}
+	\begin{itemize}
+		\item $ h(x_0) = w_0 + w^T x_0 = 0 \Rightarrow w^T x_0 = -w_0 $
+		\item $ h(x_1) = w_0 + w^T x_1 = 0 \\
+		h(x_2) = w_0 + w^T x_2 = 0 \\
+		h(x_1) - h(x_2) = w^T x_1 - w^T x_2 =  w^T (x_1 - x_2) = 0 $
+		\item Normal vector is defined as $\nabla h(x) = w$. $ \frac{\nabla h(x)}{|| \nabla h(x)||} = \frac{w}{||w||}$ is a unit normal vector. So $ \hat{w} = \frac{w}{||w||}$ is a unit normal vector.
+		\item Distance can be found by projecting $(x - x_0)$ onto normal vector $w$. \[ D = |proj_w(x-x_0)| =\frac{w^T (x - x_0)}{||w||} = \hat{w}(x-x_0) = \frac{w^T x - w^T x_0}{||w||}  \overset{w^T x_0 = -w_0}{= \joinrel = \joinrel = \joinrel = \joinrel = \joinrel = \joinrel =} \frac{w^T x + w_0}{||w||} \]
+	\end{itemize}
 	
 \end{document}
