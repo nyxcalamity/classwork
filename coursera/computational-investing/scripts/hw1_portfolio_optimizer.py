@@ -18,12 +18,13 @@
 __author__ = "Denys Sobchyshak"
 __email__ = "denys.sobchyshak@gmail.com"
 
+import datetime as dt
+import numpy as np
+
 import QSTK.qstkutil.qsdateutil as du
 import QSTK.qstkutil.tsutil as tsu
 import QSTK.qstkutil.DataAccess as da
 
-import datetime as dt
-import numpy as np
 
 
 #-----------------------------------------------------------------------------------------------------------------------
@@ -86,7 +87,7 @@ def optimizePortfolio(start_date, end_date, symbols):
     return optimal_portfolio
 
 
-def displayResults(start_date,end_date,symbols,allocations,sharpe,volatility,avg_daily_rets,cum_rets):
+def displayResults(start_date, end_date, symbols, allocations, sharpe, volatility, avg_daily_rets, cum_rets):
     print 'Start Date: ' + start_date.strftime("%B %d, %Y")
     print 'End Date: ' + end_date.strftime("%B %d, %Y")
     print 'Symbols: ' + str(symbols)

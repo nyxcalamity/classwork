@@ -18,13 +18,13 @@
 __author__ = "Denys Sobchyshak"
 __email__ = "denys.sobchyshak@gmail.com"
 
-import QSTK.qstkutil.qsdateutil as du
-import QSTK.qstkutil.DataAccess as da
-import QSTK.qstkstudy.EventProfiler as ep
-
 import datetime as dt
 import numpy as np
 import copy as cp
+
+import QSTK.qstkutil.qsdateutil as du
+import QSTK.qstkutil.DataAccess as da
+import QSTK.qstkstudy.EventProfiler as ep
 
 
 def main():

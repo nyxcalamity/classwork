@@ -18,22 +18,18 @@
 __author__ = "Denys Sobchyshak"
 __email__ = "denys.sobchyshak@gmail.com"
 
-import datetime as dt
 import numpy as np
-import pandas as ps
 import csv
 
-import QSTK.qstkutil.qsdateutil as du
-import QSTK.qstkutil.tsutil as tsu
-import QSTK.qstkutil.DataAccess as da
+import pandas as ps
 
 from hwutils import *
 
 
-def main(cash_balance, orders_file, values_file):
+def simulate_market(cash_balance, orders_file, values_file):
     # read orders file
     orders = {}
-    with open(orders_file) as f:
+    with open(orders_file, 'rU') as f:
         reader = csv.reader(f)
         for row in reader:
             date = dt.datetime(int(row[0]), int(row[1]), int(row[2]), 16)
@@ -55,7 +51,7 @@ def main(cash_balance, orders_file, values_file):
 
     #load price matrix
     market_data = load_market_data(dates, symbols)
-    price_df = market_data['close']
+    price_df = market_data['actual_close']
 
     #generate trade matrix
     trade_df = ps.DataFrame(np.zeros((len(dates), len(symbols))), index=dates, columns=symbols)
@@ -73,24 +69,15 @@ def main(cash_balance, orders_file, values_file):
     price_df['_CASH'] = 1.0
     trade_df['_CASH'] = cash_ts
     trade_df = trade_df.cumsum()
-    fund_ts = ps.Series([0]*(len(dates)), index=dates)
+    fund_value_ts = ps.Series([0]*(len(dates)), index=dates)
     for i in range(0, len(dates)):
-        fund_ts[i] = trade_df.ix[i].dot(price_df.ix[i])
+        fund_value_ts[i] = trade_df.ix[i].dot(price_df.ix[i])
 
     #write data to file
     with open(values_file, 'w') as f:
         writer = csv.writer(f)
-        for row_idx in fund_ts.index:
-            writer.writerow([row_idx.year, row_idx.month, row_idx.day, fund_ts[row_idx]])
-
-
-def get_nyse_days(start_date, end_date):
-    return du.getNYSEdays(start_date, end_date, dt.timedelta(hours=16))
-
-
-def load_market_data(dates, symbols, keys_to_load=tuple(['open', 'high', 'low', 'close', 'volume', 'actual_close'])):
-    yahoo_data = da.DataAccess('Yahoo').get_data(dates, symbols, keys_to_load)
-    return dict(zip(keys_to_load, yahoo_data))
+        for row_idx in fund_value_ts.index:
+            writer.writerow([row_idx.year, row_idx.month, row_idx.day, fund_value_ts[row_idx]])
 
 
 def process_cli():
@@ -112,4 +99,4 @@ def process_cli():
 
 if __name__ == '__main__':
     a, b, c = process_cli()
-    main(a, b, c)
+    simulate_market(a, b, c)
