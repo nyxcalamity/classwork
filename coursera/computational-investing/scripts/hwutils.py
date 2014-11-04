@@ -35,6 +35,10 @@ def load_market_data(dates, symbols, keys_to_load=tuple(['open', 'high', 'low', 
     return dict(zip(keys_to_load, yahoo_data))
 
 
+def load_index_symbols(index="sp5002012"):
+    return da.DataAccess('Yahoo').get_symbols_from_list(index)
+
+
 def find_data_file(file_name):
     return os.path.join(sys.path[0], os.pardir, 'data', file_name)
 
