@@ -1,0 +1,60 @@
+%Template prepared by grzegorz ha\l aj for second AMaMeF conference, 17 Oct 2006
+
+
+\documentclass[12pt]{article}
+\usepackage{calc}
+\usepackage{color}
+\usepackage{amsfonts}
+\usepackage{latexsym}
+\usepackage{placeins}
+\ifx\pdftexversion\undefined
+  \usepackage[dvips]{graphicx}
+\else
+  \usepackage[pdftex]{graphicx}
+\fi
+\usepackage{amssymb}
+\usepackage{authblk}
+\usepackage{amsmath}
+\usepackage[cp1250]{inputenc}
+\usepackage[OT4]{fontenc}
+
+\addtolength{\voffset}{-3.5cm} \addtolength{\textheight}{4cm}
+\renewcommand\Authfont{\scshape\small}
+\renewcommand\Affilfont{\itshape\small}
+\setlength{\affilsep}{1em}
+\newcommand{\emailaddress}[1]{{\sf#1}}
+\let\LaTeXtitle\title
+\renewcommand{\title}[1]{\LaTeXtitle{\large\textsf{\textbf{#1}}}}
+
+%%%TITLE
+\title{Online learning with stochastic gradient descent}
+\date{\today}
+
+%%AFFILIATIONS
+\author{Denys Sobchyshak\\ \emailaddress{denys.sobchyshak@tum.de}}
+\affil{Technical University Munich}
+
+%%DOCUMENT
+\begin{document}
+\maketitle
+
+%%PLEASE PUT YOUR ABSTRACT HERE
+\renewcommand{\abstractname}{EXTENDED ABSTRACT}
+\begin{abstract}
+	\vspace{1pt}
+	As of the last century amount of data has shown a steady growth, which exceeds that of processor speed and data transfer bandwidth in both data storage and compute unit interconnects. This tendency has proven "batch" based learning methods, where system learns from the whole data set at once, to be computationally infeasible in the context of large-scale statistical learning, where capabilities of the methods are limited by the computing time and not by the data size, as in \cite{1}.\par
+	Search for better approach has led to online learning, where our system processes single data instance at a time. This idea is incorporated in stochastic gradient descent(SGD) based methods and in comparison to standard or "batch" gradient descent(GD), while being characterized by a poor optimization efficiency, it shows exceptional performance on large-scale problems. Thus, we will take a look at results where second order and averaged SGDs are shown to be asymptotically efficient already after one pass on training data\cite{1}, as compared to GD.\par
+	Furthermore, since production scale data sets today reach up to 100TB and beyond, one needs to go above sequential algorithmic limits in order to increase data processing efficiency. However, this task is not trivial since SGD has inherently sequential nature. We will present an overview of this matter and investigate some of the most know remedies. In particular, we will take a look at parallelized asynchronous SGD strategy named Hogwild!\cite{2} and a Downpour SGD\cite{3} in addition to making a soft touch on MapReduce usage within online learning setting\cite{4}.\par
+	Finally, empirical results of former topics will be presented, leading to a conclusion of how well parallelized asynchronous SGD can perform in large-scale setting.\par
+\end{abstract}
+%%THE END OF ABSTRACT
+
+\begin{thebibliography}{99}
+\small
+\bibitem{1} L\'{e}on Bottou: \textit{Large-Scale Machine Learning with Stochastic Gradient Descent},  Proceedings of the 19th International Conference on Computational Statistics (COMPSTAT'2010), 177–187, August 2010.
+\bibitem{2} Feng Niu, Benjamin Recht, Christopher Re, and Stephen J. Wright: \textit{Hogwild!: A Lock-Free Approach to Parallelizing Stochastic	Gradient Descent}, Advances in Neural Information Processing Systems, 2011.
+\bibitem{3} Jeffrey Dean, Greg S. Corrado, Rajat Monga, Kai Chen, Matthieu Devin, Quoc V. Le, Mark Z. Mao, Marc’Aurelio Ranzato, Andrew Senior, Paul Tucker, Ke Yang, and Andrew Y. Ng: \textit{Large Scale Distributed Deep Networks}, Advances in Neural Information Processing Systems, 2012.
+\bibitem{4} Martin Zinkevich, Alexander J. Smola, Markus Weimer, and Lihong Li: \textit{Parallelized stochastic gradient descent}, Advances in Neural Information Processing Systems, 2010.
+
+\end{thebibliography}
+\end{document}
