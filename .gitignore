@@ -8,6 +8,9 @@
 #Latex
 *.log
 *.aux
+*.synctex.gz
+*.bbl
+*.blg
 
 # Intelij Idea
 .idea
