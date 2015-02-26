@@ -1,0 +1,23 @@
+1a)
+load A(n), R(0)
+load 2,R(1)
+mult
+load B(n),R(1)
+add
+store R(0),A(n)
+
+1b) SISD
+
+1c)
+load A(n), R(0)
+load 2,R(1)
+mult
+load A(n+1), R(2)
+load 2,R(3)
+mult
+load B(n), R(1)
+load B(n+1), R(3)
+add2
+store R(0), A(n)
+store R(2), A(n+1)
+

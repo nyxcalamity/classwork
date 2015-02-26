@@ -1,0 +1,191 @@
+\documentclass{article}
+\usepackage{ws_template}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{a4wide}
+\usepackage{graphicx}
+\usepackage{booktabs}
+
+% please submit the corresponding pdf by email to
+% homework@class,brml.org, and write "homework sheet xx" in the 
+% title.  No more, no less!  (Instead of xx, however,
+% put the decimal number of the homework sheet.)
+
+% Please update the following line, only change XX to the homework
+% sheet number
+\title{homework sheet 02}
+
+
+\author{
+\name{Denys Sobchyshak}\\
+\imat{03636581}\\
+\email{denys.sobchyshak@gmail.com}
+\And
+\name{Sergey Zakharov} \\
+\imat{03636642}\\
+\email{ga39pad@mytum.de}
+}
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to \LaTeX{} to determine where to break
+% the lines. Using \AND forces a linebreak at that point. So, if \LaTeX{}
+% puts 3 of 4 authors names on the first line, and the last on the second
+% line, try using \AND instead of \And before the third author name.
+
+
+\begin{document}
+\maketitle
+
+\section{Basic Probability}
+
+\textbf{Problem 1:}\\
+Let's denote whether a person is a terrorist or not by the variable A, then:\\
+\[P(A = 1) = 0.01\]
+\[P(A = 0) = 0.99\]
+The variable B stands for the scanner recognition ( B = 1 -- a terrorist, B = 0 -- not a terrorist ):
+\[P(B = 1|A = 1) = 0.95 \quad P(B = 1|A = 0) = 0.05\]
+\[P(B = 0|A = 1) = 0.05 \quad P(B = 0|A = 0) = 0.95\]
+Using the Bayes' theorem we can now get the answer:
+\begin{equation*}
+	\begin{aligned}
+	P(A = 1|B = 1) & = \frac{P(B = 1|A = 1)P(A = 1)}{P(B = 1|A = 1)P(A = 1) + P(B =1|A = 0)P(A = 0)} \\ 
+				   &  = \frac{0.95*0.01}{0.95*0.01 + 0.05*0.99} \approx 0.16
+	\end{aligned}
+\end{equation*}
+\\
+\textbf{Problem 2:}\\
+Again using the Bayes' theorem:
+\[ P(2\ red\  balls\ in\ the\ box\ |\ 3\ red\ balls\ drawn) =\]
+\[= \frac{P(3\ red\  balls\ drawn\ |\ 2\ red\ balls\ in\ the\ box)P(2\ red\ balls\ in\ the\ box)}{P(3\ red\  balls\ drawn)}\]
+
+The numerator:
+\[P(3\ red\  balls\ drawn\ |\ 2\ red\ balls\ inside)P(2\ red\ balls\ inside)=1*1/4=1/4\]
+and denominator:
+\[P(3\ red\  balls\ drawn)=P(3\ red\  balls\ drawn|2\ red\ balls\ inside)P(2\ red\ balls\ inside)+\]
+\[+P(3\ red\  balls\ drawn|2\ white\ balls\ inside)P(2\ white\ balls\ inside)+\]
+\[+P(3\ red\  balls\ drawn|1\ red\ and\ 1\ white\ ball\ inside)P(1\ red\ and\ 1\ white\ ball\ inside)=\]
+\[=1*1/4+0+1/8*1/2=5/16\]
+
+Therefore:
+\[ P(2\ red\  balls\ inside\ |\ 3\ red\ balls\ drawn)=4/5\]
+\newpage
+\textbf{Problem 3:}\\
+Firstly we show that:
+\[P(u,n_B,N) = P(u|n_B,N)P(n_B,N) = P(n_B|u,N)P(u,N) = P(n_B|u,N)P(u)P(N)\]
+Thus:
+\[P(u|n_B,N)=\frac{P(n_B|u,N)P(u)P(N)}{P(n_B|N)} \]
+Using the sum rule and given $P(n_{B}|u,N) =\bigl(\begin{smallmatrix}
+    N \\
+    n_B
+  \end{smallmatrix}\bigr)
+  f_{u}^{n_B}{(1-f_u)}^{N-n_B}$:\\
+\[P(n_{B}|N) = \sum_{u}{P(u)P(N)P(n_{B}|u,N)}\] 
+
+\[P(u|n_B,N)=\frac{P(n_B|u,N)P(u)}{\sum_{u}{P(n_{B}|u,N)P(u)}} = 
+ \frac{P(u)}{\sum_{u}{P(n_{B}|u,N)P(u)}}
+ \bigl(\begin{smallmatrix}
+    N \\
+    n_B
+  \end{smallmatrix}\bigr)
+  f_{u}^{n_B}{(1-f_u)}^{N-n_B}\]
+
+The conditional distribution:  
+\begin{table}[h]
+\begin{center}
+	\begin{tabular}{l l}
+	\toprule
+	$u$ & $P(u|n_B=3,N)$ \\
+	\midrule
+	0 & 0 \\
+	1 & 0.063 \\
+	2 & 0.22 \\
+	3 & 0.29 \\
+	4 & 0.24 \\
+	5 & 0.13 \\
+	6 & 0.047 \\
+	7 & 0.0099 \\
+	8 & 0.00086 \\
+	9 & 0.0000096 \\
+	10 & 0 \\
+	\bottomrule
+	\end{tabular}\\
+\caption{Conditional probability of $u$ given $n_B=3$ and $N=10$}
+\end{center}
+\end{table}
+
+\textbf{Problem 4:}\\
+\[P(Black|n_{B},N) = \sum_{u}{P(Black|u,n_{B},N)P(u|n_{B},N)}\]
+Having $ P(Black|u,n_{B},N) = f_{u}$:
+\[P(Black|n_{B},N) = \sum_{u}{f_{u}P(u|n_{B},N)} \approx 0.33\]
+\textbf{Problem 5:}\\
+
+\[ \mu=\int_{-\infty}^{\infty}xp(x)\mathrm{d}x=\int_{0}^{1}x\mathrm{d}x=1/2\]
+\[ {\sigma}^2=\int_{-\infty}^{\infty}{(x-\mu)}^2p(x)\mathrm{d}x=\int_{0}^{1}{(x-\mu)}^2\mathrm{d}x=\left.\frac{{(x-\mu)}^3}{3}\right|_0^1=1/12\]
+
+\newpage
+\textbf{Problem 6:}\\
+Part 1:
+\[E[X] = E_Y[E_{X|Y}[X]]\]
+
+Proof: \\
+\[ E_{X|Y}[X] = \int_{-\infty}^{+\infty} p(x|y)g(x)dx \]
+Then:
+\[ E_Y[E_{X|Y}[X]] = \iint p(x|y)g(x)dx p(y)dy = \iint p(x,y)g(x)dxdy = \int (p(x)*g(x))dx = E[X] \]
+Part 2:
+\begin{equation*}
+	\begin{aligned}
+	E_{Y}[Var_{X|Y}[X]] & + Var_{Y}[E_{X|Y}[X]] = E_{Y}[(E_{X|Y}[X^2]-E_{X|Y}[X]^2] + E_{Y}[E_{X|Y}[X]-E_{Y}(E_{X|Y}[X]))^2]\\
+	& = E[X^2]-E[X]^2 + E_{Y}[E_{X|Y}[X]^2 + (E_{Y}(E_{X|Y}[X]))^2 - 2E_{X|Y}[X] * E_{Y}(E_{X|Y}[X])]\\
+	& = E[X^2]-E[X]^2 + E_{X}[X]^2 + (E_{Y}(E_{X|Y}[X]))^2 - 2E_{X}[X] * E_{Y}(E_{X|Y}[X])\\
+	& = E[X^2]-E[X]^2 + E_{X}[X]^2 + (E_{X}[X]^2 - 2E_{X}[X] * E_{X}[X])\\
+	& = E[X^2]-E[X]^2 = Var[X]\\
+	\end{aligned}
+\end{equation*}
+
+\section{Probability Inequalities}
+
+\subsection{Markov Inequality}
+\textbf{Problem 7:}\\
+
+\[P(X>c)\le \frac{E[X]}{c}\]
+Proof:\\
+\[E[X]=\int_0^{\infty}xP(x)\mathrm{d}x=
+    \int_0^cxP(x)\mathrm{d}x+\int_c^{\infty}xP(x)\mathrm{d}x\ge\]
+    \[\ge\int_c^{\infty}xP(x)\mathrm{d}x\ge
+    \int_c^{\infty}cP(x)\mathrm{d}x=
+    c\int_c^{\infty}P(x)\mathrm{d}x=
+    cP(X>c)\]
+If we flip a fair coin $n$ times the probability of getting more than $(3/4)n$ heads is
+\[P(X>(3/4)n)\le \frac{(1/2)n}{(3/4)n}=2/3\]
+
+\subsection{Chebyshev Inequality}
+\textbf{Problem 8:}\\
+
+\[P(|X-E[X]|>a)\le \frac{Var[X]}{a^2}\]
+Proof:\\
+Let's first write the Markov Inequality:
+\[P(X>a)\le \frac{E[X]}{a}\]
+Now let's replace $X$ with $|X-\mu|$:
+\[P(|X-\mu|>a)\le \frac{E[|X-\mu|]}{a}\]
+The probability $P(|X-\mu|>a)$ is equal to probability $P({(X-\mu)}^2>a^2)$. So now let's apply Markov Inequality to the latter one:
+\[P({(X-\mu)}^2>a^2)\le \frac{E[{(X-\mu)}^2]}{a^2}\]
+And as we already mentioned, probability $P(|X-\mu|>a)$ is equal to probability $P({(X-\mu)}^2>a^2)$. And the numerator is actually a variance. So we get:
+\[P(|X-E[X]|>a)\le \frac{Var[X]}{a^2}\]
+If we flip a fair coin $n$ times we get the following bound for probability of getting more than $(3/4)n$ heads:
+\[P(X>(3/4)n)\le P(|X-E[X]|>n/4)\le \frac{Var[X]}{{(n/4)}^2}=\frac{n/4}{{(n/4)}^2}=4/n\]
+
+\subsection{Jensen's Inequality}
+\textbf{Problem 9:}\\
+\[ f(\lambda_1 x_1 + \dots + \lambda_n x_n) \le \lambda_1 f(x_1) + \dots + \lambda_n f(x_n) \]
+
+Proof:\\
+We shall show that if $ f(\lambda_1 x_1 + \dots + \lambda_n x_n) \le \lambda_1 f(x_1) + \dots + \lambda_n f(x_n) $ is the same for $n = m - 1$, it is also valid for $n = m$. \\ Let us assume that $\lambda \neq 0$ in the set $\lambda_1,...,\lambda_n$. Then $\beta = \lambda_2 + \dots +\lambda_n > 0$\\ and $\frac{\lambda_2}{\beta} + \dots + \frac{\lambda_n}{\beta} = 1$. Using the convexity if the function, we find
+\[ f(\lambda_1 x_1 + \dots + \lambda_n x_n) = f(\lambda_1 x_1 + \dots + \beta*(\frac{\lambda_2}{\beta} x_2 + \dots + \frac{\lambda_n}{\beta} x_n)) \le \] \[ \lambda_1 f(x_1) + \beta f (\frac{\lambda_2}{\beta} x_2 + \dots + \frac{\lambda_n}{\beta} x_n), \] since $\lambda_1 + \beta = 1$ and $(\frac{\lambda_2}{\beta} x_2 + \dots + \frac{\lambda_n}{\beta} x_n) \in ]a,b[$.
+By the induction hypothesis, we now have \[ f(\frac{\lambda_2}{\beta} x_2 + \dots + \frac{\lambda_n}{\beta} x_n) \le \frac{\lambda_2}{\beta} f(x_2) + \dots + \frac{\lambda_n}{\beta} f(x_n).\] Therefore \[f(\lambda_1 x_1 + \dots + \lambda_n x_n) \le \lambda_1 f(x_1) + \beta f(\frac{\lambda_2}{\beta} x_2 + \dots + \frac{\lambda_n}{\beta} x_n) \le \] \[\lambda f(x_1) + \lambda f(x_2) + \dots + \lambda f(x_n).\]
+By induction we conclude that $ f(\lambda_1 x_1 + \dots + \lambda_n x_n) \le \lambda_1 f(x_1) + \dots + \lambda_n f(x_n) $  holds for any $n \in \mathbb{N}$.
+
+
+
+\end{document}

@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{ws_template}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\title{homework sheet 12}
+
+\author{
+	\name{Denys Sobchyshak}\\
+	\imat{03636581}\\
+	\email{denys.sobchyshak@tum.de}
+	\And
+	\name{Sergey Zakharov} \\
+	\imat{03636642}\\
+	\email{ga39pad@mytum.de}
+}
+
+\begin{document}
+\maketitle
+\textbf{Problem 1:} \\
+Consider two layer NN with one linear output unit and sigmoid hidden units. From previous excercises we have an idea of how weights should be adapted in the second layer if we change the hidden units to tanh. Consequently, to construct an equivalent network we need to half the weights in first layer. Such reasoning can be extended to a NN with multiple outputs and also to a network with sigmoid outputs.
+\\
+
+\textbf{Problem 2:} \\
+$$\sigma(x)=\frac{1}{1+\exp^{-x}}, \tanh(x)=\frac{e^x+e^{-x}}{e^x+e^{-x}}$$
+$$\sigma'(x)=-\frac{-\exp^{-x}}{(1+\exp^{-x})^2}=\sigma(x)(1-\sigma(x))$$
+$$\tanh'(x)=\frac{(e^x+e^{-x})(e^x+e^{-x})-(e^x-e^{-x})(e^x-e^{-x})}{(e^x+e^{-x})^2}=1-\tanh^2(x)$$
+\\
+
+\textbf{Problem 3:} \\
+The likelihood for $N$ i.i.d. input pairs $(x_i,t_i)$ with $t_i \in \mathbb{R}, i=1...N$
+$$\prod_{i=1}^{N}p(t_i|x_i,w)=\prod_{i}(\frac{\beta}{2\pi})^d\exp(-\frac{1}{2}(y(x_i,w)-t_i)^T\beta I(y(x_i,w)-t_i))$$
+Using properties of covariance matrix one can deduce a simplified form
+$$\prod_{i}(\frac{\beta}{2\pi})^d\exp(\sum_{k=1}^{d}-\frac{\beta}{2}(y^k(x_i,w)-t^k_i)^2)$$
+Considering only negative log likelihood one needs to minimize
+$$ \sum_{i}\sum_{k=1}^{d}\frac{\beta}{2}(y^k(x_i,w)-t_i^k)^2$$
+\\
+
+\end{document}

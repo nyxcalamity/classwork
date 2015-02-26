@@ -1,0 +1,9 @@
+ObjectFileName: vmhead256cubed.raw
+TaggedFileName: ---
+Resolution:     256 256 256
+SliceThickness: 1.054688 1.054688 1.1484375
+Format:         UCHAR
+NbrTags:        0
+ObjectType:     TEXTURE_VOLUME_OBJECT
+ObjectModel:    RGBA
+GridType:       EQUIDISTANT

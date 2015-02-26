@@ -1,0 +1,137 @@
+\documentclass{article}
+\usepackage{ws_template}
+
+\usepackage{amsmath}
+\usepackage{listings}
+
+\title{homework sheet 01}
+\author{
+	\name{Denys Sobchyshak}\\
+	\imat{03636581}\\
+	\email{denys.sobchyshak@gmail.com}
+	\And
+	\name{Sergey Zakharov}\\
+	\imat{03636642}\\
+	\email{ga39pad@mytum.de}
+}
+
+\begin{document}
+	\maketitle
+	
+	\section{Problem}
+	To find eigenvalues of the matrix A we have to solve $ det(A-\lambda I)=0 $ which cane be derived from an eigenvelue equation. \\
+	\[
+	det(A-\lambda I)= det
+	\begin{pmatrix} 
+		2-\lambda & -1 & 0  \\ 
+		-1 & 2-\lambda & -1 \\
+		0 & -1 & 2-\lambda
+	\end{pmatrix}
+	=(2-\lambda)^3-2(2-\lambda)=(2-\lambda)((2-\lambda)^2-2)=0
+	\]\\
+	Thus we can see that the spectrum of the matrix is given by $\lambda(A)=\left\{2, 2-\sqrt{2},2+\sqrt{2}\right\}$. To find the corresponding eigenvectors we substitute our eigenvalues into the eigenvalue equation.\\
+	\begin{enumerate}
+		\item For $\lambda=2$:\\
+		$
+		A-2I=0 \Rightarrow
+		\left(\begin{array}{ccc|c}
+		2-2 & -1 & 0 & 0 \\ 
+		-1 & 2-2 & -1 & 0\\ 
+		0 & -1 & 2-2 & 0
+		\end{array}\right)
+		\Rightarrow \left\{
+		\begin{array}{cc}
+		x=-z\\
+		y=0\\
+		\end{array}\right.
+		$\\
+		Thus using $z=-1$ we get the next eigenvector $v_1=\begin{pmatrix}1 \\0\\ -1\end{pmatrix}$.
+
+		\item For $\lambda=2-\sqrt{2}$:\\
+		$
+		A-2I=0 \Rightarrow
+		\left(\begin{array}{ccc|c}
+		2-2+\sqrt{2} & -1 & 0 & 0 \\
+		0 & -1 & 2-2+\sqrt{2} & 0 \\
+		-1 & 2-2+\sqrt{2} & -1 & 0 
+		\end{array}\right)
+		\Rightarrow \left\{
+		\begin{array}{cc}
+		x=\frac{y}{\sqrt{2}}\\
+		y=\sqrt{2}z\\
+		z=\frac{y}{\sqrt{2}}\\
+		\end{array}\right.
+		$\\
+		Thus using $z=1$ we get the next eigenvector $v_2=\begin{pmatrix}1 \\\sqrt{2}\\ 1\end{pmatrix}$.
+		
+		\item For $\lambda=2+\sqrt{2}$:\\
+		$
+		A-2I=0 \Rightarrow
+		\left(\begin{array}{ccc|c}
+		2-2-\sqrt{2} & -1 & 0 & 0 \\ 
+		-1 & 2-2-\sqrt{2} & -1 & 0\\ 
+		0 & -1 & 2-2-\sqrt{2} & 0
+		\end{array}\right)
+		\Rightarrow \left\{
+		\begin{array}{cc}
+		x=-\frac{y}{\sqrt{2}}\\
+		y=-\sqrt{2}z\\
+		z=-\frac{y}{\sqrt{2}}\\
+		\end{array}\right.
+		$\\
+		Thus using $z=1$ we get the next eigenvector $v_3=\begin{pmatrix}1 \\-\sqrt{2} \\ 1\end{pmatrix}$.
+	\end{enumerate}
+	The corresponding python/numpy code looks as follows:\\
+	\lstinputlisting[language=Python,firstline=21]{scripts/ws1-linear-algebra.py}
+	
+	\section{Problem}
+	If $ x_1, x_2 ... x_n$ are linearly independent eigenvectors of $ B \in  R^{n \times n} $ and $ \lambda_i $ are its eigenvalues then the following equation is satisfied: $ Bx_i = \lambda_i x_i $.
+	This equation can be rewritten as $ BU = UD $ from here we get matrix $ B = UDU^{-1} $ as follows:\\\\
+	$
+	BU=B\begin{bmatrix} X_{1} & X_{2} & \cdots & X_n \end{bmatrix}
+	=\begin{bmatrix} BX_{1} & BX_{2} & \cdots & BX_n \end{bmatrix}
+	=\begin{bmatrix} \lambda_1X_{1} & \lambda_2X_{2} & \cdots & \lambda_nX_n \end{bmatrix}\\
+	=\begin{bmatrix} 
+	\lambda_1x_{1,1} & \lambda_2x_{2,1} & \cdots & \lambda_nx_{n,1} \\
+	\lambda_1x_{1,2} & \lambda_2x_{2,2} & \cdots & \lambda_nx_{n,2} \\
+	\vdots & \vdots & \ddots & \vdots \\
+	\lambda_1x_{1,n} & \lambda_2x_{2,n} & \cdots & \lambda_nx_{n,n}
+	\end{bmatrix}
+	=\begin{bmatrix} 
+	x_{1,1} & x_{2,1} & \cdots & x_{n,1} \\
+	x_{1,2} & x_{2,2} & \cdots & x_{n,2} \\
+	\vdots & \vdots & \ddots & \vdots \\
+	x_{1,n} & x_{2,n} & \cdots & x_{n,n}
+	\end{bmatrix}
+	\begin{bmatrix} 
+	\lambda_1 & 0 & \cdots & 0 \\
+	0 & \lambda_2 & \cdots & 0 \\
+	\vdots & \vdots & \ddots & \vdots \\
+	0 & 0 & \cdots & \lambda_n
+	\end{bmatrix}\\
+	=UD \Leftrightarrow BUU^{-1}=B=UDU^{-1}
+	$
+	\section{Problem}
+	\begin{itemize}
+		\item $B \bar{x} = \lambda \bar{x} $. Suppose that $\lambda$ and $\bar{x}$ are possibly complex and  $x \not=0$  .
+		We take conjugate transpose to get $\bar{\lambda} x^* = (\lambda x)^* = (Ax)^* =x^*A^* = x^*A$  (because A is real and symmetric). Then $\bar{\lambda}^*x = (x^*A)x = x^*(Ax) = \lambda x^*x$. $x^*x$ is nonzero and real. So we get $\bar{\lambda} = \lambda$, which means that $\lambda$ is real.
+		\item Assume $Av =\lambda v$ and  $ Aw =\mu w$. Then  \[ \lambda(v, w) = (\lambda v, w) = (Av, w) = (v, A^T w) = (v, Aw) = (v, \mu w) = \mu (v, w) \] is possible only if $(v, w) = 0$.
+	\end{itemize}
+	
+	\section{Problem}
+	\begin{itemize}
+		\item $ |B| =  |UDU^{-1}| = |DU^{-1}U| = |D| = \prod_i{\lambda_i} $
+		\item $ tr(B) = tr(UDU^{-1}) = tr(DU^{-1}U) = tr(D) = \sum_i{\lambda_i} $
+	\end{itemize}
+	
+	\section{Problem}
+	\begin{itemize}
+		\item $ h(x_0) = w_0 + w^T x_0 = 0 \Rightarrow w^T x_0 = -w_0 $
+		\item $ h(x_1) = w_0 + w^T x_1 = 0 \\
+		h(x_2) = w_0 + w^T x_2 = 0 \\
+		h(x_1) - h(x_2) = w^T x_1 - w^T x_2 =  w^T (x_1 - x_2) = 0 $
+		\item Normal vector is defined as $\nabla h(x) = w$. $ \frac{\nabla h(x)}{|| \nabla h(x)||} = \frac{w}{||w||}$ is a unit normal vector. So $ \hat{w} = \frac{w}{||w||}$ is a unit normal vector.
+		\item Distance can be found by projecting $(x - x_0)$ onto normal vector $w$. \[ D = |proj_w(x-x_0)| =\frac{w^T (x - x_0)}{||w||} = \hat{w}(x-x_0) = \frac{w^T x - w^T x_0}{||w||}  \overset{w^T x_0 = -w_0}{= \joinrel = \joinrel = \joinrel = \joinrel = \joinrel = \joinrel =} \frac{w^T x + w_0}{||w||} \]
+	\end{itemize}
+	
+\end{document}

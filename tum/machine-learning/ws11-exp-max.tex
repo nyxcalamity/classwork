@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{ws_template}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+
+\title{homework sheet 11}
+
+
+\author{
+	\name{Denys Sobchyshak}\\
+	\imat{03636581}\\
+	\email{denys.sobchyshak@tum.de}
+	\And
+	\name{Sergey Zakharov} \\
+	\imat{03636642}\\
+	\email{ga39pad@mytum.de}
+}
+
+\begin{document}
+\maketitle
+\textbf{Problem 1:} \\
+Two algorithms differ only in the E step, which for MoG is as follows:
+$$
+p(z_i=k|x_i) = \frac{\pi_k \exp (\frac{-||x_i-\mu_k||^2}{2\sigma^2})}{\sum_{l}\pi_l\exp(\frac{-||x_i-\mu_l||^2}{2\sigma^2})} = \frac{1}{ \sum_{l} \frac{\pi_l}{\pi_k} \exp(\frac{-||x_i-\mu_l||^2 +||x_i-\mu_k||^2 }{2\sigma^2})}
+$$
+
+If k denotes component closest to $x_i$ then we get $||x_i-\mu_l||^2 \ge ||x_i-\mu_k||^2$ for all l, thus $-||x_i-\mu_l||^2 + ||x_i-\mu_k||^2 \le 0$ for all l and so denominator converges to 1 if $\sigma^2$ tends to 0. Otherwise, $-||x_i-\mu_l||^2 + ||x_i-\mu_k||^2 > 0$ for l denoting the closest component and with $\sigma^2$ tending to 0 the exponent is:
+$$
+\frac{-||x_i-\mu_l||^2 + ||x_i-\mu_k||^2}{2\sigma^2} \to +\infty
+$$
+and so denominator converges to $\infty$.
+\\
+
+\textbf{Problem 2:} \\
+$E(x)=E(E(x|z))=\sum_{k} \pi_k E(x|z)= \sum_{k} \pi_k\mu_k$\\
+$E(xx^T) = \sum_{k} \pi_k E(xx^T|z)$\\
+$E(xx^T|z) = \sum_k + \mu_k\mu_k^T$\\
+$Cov(x)=\sum_{k} \pi_k(\sum_{k}+\mu_k\mu_k^T)-E(x)E(x)^T$
+
+\end{document}
