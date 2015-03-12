@@ -8,7 +8,7 @@ store R(0),A(n)
 
 1b) SISD
 
-1c)
+1c) SIMD
 load A(n), R(0)
 load 2,R(1)
 mult
@@ -21,3 +21,16 @@ add2
 store R(0), A(n)
 store R(2), A(n+1)
 
+1d) MIMD
+
+1e) MISD
+load A(n), R(0)
+load 2,R(1)
+mult and load B(n),R(1)
+add and store R(0),A(n)
+
+2)
+An approach where the same program is executed against various data.
+MIMD
+
+3)
