@@ -6,8 +6,8 @@
  * @author Denys Sobchyshak
  */
 #include <mpi.h>
-#include <math.h>
-#include <stdio.h>
+#include "math.h"
+#include "stdio.h"
 
 int main (int argc, char * argv []) {
     int i, myrank, nproc;

@@ -32,5 +32,3 @@ add and store R(0),A(n)
 2)
 An approach where the same program is executed against various data.
 MIMD
-
-3)
