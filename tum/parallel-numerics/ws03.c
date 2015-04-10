@@ -3,47 +3,66 @@
  */
 #include <mpi.h>
 #include "stdio.h"
+#include <stdlib.h>
 
-
-double f(double x) {
-    return -3*x*x+3;
-}
+#define LENGTH 10000000
 
 
 int main (int argc, char * argv []) {
+    //Variables
     int i, myrank, nproc;
-    double interval, a, b, h, partial_sum=0, sum, buffer;
-    double A=-1, B=1, n=4;
+    double start_time, end_time, min_start_time, max_end_time;
     MPI_Status status;
+    float *a, *b, *r, *a_loc, *b_loc, *r_loc;
     
+    // Initialization
     MPI_Init(&argc, &argv);
     MPI_Comm_size(MPI_COMM_WORLD , &nproc);
     MPI_Comm_rank(MPI_COMM_WORLD , &myrank);
+    start_time = MPI_Wtime();
     
-    interval = (B-A)/nproc;
-    a = A+myrank*interval;
-    b = (myrank == (nproc-1)) ? B : a+interval;
-    h = (b-a)/n;
+    int chunk_size = LENGTH/nproc;
+    if (myrank == 0) {
+        a = (float*) malloc(LENGTH*sizeof(float));
+        b = (float*) malloc(LENGTH*sizeof(float));
+        r = (float*) malloc(LENGTH*sizeof(float));
+        
+        for (i=0; i<LENGTH; ++i) {
+            a[i] = rand()%100;
+            b[i] = rand()%100;
+        }
+    }
+    a_loc = (float*) malloc(chunk_size*sizeof(float));
+    b_loc = (float*) malloc(chunk_size*sizeof(float));
+    r_loc = (float*) malloc(chunk_size*sizeof(float));
     
-    for(i=0; i<n-1; i++) {
-        partial_sum = f(a+i*h);
+    MPI_Scatter(a, chunk_size, MPI_FLOAT, a_loc, chunk_size, MPI_FLOAT, 0, MPI_COMM_WORLD);
+    MPI_Scatter(b, chunk_size, MPI_FLOAT, b_loc, chunk_size, MPI_FLOAT, 0, MPI_COMM_WORLD);
+    
+    for (i=0; i<chunk_size; ++i) {
+        r_loc[i] = a_loc[i]+b_loc[i];
     }
     
-    partial_sum = partial_sum*h+(f(a)+f(b))*h/2;
-    printf("Computed partial integer on #%d: %f\n", myrank, partial_sum);
+    MPI_Gather(r_loc, chunk_size, MPI_FLOAT, r, chunk_size, MPI_FLOAT, 0, MPI_COMM_WORLD);
     
     if (myrank == 0) {
-        sum = 0;
-        for (i=1; i<nproc; ++i) {
-            MPI_Recv(&buffer, 1, MPI_DOUBLE, i, 0, MPI_COMM_WORLD, &status);
-            sum += buffer;
+        for (i=0; i<LENGTH; ++i) {
+            if (r[i]-a[i]-b[i] != 0) {
+                printf("%f+%f=%f\n", a[i], b[i], r[i]);
+            }
         }
-        printf("Computed integer: %f\n", sum);
-    } else {
-        MPI_Send(&partial_sum, 1, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD);
+    }
+
+    end_time = MPI_Wtime();
+    //find min and max times
+    MPI_Reduce(&start_time, &min_start_time, 1, MPI_DOUBLE, MPI_MIN, 0, MPI_COMM_WORLD);
+    MPI_Reduce(&end_time, &max_end_time, 1, MPI_DOUBLE, MPI_MAX, 0, MPI_COMM_WORLD);
+    //print status message
+    if (myrank == 0) {
+        printf("Elapsed time (secs): %f\n", max_end_time-min_start_time);
     }
     
+    //Finalization
     MPI_Finalize();
     return 0;
 }
-
