@@ -1,13 +1,13 @@
 ## Download your vk.com playlist
 ---
 ### Step-by-step guide
-These are exhaustive instrcutions that will convey a user from being forced to listen to music online to having all songs from his/her `vk.com` playlist downloaded onto a local hard drive. Let's get started.
+These are exhaustive instructions that will convey a user from being forced to listen to music online to having all songs from his/her `vk.com` playlist downloaded onto a local hard drive. Let's get started.
 
 1. Get a [Firefox] browser
 2. Get [VK Music Playlist Download Add-on] from within your [Firefox] browser
 3. Install [python] version `3.4+`
 4. Open your playlist page in vk.com
-5. Scroll the page to the bottom (yes, this will be tedious) untill you will see the very first song you've ever added to `vk.com` - this will load the entire playlist on current page
+5. Scroll the page to the bottom (yes, this will be tedious) until you will see the very first song you've ever added to `vk.com` - this will load the entire playlist on current page
 6. Use [VK Music Playlist Download Add-on] to download the playlist - it normally works by pressing the add-on button in the top right corner of your firefox
 7. Copy the downloaded playlist to the same directory where your `vk-downloader.py` is located
 8. Run the downloader in one of the following ways
