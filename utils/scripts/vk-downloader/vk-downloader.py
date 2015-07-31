@@ -40,7 +40,7 @@ def download(playlist_path, target_path):
     progress_counter = 0
     song_counter = len(playlist)
     progress(progress_counter/song_counter)
-    removed_songs = []
+    removed_songs = dict()
     if not os.path.exists(target_path):
         os.mkdir(target_path)
     for k, v in playlist.items():
@@ -51,12 +51,22 @@ def download(playlist_path, target_path):
             time.sleep(2)
             req.urlretrieve(v, os.path.join(target_path, k))
         except urllib.error.HTTPError as e:
-            removed_songs.append(k)
+            removed_songs[k] = v
+        except OSError as e:
+            removed_songs[k] = v
         progress_counter += 1
         progress(progress_counter/song_counter)
+    #getting rid of return carriage
     print()
+
+    #writing down missed files
+    with open(playlist_path+'-missed', 'w+') as f:
+        for song, url in removed_songs.items():
+            f.write('#EXTINF:1,'+song+'\n')
+            f.write(url+'\n')
+
+    logging.info('Missed file contents were saved as new playlist at: '+playlist_path+'-missed')
     logging.info('Download complete')
-    logging.warning('Urls to next songs were removed: {}'.format(removed_songs))
 
 
 def progress(percentage):
@@ -72,7 +82,7 @@ def initialize():
     parser.add_option('-p', '--playlist-file', dest='playlist_file', default='playlist.m3u',
                       help='specifies a path to playlist', metavar='PLAYLIST_FILE')
     parser.add_option('-t', '--target-dir', dest='target_dir', default='songs',
-                      help='specifies directory where playlist files are to be downloaded', metavar='PLAYLIST_FILE')
+                      help='specifies directory where playlist files are to be downloaded', metavar='TARGET_DIR')
     (options, args) = parser.parse_args()
     #post process params
     options.playlist_file = options.playlist_file.strip()
